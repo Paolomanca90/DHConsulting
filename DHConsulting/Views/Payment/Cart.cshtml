@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DHConsulting.Models.Dettaglio>
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Cart";
+    List<DHConsulting.Models.Prodotto> lista = ViewBag.Prodotti as List<DHConsulting.Models.Prodotto>;
+    string clientId = System.Configuration.ConfigurationManager.AppSettings["PayPalClientId"];
+    decimal totale = 0M;
+    string totaleFormattato = "";
+}
+
+<h2>Cart</h2>
+
+@if(TempData["Successo"] != null)
+{
+    <p>@TempData["Successo"]</p>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>Carrello vuoto</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Descrizione Prodotto
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantita)
+            </th>
+            <th>
+                Elimina
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @foreach (var p in lista)
+                    {
+                        totale = totale + (p.Costo * item.Quantita);
+                        totaleFormattato = totale.ToString("0.00", CultureInfo.InvariantCulture);
+                        if (p.IdProdotto == item.IdProdotto)
+                        {
+                            @p.DescrizioneBreve
+                        }
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })"><i class="fa fa-minus"></i></a>
+                    @Html.DisplayFor(modelItem => item.Quantita)
+                    <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })"><i class="fa fa-plus"></i></a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"><i class="fa-solid fa-circle-xmark"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <a href="/Payment/ConfirmPayment">Paga</a>
+}
+    @*<div id="paypal-button-container"></div>
+    <p id="result-message"></p>
+    <script src="https://www.paypal.com/sdk/js?client-id=@clientId&currency=EUR"></script>
+    <script>
+      paypal.Buttons({
+          createOrder: function (data, actions) {
+              return actions.order.create({
+                  purchase_units: [
+                      {
+                          amount: {
+                              value: @totaleFormattato,
+                              currency_code: "EUR"
+                          }
+                      }
+                  ]
+              });
+          },
+          onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
+                  return fetch("/Payment/ConfirmPayment", {
+                      method: "GET",
+                  })
+              });
+          }
+      }).render('#paypal-button-container');
+    </script>
+}*@

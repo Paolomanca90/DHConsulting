@@ -1,0 +1,109 @@
+﻿@model DHConsulting.Models.Cliente
+
+@{
+    ViewBag.Title = "Profilo";
+}
+
+<h2>Profilo</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cognome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cognome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataNascita)
+        </dt>
+
+        <dd>
+            @Model.DataNascita.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indirizzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indirizzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Citta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Citta)
+        </dd>
+
+        @if (Model.CF != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CF)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CF)
+            </dd>
+        }
+
+        @if (Model.Piva != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Piva)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Piva)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <h5>Riepilogo ordini</h5>
+    @foreach (var item in Model.Ordine)
+    {
+        <p>Data ordine: @string.Format("{0:dd/MM/yyyy}", item.DataOrdine) - <a href="@Url.Action("DownloadOrderPdf", "Payment", new { id = item.IdOrdine })" target="_blank">PDF dell'ordine</a></p>
+        <ul>
+            @foreach (var dettaglio in item.Dettaglio)
+            {
+                <li>@dettaglio.Prodotto.DescrizioneBreve - @dettaglio.Quantita - @string.Format("{0:C}", (dettaglio.Prodotto.Costo * @dettaglio.Quantita))</li>
+            }
+        </ul>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditProfilo", new { id = Model.IdCliente }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

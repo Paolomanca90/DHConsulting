@@ -1,0 +1,80 @@
+﻿@model DHConsulting.Models.Prodotto
+
+@{
+    ViewBag.Title = "Details";
+    TempData["IdProdotto"] = ViewContext.RouteData.Values["id"];
+    List<int> pz = new List<int> { 1, 2, 3, 4, 5 };
+}
+
+<h2>Details</h2>
+
+@if (TempData["Successo"] != null)
+{
+    <p>@TempData["Successo"]</p>
+}
+
+<div>
+    <h4>Prodotto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescrizioneBreve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescrizioneBreve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescrizioneLunga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescrizioneLunga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Costo)
+        </dd>
+
+        @if (Model.CostoScontato != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CostoScontato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CostoScontato)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="~/Content/Img/@Model.Image" alt="image" class="img-fluid" />
+        </dd>
+
+    </dl>
+</div>
+@using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Label("Quantita")
+    <p>
+        @Html.DropDownList("Quantita", new SelectList(pz), new { id = "Quantita" })
+        <input type="submit" value="Aggiungi al carrello" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<p>
+    @Html.ActionLink("Procedi", "Cart", "Payment")
+</p>

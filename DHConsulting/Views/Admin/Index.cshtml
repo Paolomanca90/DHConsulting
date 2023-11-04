@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DHConsulting.Models.Prodotto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (TempData["Successo"] != null)
+{
+    <p class="text-center text-primary fs-5 fst-italic p-3">@TempData["Successo"]</p>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DescrizioneBreve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescrizioneLunga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Costo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostoScontato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescrizioneBreve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescrizioneLunga)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostoScontato)
+            </td>
+            <td>
+                <img src="~/Content/Img/@item.Image" alt="image" class="img-fluid" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto })
+            </td>
+        </tr>
+    }
+
+</table>
