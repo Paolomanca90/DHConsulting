@@ -33,17 +33,17 @@
                 <div class="relative">
                     <h1 class="inline-flex font-extrabold text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">Benvenuto nella tua nuova casa digitale</h1>
                     <div class="max-w-3xl mx-auto mb-8">
-                        <p class="text-lg text-slate-400">Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.</p>
+                        <p class="text-lg text-slate-400">Quello di cui hai bisogno per trasformare le tue idee in realtà tech.</p>
                     </div>
                     <div class="inline-flex justify-center space-x-4">
                         <div>
-                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group" href="#0">
-                                Get Started <span class="tracking-normal text-indigo-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group" href="#myself">
+                                Chi sono <span class="tracking-normal text-indigo-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                             </a>
                         </div>
                         <div>
-                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-slate-700 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="#0">
-                                Read the docs
+                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-slate-700 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="#service">
+                                I miei servizi
                             </a>
                         </div>
                     </div>
@@ -51,57 +51,242 @@
             </div>
 
         </div>
-    </main>
-    <table class="table col-11 col-lg-9 mx-auto">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DescrizioneBreve)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescrizioneLunga)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Costo)
-            </th>
-            @if (Model.Any(item => item.CostoScontato != null))
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.CostoScontato)
-                </th>
-            }
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescrizioneBreve)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescrizioneLunga)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Costo)
-                </td>
-                @if (item.CostoScontato != null)
+        <div class="w-full max-w-5xl mx-auto px-4 md:px-6 py-24">
+            <div class="text-center">
+
+                <!-- Logo Carousel animation -->
+                <div x-data="{}"
+                     x-init="$nextTick(() => {
+                            let ul = $refs.logos;
+                            ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                            ul.nextSibling.setAttribute('aria-hidden', 'true');
+                        })"
+                     class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                        <li>
+                            <img src="~/Content/Img/angular.svg" alt="angular" />
+                        </li>
+                        <li>
+                            <img src="~/Content/Img/sass.svg" alt="sass" />
+                        </li>
+                        <li>
+                            <img src="~/Content/Img/dotnet.svg" alt="dotnet" />
+                        </li>
+                        <li>
+                            <img src="~/Content/Img/js.svg" alt="js" />
+                        </li>
+                        <li>
+                            <img src="~/Content/Img/ts.svg" alt="ts" />
+                        </li>
+                        <li>
+                            <img src="~/Content/Img/tailwindcss.svg" alt="tailwind" />
+                        </li>
+                    </ul>
+                </div>
+                <!-- End: Logo Carousel animation -->
+
+            </div>
+
+        </div>
+
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-5" id="service">
+
+            <div class="flex justify-center max-w-[14rem] m-auto mb-8 lg:mb-16">
+                <div class="p-1 px-2 bg-white dark:bg-slate-900 rounded-full">
+                    <div class="inline-flex items-center text-md text-slate-900 dark:text-slate-200 font-semibold py-1.5 px-3 rounded-full shadow-sm shadow-slate-950/5">Servizi disponibili</div>
+                </div>
+            </div>
+
+            <div class="max-w-sm mx-auto grid gap-6 lg:grid-cols-3 lg:grid-flow-row-dense items-start lg:max-w-none">
+                @foreach (var item in Model)
                 {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CostoScontato)
-                    </td>
-                }
-                <td>
-                    <img src="~/Content/Img/@item.Image" alt="image" class="img-fluid" />
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.IdProdotto })
-                </td>
-            </tr>
-        }
+                    if (item.Costo != 299)
+                    {
+                        <!-- Pricing tab 1 -->
+                        <div class="h-full">
+                            <div class="relative flex flex-col h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-900 shadow shadow-slate-950/5">
+                                <div class="mb-5">
+                                    @if (item.Costo < 200)
+                                    {
+                                        <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pacchetto basic</div>
+                                        <div class="inline-flex items-baseline mb-2">
+                                            <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
+                                            <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pachetto professional</div>
+                                        <div class="inline-flex items-baseline mb-2">
+                                            <span class="text-slate-500 font-medium">da&nbsp;</span>
+                                            <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
+                                            <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
+                                        </div>
+                                    }
+                                    <div class="text-sm text-slate-500 mb-5">@item.DescrizioneBreve</div>
+                                    <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="~/Home/Details/@item.IdProdotto">
+                                        Scropri di più
+                                    </a>
+                                </div>
+                                <div class="text-slate-900 dark:text-slate-200 font-medium mb-3">Include:</div>
+                                <ul class="text-slate-600 dark:text-slate-400 text-sm space-y-3 grow">
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Consulenza one-to-one</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Analisi di fattibilità</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Pdf di riepilogo finale</span>
+                                    </li>
+                                    @if (item.Costo > 200)
+                                    {
+                                        <li class="flex items-center">
+                                            <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                            </svg>
+                                            <span>3 revisioni del progetto</span>
+                                        </li>
 
-    </table>
+                                        <li class="flex items-center">
+                                            <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                            </svg>
+                                            <span>Sito chiavi in mano</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Pricing tab 2 -->
+                        <div class="dark h-full">
+                            <div class="relative flex flex-col h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-900 shadow shadow-slate-950/5">
+                                <div class="absolute top-0 right-0 mr-6 -mt-4">
+                                    <div class="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-emerald-500 text-white rounded-full shadow-sm shadow-slate-950/5">Più acquistato</div>
+                                </div>
+                                <div class="mb-5">
+                                    <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pacchetto plus</div>
+                                    <div class="inline-flex items-baseline mb-2">
+                                        <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
+                                        <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
+                                    </div>
+                                    <div class="text-sm text-slate-500 mb-5">@item.DescrizioneBreve</div>
+                                    <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="~/Home/Details/@item.IdProdotto">
+                                        Scropri di più
+                                    </a>
+                                </div>
+                                <div class="text-slate-900 dark:text-slate-200 font-medium mb-3">Include:</div>
+                                <ul class="text-slate-600 dark:text-slate-400 text-sm space-y-3 grow">
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Consulenza one-to-one</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Analisi di fattibilità</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                        </svg>
+                                        <span>Pdf di riepilogo finale</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+            </div>
+
+        </div>
+
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24" id="myself">
+            <div class="flex justify-center">
+
+                <article class="max-w-[40rem] mx-auto">
+                    <header class="mb-4">
+                        <h1 class="text-4xl font-extrabold text-white">Qualche info su di me</h1>
+                    </header>
+                    <div class="text-slate-300 [&>p]:my-6 [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&_strong]:font-medium [&_strong]:text-slate-900 [&_a]:font-medium [&_a]:text-indigo-500 [&_a]:underline [&_a:hover]:no-underline [&_img]:rounded-xl [&_blockquote]:italic [&_blockquote]:before:block [&_blockquote]:before:w-[18px] [&_blockquote]:before:h-[17px] [&_blockquote]:before:bg-[url('./quotes.svg')] [&_blockquote]:before:bg-no-repeat [&_blockquote]:before:mb-2 [&_figcaption]:text-center [&_figcaption]:text-xs [&_figcaption]:italic [&_figcaption]:mt-3">
+                        <p>
+                            Sono un Fullstack Developer con una forte passione per il cambiamento, l’arte, l’elettronica e l’informatica.
+                        </p>
+                        <div class="space-y-6 sm:flex sm:items-center sm:space-x-8 sm:space-y-0 md:-ml-12">
+                            <figure class="shrink-0 sm:max-w-[270px]">
+                                <img class="object-cover h-[180px] sm:h-auto" width="640" height="426" src="~/Content/Img/placeholde1.jpg" alt="Article 01" />
+                            </figure>
+                            <blockquote>
+                                <p>Ho un background in aziende di vario genere: dal logistico, alla grande distribuzione, fino al commerciale. Questo mi ha permesso di acquisire competenze legate alla vendita, al marketing e al posizionamento nel web e quindi di conseguenza nella vita reale.</p>
+                            </blockquote>
+                        </div>
+                        <p>
+                            Il mio supporto è rivolto a tutti quei clienti consapevoli delle proprie potenzialità che vogliono distinguersi dalla massa.
+                            Come web developer baso il mio lavoro sulla creatività, quindi mi impegno a sviluppare siti web che non solo soddisfano le esigenze tecniche, ma anche in grado di catturare l'essenza unica di ogni cliente, con un piano personalizzato e varie revisioni durante tutto il percorso di creazione.
+                        </p>
+                        @*<div class="space-y-6 sm:flex sm:items-center sm:space-x-8 sm:space-y-0 md:-mr-12">
+                            <p>
+                                Today, as a successful software developer with two thriving startups under my belt, I continue to embrace new challenges and opportunities. But above all, I remain committed to <strong>sharing my knowledge</strong>, empowering others, and making a lasting impact on the world.
+                            </p>
+                            <figure class="shrink-0 sm:max-w-[270px]">
+                                <img class="object-cover h-[180px] sm:h-auto" width="640" height="426" src="https://cruip-tutorials.vercel.app/negative-margins//article-02.jpg" alt="Article 02" />
+                            </figure>
+                        </div>
+                        <p>
+                            Driven by unwavering determination, I took a leap of faith and founded my first startup. Days turned into nights as I <a href="#0">poured my heart</a> and soul into transforming my idea into reality. Failure was not an option. With relentless effort, sleepless nights, and an unwavering belief in my vision, I launched my product into the world.
+                        </p>
+                        <p>
+                            The sleepless nights spent debugging, the <strong>countless hours spent refining algorithms</strong> — all were stepping stones along my path of growth.
+                        </p>
+                        <figure class="md:-mx-12">
+                            <img class="object-cover h-[180px] sm:h-auto" width="736" height="240" src="https://cruip-tutorials.vercel.app/negative-margins//article-03.jpg" alt="Article 03" />
+                            <figcaption>Moments of tranquility amidst nature's beauty</figcaption>
+                        </figure>
+                        <p>
+                            As I delved deeper into the intricacies of programming, a whole new universe of possibilities unfurled before me. Lines of code danced across my screen like a symphony, each keystroke resonating with the potential to bring my visions to life. From the early days of tinkering with simple programs to the <a href="#0">ambitious projects</a> that followed, my thirst for knowledge and creative expression grew insatiable.
+                        </p>*@
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
 
 </div>
+@section scripts{
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+                    },
+                    keyframes: {
+                        'infinite-scroll': {
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-100%)' },
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+    }
