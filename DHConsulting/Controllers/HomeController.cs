@@ -99,13 +99,22 @@ namespace DHConsulting.Controllers
                     {
                         //decremento la quantità solo se è maggiore di 1
                         d.Quantita -= 1;
+                        SaveCart(carrello);
                     }
                     else
                     {
                         //rimuovo completamente il prodotto dal carrello se la quantità è 1
                         carrello.Remove(d);
+                        if(carrello.Count > 0)
+                        {
+                            SaveCart(carrello);
+                        }
+                        //elimino la sessione se non ci sono altri prodotti nel carrello
+                        else
+                        {
+                            DeleteCart();
+                        }
                     }
-                    SaveCart(carrello);
                     return RedirectToAction("Cart", "Payment");
                 }
             }

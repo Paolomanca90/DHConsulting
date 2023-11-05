@@ -9,6 +9,8 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -89,6 +91,7 @@ namespace DHConsulting.Controllers
                     db.SaveChanges();
                     //salvo il pdf con i dettagli dell'ordine appena creato
                     o.InvoicePdf = GenerateOrderPdf(o.IdOrdine);
+                    RecapEmail(c.Email, o.InvoicePdf);
                     db.SaveChanges();
                     //elimino il cookie e quindi il carrello
                     DeleteCart();
@@ -361,6 +364,31 @@ namespace DHConsulting.Controllers
                 return File(pdfBytes, "application/pdf");
             }
             return Content("Il PDF non è disponibile.");
+        }
+
+        private void RecapEmail(string recipientEmail, byte[] pdf)
+        {
+            string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
+            string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage()
+            {
+                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                Subject = "Dettaglio dell'aquisto",
+                Body = "Grazie per aver acquistato il tuo pacchetto.\r\nIn allegato a questa mail trovi la fattura relativa al tuo ordine.\r\n\r\nPaolo Manca Consulting",
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add(recipientEmail);
+            mailMessage.Attachments.Add(new Attachment(new MemoryStream(pdf), "Ordine.pdf"));
+
+            smtpClient.Send(mailMessage);
         }
     }
 }

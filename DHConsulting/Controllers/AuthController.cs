@@ -192,7 +192,7 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Conferma la tua registrazione",
-                Body = "Clicca sul seguente link per confermare la tua registrazione: " + token + "\r\rPaolo Manca Consulting",
+                Body = "Clicca sul seguente link per confermare la tua registrazione: " + token + "\r\n\r\nPaolo Manca Consulting",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(recipientEmail);
@@ -217,7 +217,7 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Account attivato",
-                Body = "Grazie per aver confermato il tuo account.\rOra puoi effettuare i tuoi acquisti.\r\rPaolo Manca Consulting",
+                Body = "Grazie per aver confermato il tuo account. Ora puoi effettuare i tuoi acquisti.\r\n\r\nPaolo Manca Consulting",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(recipientEmail);

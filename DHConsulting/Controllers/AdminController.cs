@@ -106,6 +106,8 @@ namespace DHConsulting.Controllers
                 if (user == null)
                 {
                     u.Role = "Admin";
+                    u.Password = PasswordHasher.HashPassword(u.Password);
+                    u.Confirmed = true;
                     db.Utente.Add(u);
                     db.SaveChanges();
                     ModelState.Clear();
@@ -132,8 +134,13 @@ namespace DHConsulting.Controllers
         public ActionResult EditAdmin(Utente u)
         {
             ModelDb db1 = new ModelDb();
+            Utente utente = db.Utente.Find(u.IdUtente);
             if (ModelState.IsValid)
             {
+                if (!PasswordHasher.VerifyPassword(u.Password, utente.Password))
+                {
+                    u.Password = PasswordHasher.HashPassword(u.Password);
+                }
                 db1.Entry(u).State = EntityState.Modified;
                 db1.SaveChanges();
                 TempData["Successo"] = "Profilo modificato";

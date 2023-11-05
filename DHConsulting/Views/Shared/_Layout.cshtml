@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - DH Consulting</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/style.css" rel="stylesheet" />
     @RenderSection("style", required: false)
@@ -19,7 +19,7 @@
                 <div class="flex flex-row items-center">
                     <img src="~/Content/Img/Logo_Paolo.png"
                          alt="Logo-Paolo-Manca"
-                         style="width: 50px" />
+                         width="50"/>
                     @Html.ActionLink("Paolo Manca", "Index", "Home", new { area = "" }, new { @class = "sm:text-xs md:text-lg" })
                 </div>
             </a>
@@ -27,17 +27,52 @@
                 <ul class="menu menu-horizontal px-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li tabindex="0">
-                        <details>
-                            <summary>Accesso</summary>
-                            <ul class="p-2">
+                        <div class="dropdown dropdown-hover dropdown-bottom">
+                            <label tabindex="0">Accesso</label>
+                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
                                 <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
                                 <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
                             </ul>
-                        </details>
+                        </div>
                     </li>
                     <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li tabindex="0">
+                        <div class="dropdown dropdown-bottom dropdown-hover">
+                            <div tabindex="0" class="indicator">
+                                Carrello
+                                @if(Session["carrello"] != null)
+                                { 
+                                    var indicator = Session["carrello"] as List<DHConsulting.Models.Dettaglio>;
+                                    <span class="badge badge-sm indicator-item">@indicator.Count</span>
+                                }
+                            </div>
+                            <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+                                <div class="card-body">
+                                    @if (Session["carrello"] != null)
+                                    {
+                                        var indicator = Session["carrello"] as List<DHConsulting.Models.Dettaglio>;
+                                        <span class="font-bold text-lg">@indicator.Count articoli</span>
+                                        decimal totale = 0;
+                                        foreach(var item in indicator)
+                                        {
+                                            totale += item.Quantita * item.Prodotto.Costo;
+                                        }
+                                        <span class="text-info">Totale: @totale.ToString("C")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-bold text-lg">0 articoli</span>
+                                        <span class="text-info">Totale: € 0.00</span>
+                                    }
+                                    <div class="card-actions">
+                                        @Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "btn btn-block" })
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </li>
                     <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
