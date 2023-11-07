@@ -1,3 +1,4 @@
+using DHConsulting.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,14 @@ using System.Web.Routing;
 
 namespace DHConsulting
 {
+    public static class AppData
+    {
+        public static List<Prodotto> Prodotti { get; set; }
+    }
+
     public class WebApiApplication : System.Web.HttpApplication
     {
+        private ModelDb db = new ModelDb();
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -18,6 +25,7 @@ namespace DHConsulting
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AppData.Prodotti = db.Prodotto.ToList();
         }
     }
 }

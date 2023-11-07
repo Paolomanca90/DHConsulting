@@ -70,65 +70,76 @@ else
 }
 else
 {
-    foreach (var item in Model)
-    {
-        <div class="min-h-screen">
-            <div class="container mx-auto p-10 max-w-screen-lg">
-                <div class="rounded-lg shadow-2xl p-8 border">
-                    <!-- Order Summary  -->
-                    <div>
-                        <div class="flex justify-between">
-                            <h3 class="text-xl mt-4 font-bold">Riepilogo dell'ordine</h3>
-                            @{ var tot = 0;
+    <div class="min-h-screen">
+        <div class="container mx-auto p-10 max-w-screen-lg">
+            <div class="rounded-lg shadow-2xl p-8 border">
+                <!-- Order Summary  -->
+                <div>
+                    <div class="flex justify-between">
+                        <h3 class="text-xl mt-4 font-bold">Riepilogo dell'ordine</h3>
+                        @{ decimal tot = 0;
+                            foreach (var item in Model)
+                            {
                                 foreach (var p in lista)
                                 {
                                     if (p.IdProdotto == item.IdProdotto)
                                     {
-                                        totale += p.Costo * item.Quantita;
+                                        tot += p.Costo * item.Quantita;
                                     }
                                 }
                             }
-                            <h4 class="text-lg mt-4 font-semibold">Totale @totale.ToString("C")</h4>
-                        </div>
-                        <!--     BOX     -->
-                        <div class="border w-full rounded mt-5 flex p-4 justify-between items-center flex-wrap">
+                        }
+                        <h4 class="text-lg mt-4 font-semibold">Totale @tot.ToString("C")</h4>
+                    </div>
+                    <!--     BOX     -->
+                    @foreach (var item in Model)
+                    {
+                        <div class="border w-full rounded mt-5 flex p-4 justify-between items-center flex-wrap bg-slate-100 night:bg-slate-700">
                             @foreach (var p in lista)
                             {
                                 if (p.IdProdotto == item.IdProdotto)
                                 {
                                     <img src="~/Content/Img/@p.Image" class="w-24">
 
-                                <div class="w-2/3">
-                                    @if (p.Costo < 200)
-                                    {
-                                        <h3 class="text-lg font-medium">Pacchetto basic</h3>
-                                    }
-                                    else
-                                    {
-                                        <h3 class="text-lg font-medium">Pacchetto plus</h3>
-                                    }
-                                    <p class="text-sm">@p.DescrizioneBreve</p>
-                                </div>
-                                <div>
-                                    <h4 class="text-3xl font-medium"><sup class="text-lg">€</sup> @(p.Costo * item.Quantita) <sup class="text-lg">i. i.</sup></h4>
-                                </div>
+                                    <div class="w-2/3">
+                                        @if (p.Costo < 200)
+                                        {
+                                            <h3 class="text-lg font-medium">Pacchetto basic</h3>
+                                        }
+                                        else
+                                        {
+                                            <h3 class="text-lg font-medium">Pacchetto plus</h3>
+                                        }
+                                        <p class="text-sm">@p.DescrizioneBreve</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-3xl font-medium"><sup class="text-lg">€</sup> @(p.Costo * item.Quantita) <sup class="text-lg">i. i.</sup></h4>
+                                    </div>
                                 }
-                                <div class="w-full flex justify-between mt-4">
-                                    <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"><i class="fa-solid fa-circle-xmark text-2xl"></i></a>
-                                    <label class="block uppercase tracking-wide text-lg">
-                                        <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })"><i class="fa fa-minus"></i></a>
-                                        @item.Quantita
-                                        <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })"><i class="fa fa-plus"></i></a>
-                                    </label>
-                                </div>
                             }
-                        </div>           
-                    </div>
-                <button class="py-2 bg-yellow-400 text-white w-full mt-3 rounded shadow-lg hover:bg-yellow-500 flex justify-center" href="~/Payment/ConfirmPayment"><img src="~/Content/Img/PayPal.svg" alt="Alternate Text" /></button>
+                            <div class="w-full flex justify-between mt-4">
+                                <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"><i class="fa-solid fa-circle-xmark text-2xl"></i></a>
+                                <label class="block uppercase tracking-wide text-lg">
+                                    <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })"><i class="fa fa-minus"></i></a>
+                                    @item.Quantita
+                                    <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })"><i class="fa fa-plus"></i></a>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="lg:flex lg:gap-3">
+                    <a class="py-2 bg-yellow-400 w-full mt-3 lg:w-1/2 rounded shadow-lg hover:bg-yellow-500 flex justify-center" href="~/Payment/ConfirmPayment">
+                        <img src="~/Content/Img/PayPal.svg" alt="paypal" />
+                    </a>
+                    <a class="p-2 bg-slate-400 text-white font-bold text-xl mt-3 lg:w-1/2 rounded shadow-lg hover:bg-slate-600 flex justify-center items-center" href="~/Payment/DeleteCart">
+                        SVUOTA CARRELLO
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
-    }
 }
     @*<div id="paypal-button-container"></div>
             <p id="result-message"></p>

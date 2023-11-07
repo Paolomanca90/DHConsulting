@@ -84,7 +84,7 @@
                                                 <span class="font-bold text-lg">@indicatorT articoli</span>
                                             }
                                             decimal totale = 0;
-                                            var prodotti = Session["prodotti"] as List<DHConsulting.Models.Prodotto>;                                          
+                                            var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;                                          
                                             foreach (var item in indicator)
                                             {
                                                 foreach(var i in prodotti)

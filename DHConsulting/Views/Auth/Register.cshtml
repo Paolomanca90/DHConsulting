@@ -8,7 +8,6 @@
     <link href="~/Content/captcha.css" rel="stylesheet" />
 }
 
-<h2>Register</h2>
 
 @if (ViewBag.User != null)
 {
@@ -21,7 +20,7 @@
 }
 
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -140,11 +139,158 @@
             </div>
         </div>
     </div>
-}
+}*@
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<main class="min-h-screen">
+
+    <div class="flex">
+
+        <!-- Content -->
+        <div class="w-1/2">              
+
+                <div class="w-2/3 m-auto my-12">
+
+                    <h1 class="text-3xl font-bold mb-4">Crea il tuo account</h1>
+                    <!-- Form -->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.DataNascita, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.DataNascita, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DataNascita, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Citta, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.CF, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.CF, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Piva, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Piva, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                                <div>
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
+                                </div>
+                            </div>
+
+                           
+                                <div class="captcha">
+                                    <div class="spinner">
+                                        <label>
+                                            <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
+                                            <span class="checkmark"><span>&nbsp;</span></span>
+                                        </label>
+                                    </div>
+                                    <div class="text-md font-bold">
+                                        Non sono un robot
+                                    </div>
+                                    <div class="logo">
+                                        <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/" />
+                                        <p>reCAPTCHA</p>
+                                        <small>Privacy - Terms</small>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <input type="submit" value="Registrati" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+                                </div>
+
+                        </div>
+                    }
+                    <!-- Footer -->
+                    <div class="border-t-2 py-5 mt-8">
+                        <div class="text-md">
+                            Sei già iscritto? <a class="text-indigo-500" href="~/Auth/Login">Login</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+        </div>
+
+        <!-- Image -->
+        <div class="relative w-1/2" style="background: url(https://cdn.pixabay.com/photo/2018/07/12/21/32/subscribe-3534409_1280.jpg); background-size:cover; background-position:center">
+            <img class="absolute" style="top:30%; left: -8%" src="https://preview.cruip.com/mosaic/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration">
+        </div>
+
+    </div>
+
+</main>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

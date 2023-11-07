@@ -4,8 +4,6 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
-
 @if (TempData["Token"] != null)
 {
     <p>@TempData["Token"]</p>
@@ -17,7 +15,7 @@
 }
 
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -49,8 +47,64 @@
             </div>
         </div>
     </div>
-}
+}*@
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<main class="min-h-screen">
+
+    <div class="flex">
+
+        <!-- Content -->
+        <div class="w-1/2">
+
+            <div class="w-2/3 m-auto my-12">
+
+                <h1 class="text-3xl font-bold mb-4">Bentornato</h1>
+                <!-- Form -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                            <div>
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                            <div>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
+                            </div>
+                        </div>
+
+                        <div>
+                            <input type="submit" value="Accedi" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+                        </div>
+
+                    </div>
+                }
+                <!-- Footer -->
+                <div class="border-t-2 py-5 mt-8">
+                    <div class="text-md">
+                        Password dimenticata? <a href="@Url.Action("ChangePassword", "Auth")" class="text-indigo-500">Recupera password <i class="fa fa-key"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- Image -->
+        <div class="relative w-1/2" style="background: url(https://cdn.pixabay.com/photo/2018/07/12/21/32/subscribe-3534409_1280.jpg); background-size:cover; background-position:center">
+            <img class="absolute" style="top:30%; left: -8%" src="https://preview.cruip.com/mosaic/images/auth-decoration.png" width="218" height="224" alt="Authentication decoration">
+        </div>
+
+    </div>
+
+</main>
