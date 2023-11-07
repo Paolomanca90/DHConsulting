@@ -13,12 +13,15 @@ namespace DHConsulting.Controllers
     {
         private ModelDb db = new ModelDb();
 
+
+
         //View principale con la lista dei prodotti
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
-            return View(db.Prodotto.ToList());
+            List<Prodotto> lista = db.Prodotto.ToList();
+            Session["prodotti"] = lista;
+            return View(lista);
         }
 
         //View di dettaglio di ogni prodotto

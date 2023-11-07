@@ -255,12 +255,15 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\captcha.css" />
     <Content Include="Content\Img\angular.svg" />
+    <Content Include="Content\Img\basic.jpg" />
     <Content Include="Content\Img\dotnet.svg" />
     <Content Include="Content\Img\firma.png" />
     <Content Include="Content\Img\js.svg" />
     <Content Include="Content\Img\Logo_Paolo.png" />
-    <Content Include="Content\Img\placeholde1.jpg" />
     <Content Include="Content\Img\placeholder.jpg" />
+    <Content Include="Content\Img\plus.jpg" />
+    <Content Include="Content\Img\professional.jpg" />
+    <Content Include="Content\Img\professional2.jpg" />
     <Content Include="Content\Img\sass.svg" />
     <Content Include="Content\Img\tailwindcss.svg" />
     <Content Include="Content\Img\ts.svg" />
@@ -333,7 +336,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Img\users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
