@@ -27,7 +27,7 @@ else
 
 
 <!-- Snippet -->
-<section class="flex flex-col justify-center antialiased bg-base-100 min-h-screen">
+<section class="flex flex-col justify-around antialiased bg-base-100 min-h-screen">
     <div class="max-w-6xl mx-auto p-4 sm:px-6 h-full">
         <!-- Blog post -->
         <article class="max-w-sm mx-auto md:max-w-none grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center">
@@ -102,30 +102,32 @@ else
             </div>
         </article>
     </div>
-</section>
 
-@if (Model.Costo < 800)
-{
-    using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post))
+    @if (Model.Costo < 800)
     {
-        @Html.AntiForgeryToken()
-        @Html.Label("Quantita")
+        using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Label("Quantita")
+            <p>
+                @Html.DropDownList("Quantita", new SelectList(pz), new { id = "Quantita" })
+                <input type="submit" value="Aggiungi al carrello" />
+            </p>
+        }
+
         <p>
-            @Html.DropDownList("Quantita", new SelectList(pz), new { id = "Quantita" })
-            <input type="submit" value="Aggiungi al carrello" />
+            @Html.ActionLink("Procedi", "Cart", "Payment")
         </p>
     }
-}
-else
-            {
-                using (Html.BeginForm())
-                {
-                    <label></label>
-                }
-            }
+    else
+    {
+        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class="flex flex-col w-2/3 m-auto"}))
+        {
+            <label class="text-md font-semibold mx-2">Descrizione del progetto</label>
+            <textarea rows="5" class="rounded-md p-2 border-2 w-full mt-1 mb-7" placeholder="Descrivi brevemente la tua idea o il tuo progetto da realizzare e sarai ricontattato"></textarea>
+            <input type="submit" value="Invia" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full"/>
+        }
+    }
 
+</section>
 
-
-<p>
-    @Html.ActionLink("Procedi", "Cart", "Payment")
-</p>
