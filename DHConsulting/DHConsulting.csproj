@@ -260,6 +260,7 @@
     <Content Include="Content\Img\firma.png" />
     <Content Include="Content\Img\js.svg" />
     <Content Include="Content\Img\Logo_Paolo.png" />
+    <Content Include="Content\Img\PayPal.svg" />
     <Content Include="Content\Img\placeholder.jpg" />
     <Content Include="Content\Img\plus.jpg" />
     <Content Include="Content\Img\professional.jpg" />

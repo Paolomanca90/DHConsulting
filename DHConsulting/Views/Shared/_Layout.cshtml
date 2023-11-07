@@ -87,11 +87,11 @@
                                             var prodotti = Session["prodotti"] as List<DHConsulting.Models.Prodotto>;                                          
                                             foreach (var item in indicator)
                                             {
-                                                for(var i=0; i<prodotti.Count; i++)
+                                                foreach(var i in prodotti)
                                                 {
-                                                    if(item.IdProdotto == prodotti[i].IdProdotto)
+                                                    if(item.IdProdotto == i.IdProdotto)
                                                     {
-                                                        totale += item.Quantita * prodotti[i].Costo;
+                                                        totale += item.Quantita * i.Costo;
                                                     }
                                                 }
                                             }

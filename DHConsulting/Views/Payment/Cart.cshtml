@@ -9,14 +9,13 @@
     string totaleFormattato = "";
 }
 
-<h2>Cart</h2>
 
-@if(TempData["Successo"] != null)
+@if (TempData["Successo"] != null)
 {
     <p>@TempData["Successo"]</p>
 }
 
-@if (Model == null || !Model.Any())
+@*@if (Model == null || !Model.Any())
 {
     <p>Carrello vuoto</p>
 }
@@ -62,31 +61,99 @@ else
 
     </table>
     <a href="/Payment/ConfirmPayment">Paga</a>
+}*@
+
+
+@if (Model == null || !Model.Any())
+{
+    <h2 class="text-3xl text-lg-4xl text-center">Carrello vuoto</h2>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="min-h-screen">
+            <div class="container mx-auto p-10 max-w-screen-lg">
+                <div class="rounded-lg shadow-2xl p-8 border">
+                    <!-- Order Summary  -->
+                    <div>
+                        <div class="flex justify-between">
+                            <h3 class="text-xl mt-4 font-bold">Riepilogo dell'ordine</h3>
+                            @{ var tot = 0;
+                                foreach (var p in lista)
+                                {
+                                    if (p.IdProdotto == item.IdProdotto)
+                                    {
+                                        totale += p.Costo * item.Quantita;
+                                    }
+                                }
+                            }
+                            <h4 class="text-lg mt-4 font-semibold">Totale @totale.ToString("C")</h4>
+                        </div>
+                        <!--     BOX     -->
+                        <div class="border w-full rounded mt-5 flex p-4 justify-between items-center flex-wrap">
+                            @foreach (var p in lista)
+                            {
+                                if (p.IdProdotto == item.IdProdotto)
+                                {
+                                    <img src="~/Content/Img/@p.Image" class="w-24">
+
+                                <div class="w-2/3">
+                                    @if (p.Costo < 200)
+                                    {
+                                        <h3 class="text-lg font-medium">Pacchetto basic</h3>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="text-lg font-medium">Pacchetto plus</h3>
+                                    }
+                                    <p class="text-sm">@p.DescrizioneBreve</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-3xl font-medium"><sup class="text-lg">€</sup> @(p.Costo * item.Quantita) <sup class="text-lg">i. i.</sup></h4>
+                                </div>
+                                }
+                                <div class="w-full flex justify-between mt-4">
+                                    <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"><i class="fa-solid fa-circle-xmark text-2xl"></i></a>
+                                    <label class="block uppercase tracking-wide text-lg">
+                                        <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })"><i class="fa fa-minus"></i></a>
+                                        @item.Quantita
+                                        <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })"><i class="fa fa-plus"></i></a>
+                                    </label>
+                                </div>
+                            }
+                        </div>           
+                    </div>
+                <button class="py-2 bg-yellow-400 text-white w-full mt-3 rounded shadow-lg hover:bg-yellow-500 flex justify-center" href="~/Payment/ConfirmPayment"><img src="~/Content/Img/PayPal.svg" alt="Alternate Text" /></button>
+            </div>
+        </div>
+    </div>
+    }
 }
     @*<div id="paypal-button-container"></div>
-    <p id="result-message"></p>
-    <script src="https://www.paypal.com/sdk/js?client-id=@clientId&currency=EUR"></script>
-    <script>
-      paypal.Buttons({
-          createOrder: function (data, actions) {
-              return actions.order.create({
-                  purchase_units: [
-                      {
-                          amount: {
-                              value: @totaleFormattato,
-                              currency_code: "EUR"
-                          }
-                      }
-                  ]
-              });
-          },
-          onApprove: function (data, actions) {
-              return actions.order.capture().then(function (details) {
-                  return fetch("/Payment/ConfirmPayment", {
-                      method: "GET",
-                  })
-              });
-          }
-      }).render('#paypal-button-container');
-    </script>
-}*@
+            <p id="result-message"></p>
+            <script src="https://www.paypal.com/sdk/js?client-id=@clientId&currency=EUR"></script>
+            <script>
+              paypal.Buttons({
+                  createOrder: function (data, actions) {
+                      return actions.order.create({
+                          purchase_units: [
+                              {
+                                  amount: {
+                                      value: @totaleFormattato,
+                                      currency_code: "EUR"
+                                  }
+                              }
+                          ]
+                      });
+                  },
+                  onApprove: function (data, actions) {
+                      return actions.order.capture().then(function (details) {
+                          return fetch("/Payment/ConfirmPayment", {
+                              method: "GET",
+                          })
+                      });
+                  }
+              }).render('#paypal-button-container');
+            </script>
+        }*@
