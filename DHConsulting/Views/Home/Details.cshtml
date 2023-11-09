@@ -162,18 +162,20 @@ else
         </article>
     </div>
 
-    <p class="flex justify-center mt-12">
-        <a href="~/Cart/Payment" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
-    </p>
-
-    @if(Model.Costo > 700)
+    @if (Model.Costo > 700)
     {
-        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-2/3 m-auto" }))
+        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-2/3 m-auto my-12" }))
         {
             <label class="text-md font-semibold mx-2">Descrizione del progetto</label>
             <textarea rows="5" class="rounded-md p-2 border-2 w-full mt-1 mb-7" placeholder="Descrivi brevemente la tua idea o il tuo progetto da realizzare e sarai ricontattato" id="description" name="description"></textarea>
             <input type="submit" value="Invia" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
         }
+    }
+    else
+    {
+        <p class="flex justify-center my-12">
+            <a href="~/Cart/Payment" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
+        </p>
     }
 
 </section>

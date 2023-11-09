@@ -8,12 +8,34 @@
 <section class="min-h-screen">
     <div class="container">
         <div class="md:flex">
-            <div class="lg:w-1/4 md:w-1/3 md:px-3" style="background: url(https://cdn.pixabay.com/photo/2015/11/25/01/09/abstract-background-1061100_1280.jpg)">
+            <div class="lg:w-1/4 md:w-1/3 md:px-3" style="background: url(https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGluZm9ybWF0aW9uJTIwdGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D);">
             </div>
 
-            <div class="lg:w-3/4 md:w-2/3 px-7 my-12">
-                <div class="pb-6 border-b border-gray-100">
+            <div class="lg:w-3/4 md:w-2/3 px-7 my-12 flex flex-col justify-around items-around">
+                @if (TempData["Successo"] != null)
+                {
+                    <div class="flex justify-center my-12">
+                        <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-blue-500">
+                            <div class="flex items-center justify-center w-12 bg-blue-500">
+                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
+                                </svg>
+                            </div>
+
+                            <div class="px-4 py-2 -mx-3">
+                                <div class="mx-3">
+                                    <span class="font-semibold text-blue-500 dark:text-blue-400">Complimenti</span>
+                                    <p class="text-sm">@TempData["Successo"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            <div>
+                <div class="pb-6 border-b border-gray-100 flex justify-between items-center">
                     <h5 class="text-xl font-semibold">@Model.Nome @Model.Cognome</h5>
+                    @Html.ActionLink("Aggiorna profilo", "EditProfilo", new { id = Model.IdCliente }, new { @class = "btn text-md" })
+
                 </div>
 
                 <div class="grid lg:grid-cols-2 grid-cols-1 gap-[30px] pt-6">
@@ -26,7 +48,7 @@
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                                 <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Email :</h6>
+                                    <h6 class="font-medium mb-0">Email:</h6>
                                     <a href="" class="text-slate-400">@Model.Email</a>
                                 </div>
                             </div>
@@ -73,7 +95,7 @@
                                     <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
                                 </svg>
                                 <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Data di nascita :</h6>
+                                    <h6 class="font-medium mb-0">Data di nascita:</h6>
                                     <p class="text-slate-400 mb-0">@Model.DataNascita.ToShortDateString()</p>
                                 </div>
                             </div>
@@ -118,114 +140,10 @@
                         }
                     </div>
                 </div>
-
-                @*<h5 class="text-xl font-semibold mt-[30px]">Portfolio :</h5>
-
-                <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-6 gap-[30px]">
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/1.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/1.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="title absolute z-10 hidden group-hover:block bottom-6 left-6">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/2.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/2.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="absolute z-10 hidden group-hover:block bottom-6 left-6 transition-all duration-500">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/3.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/3.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="absolute z-10 hidden group-hover:block bottom-6 left-6 transition-all duration-500">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/4.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/4.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="absolute z-10 hidden group-hover:block bottom-6 left-6 transition-all duration-500">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/5.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/5.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="absolute z-10 hidden group-hover:block bottom-6 left-6 transition-all duration-500">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
-                        <img src="assets/images/portfolio/6.jpg" class="group-hover:origin-center group-hover:scale-110 group-hover:rotate-3 transition duration-500" alt="">
-                        <div class="absolute inset-2 group-hover:bg-white/90 dark:group-hover:bg-slate-900/90 transition duration-500 z-0 rounded-md"></div>
-
-                        <div class="content transition-all duration-500">
-                            <div class="icon absolute z-10 hidden group-hover:block top-6 right-6 transition-all duration-500">
-                                <a href="assets/images/portfolio/6.jpg" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white btn-icon rounded-full lightbox"><i class="uil uil-camera"></i></a>
-                            </div>
-
-                            <div class="absolute z-10 hidden group-hover:block bottom-6 left-6 transition-all duration-500">
-                                <a href="portfolio-detail-three.html" class="h6 text-lg font-medium hover:text-indigo-600 duration-500 ease-in-out">Mockup Collection</a>
-                                <p class="text-slate-400 mb-0">Abstract</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+            </div>
             </div>
         </div>
         <!--end grid-->
     </div>
     <!--end container-->
 </section>
-
-<p>
-    @Html.ActionLink("Edit", "EditProfilo", new { id = Model.IdCliente }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

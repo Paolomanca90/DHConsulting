@@ -10,6 +10,14 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
     @RenderSection("style", required: false)
 </head>
 <body>
@@ -18,10 +26,9 @@
         <div class="navbar-start">
             <a class="normal-case ms-2" href="~/Home/Index">
                 <div class="flex flex-row items-center">
-                    <img src="~/Content/Img/Logo_Paolo.png"
+                    <img src="~/Content/Img/Logo-2.png"
                          alt="Logo-Paolo-Manca"
-                         width="50" />
-                    @*<span class="italic text-md" style="font-family: Montserrat">Paolo Manca Consulting</span>*@
+                         width="150" />
                 </div>
             </a>
         </div>
@@ -29,7 +36,16 @@
         <div class="navbar-end flex flex-row items-center">
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1 items-center">
-                    <li><a href="~/Home/Index"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
+                    @if (User.IsInRole("User"))
+                    {
+                        <li><a href="~/Home/Index"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="~/Home/About"><i class="fa-solid fa-user-tie py-2.5 px-1"></i></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Admin/Index"><i class="fa-solid fa-screwdriver-wrench py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="~/Admin/AddAdmin"><i class="fa-solid fa-unlock py-2.5 px-1"></i></a></li>
+                    }
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li tabindex="0">
@@ -46,69 +62,72 @@
                     }
                     else
                     {
-                        <li tabindex="0">
-                            <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3 border">
-                                <label tabindex="0" class="btn">
-                                    <div class="indicator">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                        @if (Context.Request.Cookies["carrello"] != null)
-                                        {
-                                            var carrello = Context.Request.Cookies["carrello"].Value;
-                                            var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
-                                            var indicatorT = 0;
-                                            foreach (var ind in indicator)
+                        if (User.IsInRole("User"))
+                        {
+                            <li tabindex="0">
+                                <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3 border">
+                                    <label tabindex="0" class="btn">
+                                        <div class="indicator">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                            @if (Context.Request.Cookies["carrello"] != null)
                                             {
-                                                indicatorT += ind.Quantita;
+                                                var carrello = Context.Request.Cookies["carrello"].Value;
+                                                var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
+                                                var indicatorT = 0;
+                                                foreach (var ind in indicator)
+                                                {
+                                                    indicatorT += ind.Quantita;
+                                                }
+                                                <span class="badge badge-sm indicator-item">@indicatorT</span>
                                             }
-                                            <span class="badge badge-sm indicator-item">@indicatorT</span>
-                                        }
-                                    </div>
-                                </label>
-                                <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow border">
-                                    <div class="card-body">
-                                        @if (Context.Request.Cookies["carrello"] != null)
-                                        {
-                                            var carrello = Context.Request.Cookies["carrello"].Value;
-                                            var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
-                                            var indicatorT = 0;
-                                            foreach(var ind in indicator)
+                                        </div>
+                                    </label>
+                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow border">
+                                        <div class="card-body">
+                                            @if (Context.Request.Cookies["carrello"] != null)
                                             {
-                                                indicatorT += ind.Quantita;
-                                            }
-                                            if(indicatorT < 2)
-                                            {
-                                                <span class="font-bold text-lg">1 articolo</span>
+                                                var carrello = Context.Request.Cookies["carrello"].Value;
+                                                var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
+                                                var indicatorT = 0;
+                                                foreach (var ind in indicator)
+                                                {
+                                                    indicatorT += ind.Quantita;
+                                                }
+                                                if (indicatorT < 2)
+                                                {
+                                                    <span class="font-bold text-lg">1 articolo</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="font-bold text-lg">@indicatorT articoli</span>
+                                                }
+                                                decimal totale = 0;
+                                                var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;
+                                                foreach (var item in indicator)
+                                                {
+                                                    foreach (var i in prodotti)
+                                                    {
+                                                        if (item.IdProdotto == i.IdProdotto)
+                                                        {
+                                                            totale += item.Quantita * i.Costo;
+                                                        }
+                                                    }
+                                                }
+                                                <span class="text-info">Totale: @totale.ToString("C")</span>
                                             }
                                             else
                                             {
-                                                <span class="font-bold text-lg">@indicatorT articoli</span>
+                                                <span class="font-bold text-lg">0 articoli</span>
+                                                <span class="text-info">Totale: € 0.00</span>
                                             }
-                                            decimal totale = 0;
-                                            var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;                                          
-                                            foreach (var item in indicator)
-                                            {
-                                                foreach(var i in prodotti)
-                                                {
-                                                    if(item.IdProdotto == i.IdProdotto)
-                                                    {
-                                                        totale += item.Quantita * i.Costo;
-                                                    }
-                                                }
-                                            }
-                                            <span class="text-info">Totale: @totale.ToString("C")</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="font-bold text-lg">0 articoli</span>
-                                            <span class="text-info">Totale: € 0.00</span>
-                                        }
-                                        <div class="card-actions">
-                                            @Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "btn btn-block" })
+                                            <div class="card-actions">
+                                                @Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "btn btn-block" })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                         <li tabindex="0">
                             <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3 border">
                                 <label tabindex="0">
@@ -129,11 +148,6 @@
                                 </ul>
                             </div>
                         </li>
-                    }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
             </div>
@@ -162,6 +176,7 @@
                 </label>
                 <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>
                         <a>Accesso</a>
                         <ul class="p-2">
@@ -203,14 +218,63 @@
     <div class="bg-base-100">
         @RenderBody()
     </div>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
+    <footer class="border-t-2 pt-5">
+        <div class="container p-6 mx-auto">
+            <div class="lg:flex">
+                <div class="w-full -mx-6 lg:w-2/5">
+                    <div class="px-6">
+                        <a href="~/Home/Index">
+                            <img class="w-auto h-9" src="~/Content/Img/Logo-2.png" alt="logo">
+                        </a>
+
+                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realtà tech.</p>
+
+                        <div class="flex mt-6 -mx-2">
+                            <a href="https://www.linkedin.com/in/paolo-manca-developer"
+                               class="mx-2 transition-colors duration-300 hover:text-orange-500"
+                               aria-label="Reddit">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+
+                            <a href="https://github.com/Paolomanca90"
+                               class="mx-2 transition-colors duration-300 hover:text-orange-500"
+                               aria-label="Github">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 lg:mt-0 lg:flex-1">
+                    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                        <div>
+                            <h3 class="uppercase">Link utili</h3>
+                            <a href="~/Home/About" class="block mt-2 text-sm hover:underline">Chi sono</a>
+                            <a href="~/Home/Index#service" class="block mt-2 text-sm hover:underline">Prodotti</a>
+                        </div>
+
+                        <div>
+                            <h3 class="uppercase">Contatti</h3>
+                            <span class="block mt-2 text-sm hover:underline">+39 388 041 6518</span>
+                            <a class="block mt-2 text-sm hover:underline" href="mailto:paolomanca1990@gmail.com">paolomanca1990@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-px my-6 bg-gray-200 border-none dark:bg-gray-700">
+
+            <div>
+                <p class="text-center ">© PM Consulting @DateTime.Now.Year - Tutti i diritti sono riservati</p>
+            </div>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
     <script src="~/Scripts/script.js"></script>
+    <script type="module" src="~/Scripts/alpinejs.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>

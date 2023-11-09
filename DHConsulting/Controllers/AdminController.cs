@@ -43,7 +43,7 @@ namespace DHConsulting.Controllers
                 db.Prodotto.Add(p);
                 db.SaveChanges();
                 TempData["Successo"] = "Prodotto aggiunto";
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             ViewBag.Errore = "Errore durante la procedura";
             return View();

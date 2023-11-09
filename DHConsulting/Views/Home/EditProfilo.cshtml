@@ -2,129 +2,150 @@
 
 @{
     ViewBag.Title = "EditProfilo";
+    string datanascita = Model.DataNascita.ToShortDateString();
 }
 
-<h2>EditProfilo</h2>
-
-@if (ViewBag.Errore != null)
-{
-    <p>@ViewBag.Errore</p>
-}
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Cliente</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdCliente)
-        @Html.HiddenFor(model => model.Nome)
-        @Html.HiddenFor(model => model.Cognome)
-        @Html.HiddenFor(model => model.DataNascita)
-        @Html.HiddenFor(model => model.CF)
-        @Html.HiddenFor(model => model.Username)
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Cognome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Cognome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DataNascita)
-            </dt>
-
-            <dd>
-                @Model.DataNascita.ToShortDateString()
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CF)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CF)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Username)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Username)
-            </dd>
-        </dl>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+<section class="min-h-screen">
+    <div class="container">
+        <div class="md:flex">
+            <div class="w-1/3 md:px-3" style="background: url(https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGluZm9ybWF0aW9uJTIwdGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Citta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="w-2/3 px-7 my-12 flex flex-col justify-around">
+                @if (ViewBag.Errore != null)
+                {
+                    <div class="flex justify-center my-12">
+                        <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
+                            <div class="flex items-center justify-center w-12 bg-red-500">
+                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
+                                </svg>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Piva, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Piva, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-danger" })
-            </div>
+                            <div class="px-4 py-2 -mx-3">
+                                <div class="mx-3">
+                                    <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
+                                    <p class="text-sm">
+                                        @ViewBag.Errore
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdCliente)
+                    @Html.HiddenFor(model => model.Nome)
+                    @Html.HiddenFor(model => model.Cognome)
+                    @Html.HiddenFor(model => model.DataNascita)
+                    @Html.HiddenFor(model => model.CF)
+                    @Html.HiddenFor(model => model.Username)
+                    @Html.HiddenFor(model => model.Password)
+                    <div class="pb-6 border-b border-gray-100 flex justify-between items-center">
+                        <h5 class="text-xl font-semibold">@Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Cognome)</h5>
+                        <input type="submit" value="Salva modifiche" class="btn text-md" />
+                    </div>
+                    <div class="gap-[30px] pt-6">
+                        <div>
+                            <h5 class="text-xl font-semibold">Aggiorna profilo:</h5>
+                            <div class="mt-6">
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark fea icon-ex-md text-slate-400 mr-3">
+                                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">CF:</h6>
+                                        <p class="text-slate-400 mb-0">@Html.DisplayFor(model => model.CF);</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift fea icon-ex-md text-slate-400 mr-3">
+                                        <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                                        <rect x="2" y="7" width="20" height="5"></rect>
+                                        <line x1="12" y1="22" x2="12" y2="7"></line>
+                                        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                                        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">Data di nascita:</h6>
+                                        <p class="text-slate-400 mb-0">@datanascita</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe fea icon-ex-md text-slate-400 mr-3">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">Username:</h6>
+                                        <p class="text-slate-400 mb-0">@Html.DisplayFor(model => model.Username)</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-ex-md text-slate-400 mr-3">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <div class="flex-1 mt-3">
+                                        <h6 class="font-medium mb-0">Email:</h6>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-1/2 mt-1" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500" })
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">Indirizzo:</h6>
+                                        @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-1/2 mt-1" } })
+                                        @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500" })
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">Città:</h6>
+                                        @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-1/2 mt-1" } })
+                                        @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500" })
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-italic fea icon-ex-md text-slate-400 mr-3">
+                                        <line x1="19" y1="4" x2="10" y2="4"></line>
+                                        <line x1="14" y1="20" x2="5" y2="20"></line>
+                                        <line x1="15" y1="4" x2="9" y2="20"></line>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">P.IVA:</h6>
+                                        @Html.EditorFor(model => model.Piva, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-1/2 mt-1" } })
+                                        @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500" })
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone fea icon-ex-md text-slate-400 mr-3">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium mb-0">Telefono:</h6>
+                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-1/2 mt-1" } })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>               
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <!--end grid-->
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
+    <!--end container-->
+</section>

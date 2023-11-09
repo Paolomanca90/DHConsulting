@@ -13,8 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.16",
+    "focus-trap": "^7.5.4",
+    "intersection-observer": "^0.12.2",
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
+    "tabbable": "^6.2.0",
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {

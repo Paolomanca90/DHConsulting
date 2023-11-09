@@ -24,6 +24,12 @@ namespace DHConsulting.Controllers
             return View(db.Prodotto.ToList());
         }
 
+        //View per la sezione about me
+        public ActionResult About()
+        {
+            return View();
+        }
+
         //View di dettaglio di ogni prodotto
         public ActionResult Details(int id)
         {
@@ -221,7 +227,7 @@ namespace DHConsulting.Controllers
                 return RedirectToAction("Profilo");
             }
             ViewBag.Errore = "Errore durante la procedura";
-            return View();
+            return View(cliente);
         }
 
         //Metodo per creare la mail di richiesta per il pacchetto professional
