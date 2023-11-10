@@ -36,7 +36,7 @@
         <div class="navbar-end flex flex-row items-center">
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1 items-center">
-                    @if (User.IsInRole("User"))
+                    @if (User.IsInRole("User") || User.Identity.Name == "")
                     {
                         <li><a href="~/Home/Index"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
                         <li class="ms-2"><a href="~/Home/About"><i class="fa-solid fa-user-tie py-2.5 px-1"></i></a></li>
@@ -251,11 +251,15 @@
                             <h3 class="uppercase">Link utili</h3>
                             <a href="~/Home/About" class="block mt-2 text-sm hover:underline">Chi sono</a>
                             <a href="~/Home/Index#service" class="block mt-2 text-sm hover:underline">Prodotti</a>
+                            <a href="~/Home/Index#rewievs" class="block mt-2 text-sm hover:underline">Recensioni</a>
                         </div>
 
                         <div>
                             <h3 class="uppercase">Contatti</h3>
-                            <span class="block mt-2 text-sm hover:underline">+39 388 041 6518</span>
+                            <span class="block mt-2 text-sm hover:underline md:hidden">
+                                <a href="tel:+393880416518">+39 388 041 6518</a>
+                            </span>
+                            <span class="block mt-2 text-sm hover:underline hidden md:block">+39 388 041 6518</span>
                             <a class="block mt-2 text-sm hover:underline" href="mailto:paolomanca1990@gmail.com">paolomanca1990@gmail.com</a>
                         </div>
                     </div>

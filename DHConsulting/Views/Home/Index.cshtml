@@ -117,7 +117,7 @@
                         <div class="flex items-center justify-between space-x-2 mb-1">
                             <div class="font-bold text-slate-900">Scelta del servizio</div>
                         </div>
-                        <div class="text-slate-500">Selezione del servizio in linea con le proprie esigenze.</div>
+                        <div class="text-slate-500">Selezione del servizio in linea con le tue esigenze.</div>
                     </div>
                 </div>
 
@@ -168,7 +168,7 @@
                         <div class="flex items-center justify-between space-x-2 mb-1">
                             <div class="font-bold text-slate-900">Ci siamo!</div>
                         </div>
-                        <div class="text-slate-500">Siamo pronti per realizare la tua idea.</div>
+                        <div class="text-slate-500">Siamo pronti per realizzare la tua idea.</div>
                     </div>
                 </div>
 
@@ -177,7 +177,7 @@
 
             @if (User.Identity.Name == "")
             {
-                <div class="flex justify-center m-auto my-8 lg:my-16">
+                <div class="flex justify-center m-auto mt-8 lg:mt-16">
                     <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group" href="~/Auth/Login">
                         Accedi per saperne di più
                     </a>
@@ -185,6 +185,8 @@
             }
 
         </div>
+
+        <div id="rewievs"></div>
 
         <!-- Fancy testimonial slider component -->
         <div class="w-full max-w-3xl mx-auto text-center mt-24" x-data="slider">
@@ -241,7 +243,7 @@
 
             <section class="text-gray-600 min-h-screen p-4 lg:mb-16 mt-8">
 
-                <div class="flex justify-center max-w-[25rem] m-auto mb-8 lg:mb-16">
+                <div class="flex justify-center max-w-[25rem] m-auto my-8 lg:mb-16">
                     <div class="p-1 px-2 bg-white dark:bg-slate-900 rounded-full border border-slate-200 shadow-sm shadow-slate-950/5">
                         <div class="inline-flex items-center text-md text-slate-900 dark:text-slate-200 font-semibold py-1.5 px-3 rounded-full">Perchè scegliere i miei servizi</div>
                     </div>
@@ -334,7 +336,7 @@
                                                         }
                                                     </a>
                                                     <div>
-                                                        <span class="text-sm font-medium text-gray-400 -mt-0.5 mr-1">@item.DescrizioneBreve</span>
+                                                        <span class="text-sm font-medium text-gray-400 -mt-0.5 mr-1 truncate">@item.DescrizioneBreve</span>
                                                     </div>
                                                 </div>
                                             </div>
