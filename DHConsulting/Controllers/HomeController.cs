@@ -33,6 +33,7 @@ namespace DHConsulting.Controllers
         //View di dettaglio di ogni prodotto
         public ActionResult Details(int id)
         {
+            ViewBag.Cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
             var prodotto = db.Prodotto.Find(id);
             return View(prodotto);
         }
@@ -207,7 +208,7 @@ namespace DHConsulting.Controllers
                 var utente = db2.Cliente.Where(x => x.Piva == c.Piva && c.Piva != cliente.Piva).FirstOrDefault();
                 if (utente != null)
                 {
-                    ViewBag.Errore = "P.Iva già presente nel database";
+                    ViewBag.Errore = "P.IVA già presente nel database";
                     return View();
                 }
                 var user = db2.Cliente.Where(x => x.Email == c.Email && c.Email != cliente.Email).FirstOrDefault();
@@ -216,11 +217,19 @@ namespace DHConsulting.Controllers
                     ViewBag.Errore = "Email già presente nel database";
                     return View();
                 }
+                var user2 = db2.Cliente.Where(x => x.Username == c.Username && c.Username != cliente.Username).FirstOrDefault();
+                if (user2 != null)
+                {
+                    ViewBag.Errore = "Username già presente nel database";
+                    return View();
+                }
                 //in caso di nuova password viene cryptata prima di essere salvata
                 if (c.Password != cliente.Password)
                 {
                     c.Password = PasswordHasher.HashPassword(c.Password);
                 }
+                var user3 = db2.Utente.FirstOrDefault(x => x.Username == cliente.Username);
+                user3.Username = c.Username;
                 db2.Entry(c).State = EntityState.Modified;
                 db2.SaveChanges();
                 TempData["Successo"] = "Profilo aggiornato";

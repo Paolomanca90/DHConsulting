@@ -12,6 +12,10 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+using GoogleAuthentication.Services;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PayPal.Api;
 
 namespace DHConsulting.Controllers
 {
@@ -106,6 +110,11 @@ namespace DHConsulting.Controllers
         //View classica per il login
         public ActionResult Login()
         {
+            //Gestisco le credenziali per l'accesso tramite google
+            string clientId = ConfigurationManager.AppSettings["IDClient"];
+            var url = "https://localhost:44339/Auth/GoogleLogin";
+            var response = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.Response = response;
             return View();
         }
 
@@ -165,6 +174,68 @@ namespace DHConsulting.Controllers
                 }
             }
             ViewBag.Errore = "Nessun utente trovato";
+            return View();
+        }
+
+        //Metodo per l'accesso tramite Google Login
+        public async Task<ActionResult> GoogleLogin(string code)
+        {
+            try
+            {
+                string clientId = ConfigurationManager.AppSettings["IDClient"];
+                string secretClient = ConfigurationManager.AppSettings["ClientSecret"];
+                var url = "https://localhost:44339/Auth/GoogleLogin";
+                var token = await GoogleAuth.GetAuthAccessToken(code, clientId, secretClient, url);
+                var userProfile = await GoogleAuth.GetProfileResponseAsync(token.AccessToken.ToString());
+                var googleUser = JsonConvert.DeserializeObject<GoogleProfile>(userProfile);
+                if (googleUser != null)
+                {
+                    var utente = db.Cliente.FirstOrDefault(x => x.Email == googleUser.Email && x.CF != null);
+                    if(utente != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(utente.Username, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    Utente u = new Utente
+                    {
+                        Username = googleUser.Given_Name + "google",
+                        Password = PasswordHasher.HashPassword("Password.2023"),
+                        Role = "User",
+                        Confirmed = true
+                    };
+                    Cliente c = new Cliente
+                    {
+                        Nome = googleUser.Given_Name,
+                        Cognome = googleUser.Family_Name,
+                        DataNascita = new DateTime(1900, 01, 01),
+                        Indirizzo = "via xxx 1",
+                        Citta = "xxx",
+                        Username = googleUser.Given_Name + "google",
+                        Password = PasswordHasher.HashPassword("Password.2023"),
+                        Email = googleUser.Email,
+                    };
+                    if (googleUser.MobilePhone != null)
+                    {
+                        c.Phone = googleUser.MobilePhone;
+                    }
+                    else
+                    {
+                        c.Phone = "1111111111";
+                    }
+                    db.Cliente.Add(c);
+                    db.Utente.Add(u);
+                    db.SaveChanges();
+                    Cliente cliente = db.Cliente.FirstOrDefault(x => x.Username == c.Username);
+                    FormsAuthentication.SetAuthCookie(googleUser.Given_Name + "google", false);
+                    TempData["Utente"] = "Completa la registrazione compilando i campi del form";
+                    return RedirectToAction("EditProfilo", "Home", new { id = cliente.IdCliente});
+                }
+            }
+            catch(Exception ex)
+            {
+                TempData["Errore"] = "Errore durante la procedura";
+                return RedirectToAction("Login", "Auth");
+            }
             return View();
         }
 

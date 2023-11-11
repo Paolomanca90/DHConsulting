@@ -4,7 +4,15 @@
     ViewBag.Title = "Details";
     TempData["IdProdotto"] = ViewContext.RouteData.Values["id"];
     List<int> pz = new List<int> { 1, 2, 3, 4, 5 };
+    var cliente = ViewBag.Cliente as DHConsulting.Models.Cliente;
 }
+
+<style>
+    .tooltip:hover .tooltip-text {
+        opacity: 1;
+        pointer-events: auto;
+    }
+</style>
 
 
 @if (Model.Costo < 200)
@@ -22,21 +30,21 @@ else
 
 @if (TempData["Successo"] != null)
 {
-   <div class="flex justify-center my-12">
-       <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-blue-500">
-           <div class="flex items-center justify-center w-12 bg-blue-500">
-               <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
-               </svg>
-           </div>
+    <div class="flex justify-center my-12">
+        <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-blue-500">
+            <div class="flex items-center justify-center w-12 bg-blue-500">
+                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
+                </svg>
+            </div>
 
-           <div class="px-4 py-2 -mx-3">
-               <div class="mx-3">
-                   <span class="font-semibold text-blue-500 dark:text-blue-400">Complimenti</span>
-                   <p class="text-sm">@TempData["Successo"]</p>
-               </div>
-           </div>
-       </div>
+            <div class="px-4 py-2 -mx-3">
+                <div class="mx-3">
+                    <span class="font-semibold text-blue-500 dark:text-blue-400">Complimenti</span>
+                    <p class="text-sm">@TempData["Successo"]</p>
+                </div>
+            </div>
+        </div>
     </div>
 }
 
@@ -63,7 +71,7 @@ else
 }
 
 
-       <!-- Snippet -->
+<!-- Snippet -->
 <section class="flex flex-col justify-around antialiased bg-base-100 min-h-screen">
     <div class="max-w-6xl mx-auto p-4 sm:px-6 h-full">
         <!-- Blog post -->
@@ -146,16 +154,28 @@ else
                 </footer>
                 @if (Model.Costo < 800)
                 {
-                    using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post, new { @class = "flex w-full p-3 rounded-md border mt-7 items-center" }))
+                    using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post, new { @class = "flex w-full p-3 rounded-md border mt-7 items-center tooltip" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="w-1/3">
                             @Html.Label("Quantità", new { @class = "text-lg font-semibold me-4" })
                             @Html.DropDownList("Quantita", new SelectList(pz), new { id = "Quantita", @class = "rounded-md border-2" })
                         </div>
-                        <p class="w-2/3">
-                            <input type="submit" value="Aggiungi al carrello" class="btn w-full bg-slate-300 text-black hover:bg-slate-500 hover:text-white" />
-                        </p>
+                        if (cliente.CF == null && cliente.DataNascita == new DateTime(1900, 1, 1))
+                        {
+                            <p class="w-2/3">
+                                <input type="submit" value="Aggiungi al carrello" class="btn w-full bg-slate-300 text-black relative" disabled="disabled" />
+                                <span class="tooltip-text bg-slate-500 text-white text-xs p-2 rounded-lg absolute -ms-[25%] -mt-16 opacity-0">
+                                    Completa la registrazione con tutti i campi richiesti
+                                </span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="w-2/3">
+                                <input type="submit" value="Aggiungi al carrello" class="btn w-full bg-slate-300 text-black hover:bg-slate-500 hover:text-white" />
+                            </p>
+                        }
                     }
                 }
             </div>
@@ -164,18 +184,42 @@ else
 
     @if (Model.Costo > 700)
     {
-        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-2/3 m-auto my-12" }))
+        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-2/3 m-auto my-12 tooltip" }))
         {
             <label class="text-md font-semibold mx-2">Descrizione del progetto</label>
             <textarea rows="5" class="rounded-md p-2 border-2 w-full mt-1 mb-7" placeholder="Descrivi brevemente la tua idea o il tuo progetto da realizzare e sarai ricontattato" id="description" name="description"></textarea>
-            <input type="submit" value="Invia" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+            if (cliente.CF == null && cliente.DataNascita == new DateTime(1900, 1, 1))
+            {
+                <input type="submit" value="Invia" class="btn bg-slate-200 text-black w-full relative" disabled="disabled" />
+                <span class="tooltip-text bg-slate-500 text-white text-xs p-2 rounded-lg absolute -mt-12 ms-[20%] opacity-0">
+                    Completa la registrazione con tutti i campi richiesti
+                </span>
+            }
+            else
+            {
+                <input type="submit" value="Invia" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+            }
         }
     }
     else
     {
-        <p class="flex justify-center my-12">
-            <a href="~/Cart/Payment" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
-        </p>
+        if (cliente.CF == null && cliente.DataNascita == new DateTime(1900, 1, 1))
+        {
+            <p class="flex justify-center my-12 tooltip">
+                <btn class="btn border border-slate-200 px-12 text-lg relative" disabled="disabled">
+                    PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i>
+                    <span class="tooltip-text bg-slate-500 text-white text-xs p-2 rounded-lg absolute -mt-24 opacity-0" style="width:35vw">
+                        Completa la registrazione con tutti i campi richiesti
+                    </span>
+                </btn>
+            </p>
+        }
+        else
+        {
+            <p class="flex justify-center my-12">
+                <a href="~/Cart/Payment" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
+            </p>
+        }
     }
 
 </section>
