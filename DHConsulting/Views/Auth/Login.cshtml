@@ -82,53 +82,59 @@
             }
 
 
-            <div class="w-2/3 m-auto my-12">
+        <div class="w-2/3 m-auto my-12">
 
-                <h1 class="text-3xl font-bold mb-4">Bentornato</h1>
-                <!-- Form -->
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
+            <h1 class="text-3xl font-bold mb-4">Bentornato</h1>
+            <!-- Form -->
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-7">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
                         <div>
-                            <input type="submit" value="Accedi" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
                         </div>
-
                     </div>
-                }
 
-                <div class="w-full mt-5">
-                    <a href="@ViewBag.Response" class="login-with-google-btn">
-                        Accedi con Google
-                    </a>
-                </div>
-
-                <!-- Footer -->
-                <div class="border-t-2 py-5 mt-8">
-                    <div class="text-md">
-                        Password dimenticata? <a href="@Url.Action("ChangePassword", "Auth")" class="text-indigo-500">Recupera password <i class="fa fa-key"></i></a>
+                    <div class="mb-7">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
+                        <div class="relative">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password", id = "Password" } })
+                            <span class="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer" onclick="togglePasswordVisibility()">
+                                <i class="fa fa-eye-slash" id="togglePassword"></i>
+                            </span>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
+                        </div>
                     </div>
-                </div>
 
+                    <div>
+                        <input type="submit" value="Accedi" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
+                    </div>
+
+                </div>
+            }
+
+            <div class="divider -mb-2 mt-5">oppure</div>
+
+            <div class="mt-7 flex justify-center login-div p-3 rounded-md bg-white">
+                <a href="@ViewBag.Response" class="login-with-google-btn rounded-md flex justify-center items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="logo-google" class="h-4 me-2" />
+                    Accedi con Google
+                </a>
             </div>
+
+            <!-- Footer -->
+            <div class="border-t-2 py-5 mt-8">
+                <div class="text-md">
+                    Password dimenticata? <a href="@Url.Action("ChangePassword", "Auth")" class="text-indigo-500">Recupera password <i class="fa fa-key"></i></a>
+                </div>
+            </div>
+
+        </div>
 
 
         </div>
@@ -141,3 +147,20 @@
     </div>
 
 </main>
+
+@section scripts {
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('Password');
+            var passwordIcon = document.getElementById('togglePassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.className = 'fa fa-eye';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.className = 'fa fa-eye-slash';
+            }
+        }
+    </script>
+}

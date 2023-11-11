@@ -6,6 +6,7 @@
 
 @section style{
     <link href="~/Content/captcha.css" rel="stylesheet" />
+    <link href="~/Content/google-login.css" rel="stylesheet" />
 }
 
 
@@ -155,8 +156,11 @@
 
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password" } })
+                            <div class="relative">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password", id = "Password" } })
+                                <span class="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer" onclick="togglePasswordVisibility()">
+                                    <i class="fa fa-eye-slash" id="togglePassword"></i>
+                                </span>
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
                             </div>
                         </div>
@@ -186,6 +190,16 @@
 
                     </div>
                 }
+
+                <div class="divider -mb-2 mt-5">oppure</div>
+
+                <div class="mt-7 flex justify-center login-div p-3 rounded-md bg-white">
+                    <a href="@ViewBag.Response" class="login-with-google-btn rounded-md flex justify-center items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="logo-google" class="h-4 me-2" />
+                        Accedi con Google
+                    </a>
+                </div>
+
                 <!-- Footer -->
                 <div class="border-t-2 py-5 mt-8">
                     <div class="text-md">
@@ -225,5 +239,19 @@
                 alert("Devi confermare di non essere un robot.");
             }
         });
+    </script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('Password');
+            var passwordIcon = document.getElementById('togglePassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.className = 'fa fa-eye';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.className = 'fa fa-eye-slash';
+            }
+        }
     </script>
 }

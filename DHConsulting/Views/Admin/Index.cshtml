@@ -39,6 +39,9 @@
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left"></div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">@Html.DisplayNameFor(model => model.DescrizioneBreve)</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -63,10 +66,10 @@
                             {
                                 <tr>
                                     <td class="p-3 whitespace-wrap">
-                                        <div class="flex items-center">
-                                            <div class="w-40 h-15 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-lg w-full" src="~/Content/Img/@item.Image" alt="Alex Shatov"></div>
-                                            <div class="font-medium">@item.DescrizioneBreve</div>
-                                        </div>
+                                        <div class="w-40 h-15 flex-shrink-0"><img class="rounded-lg w-full" src="~/Content/Img/@item.Image" alt="image"></div>
+                                    </td>
+                                    <td class="p-3 whitespace-wrap">
+                                        <div class="font-medium">@item.DescrizioneBreve</div>
                                     </td>
                                     <td class="p-3 whitespace-wrap">
                                         <div class="text-left">@item.DescrizioneLunga</div>

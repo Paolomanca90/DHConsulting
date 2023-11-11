@@ -36,6 +36,11 @@ namespace DHConsulting.Controllers
         //View classica per la registrazione
         public ActionResult Register()
         {
+            //Gestisco le credenziali per l'accesso tramite google
+            string clientId = ConfigurationManager.AppSettings["IDClient"];
+            var url = "https://localhost:44339/Auth/GoogleLogin";
+            var response = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.Response = response;
             return View();
         }
 
@@ -190,12 +195,14 @@ namespace DHConsulting.Controllers
                 var googleUser = JsonConvert.DeserializeObject<GoogleProfile>(userProfile);
                 if (googleUser != null)
                 {
+                    //se esiste un utente con quelle credenziali lo porto alla home
                     var utente = db.Cliente.FirstOrDefault(x => x.Email == googleUser.Email && x.CF != null);
                     if(utente != null)
                     {
                         FormsAuthentication.SetAuthCookie(utente.Username, false);
                         return RedirectToAction("Index", "Home");
                     }
+                    //altrimenti lo registro con info placeholder
                     Utente u = new Utente
                     {
                         Username = googleUser.Given_Name + "google",
@@ -225,6 +232,7 @@ namespace DHConsulting.Controllers
                     db.Cliente.Add(c);
                     db.Utente.Add(u);
                     db.SaveChanges();
+                    //e lo rimando alla pagina di modifica del profilo per completare i campi mancanti
                     Cliente cliente = db.Cliente.FirstOrDefault(x => x.Username == c.Username);
                     FormsAuthentication.SetAuthCookie(googleUser.Given_Name + "google", false);
                     TempData["Utente"] = "Completa la registrazione compilando i campi del form";

@@ -226,6 +226,10 @@
     <Compile Include="Migrations\202311031605555_init.designer.cs">
       <DependentUpon>202311031605555_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311110152449_google.cs" />
+    <Compile Include="Migrations\202311110152449_google.designer.cs">
+      <DependentUpon>202311110152449_google.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Dettaglio.cs" />
@@ -346,6 +350,7 @@
     <Content Include="Views\Home\Profilo.cshtml" />
     <Content Include="Views\Payment\Cart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -380,6 +385,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202311031605555_init.resx">
       <DependentUpon>202311031605555_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311110152449_google.resx">
+      <DependentUpon>202311110152449_google.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

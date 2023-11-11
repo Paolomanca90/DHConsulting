@@ -158,5 +158,13 @@ namespace DHConsulting.Controllers
             TempData["Successo"] = "Admin rimosso";
             return RedirectToAction("AddAdmin");
         }
+
+        public ActionResult Dashboard()
+        {
+            ViewBag.Basic = db.Dettaglio.Where(x => x.IdProdotto == 1).ToList();
+            ViewBag.Plus = db.Dettaglio.Where(x => x.IdProdotto == 2).ToList();
+            ViewBag.Pro = db.Dettaglio.Where(x => x.IdProdotto == 3).ToList();
+            return View(db.Ordine.ToList());
+        }
     }
 }
