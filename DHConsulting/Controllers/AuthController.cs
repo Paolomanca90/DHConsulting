@@ -16,6 +16,8 @@ using GoogleAuthentication.Services;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PayPal.Api;
+using Antlr.Runtime.Misc;
+using static System.Collections.Specialized.BitVector32;
 
 namespace DHConsulting.Controllers
 {
@@ -257,6 +259,8 @@ namespace DHConsulting.Controllers
         // Metodo per inviare l'email di conferma
         private void SendConfirmationEmail(string recipientEmail, string token)
         {
+            string image = Server.MapPath("~/Content/Img/Logo-2.png");
+            var utente = db.Cliente.FirstOrDefault(x => x.Email == recipientEmail);
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
@@ -271,8 +275,40 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Conferma la tua registrazione",
-                Body = "Clicca sul seguente link per confermare la tua registrazione: " + token + "\r\n\r\nPaolo Manca Consulting",
-                IsBodyHtml = true,
+                Body = $@"
+        <section class='max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900'>
+            <header>
+                <span>
+                    <img class='w-auto h-7 sm:h-8' src='{image}' alt='logo'>
+                </span>
+            </header>
+
+            <main class='mt-8'>
+                <p class='text-gray-700 dark:text-gray-200'>Ciao {utente.Nome},</p>
+
+                <p class='mt-2 leading-loose text-gray-600 dark:text-gray-300'>
+                    e grazie per la tua registrazione.
+                </p>
+                
+                <p class='mt-2 leading-loose text-gray-600 dark:text-gray-300'>
+                   Per attivare il profilo clicca sul link che trovi in basso.
+                </p>
+                
+                <a href='{token}' class='px-6 py-2 mt-8 text-sm font-medium tracking-wider text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80'>
+                    Completa registrazione
+                </a>
+
+                <p class='mt-2 text-gray-600 dark:text-gray-300'>
+                    Grazie
+                </p>
+            </main>
+            
+            <footer class='mt-8'>
+                <p class='mt-3 text-gray-500 dark:text-gray-400'>© {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </section>",
+
+            IsBodyHtml = true,
             };
             mailMessage.To.Add(recipientEmail);
 
@@ -282,6 +318,9 @@ namespace DHConsulting.Controllers
         //Metodo per inviare la mail di attivazione account
         private void ActivatedAccount(string recipientEmail)
         {
+            var imagePath = Server.MapPath("~/Content/Img/Logo-2.png");
+            var imageBytes = System.IO.File.ReadAllBytes(imagePath);
+            var base64Image = Convert.ToBase64String(imageBytes);
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
@@ -296,7 +335,22 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Account attivato",
-                Body = "Grazie per aver confermato il tuo account. Ora puoi effettuare i tuoi acquisti.\r\n\r\nPaolo Manca Consulting",
+                Body = $@"
+        <section class='max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900'>
+            <header>
+                <span>
+                    <img class='w-auto h-7 sm:h-8' src='data:image/png;base64,{base64Image}' alt='logo'>
+                </span>
+            </header>
+            <main class='mt-8'>
+                <p>Grazie per aver confermato il tuo account.
+                <p>Da questo momento puoi effettuare i tuoi acquisti.
+            </main>
+            
+            <footer class='mt-8'>
+                <p class='mt-3 text-gray-500 dark:text-gray-400'>© {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </section>",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(recipientEmail);
