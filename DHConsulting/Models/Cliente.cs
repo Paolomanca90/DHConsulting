@@ -30,6 +30,7 @@ namespace DHConsulting.Models
 
         [Column(TypeName = "date")]
         [MinAge(18, ErrorMessage = "Devi avere almeno 18 anni")]
+        [Display(Name = "Data di nascita")]
         public DateTime DataNascita { get; set; }
 
         [Required]
@@ -38,6 +39,7 @@ namespace DHConsulting.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Città")]
         public string Citta { get; set; }
 
         [StringLength(16)]
@@ -45,6 +47,7 @@ namespace DHConsulting.Models
         public string CF { get; set; }
 
         [StringLength(11)]
+        [Display(Name = "P.IVA")]
         public string Piva { get; set; }
 
         [Required]
@@ -63,6 +66,7 @@ namespace DHConsulting.Models
 
         [Required]
         [StringLength(20)]
+        [Display(Name = "Telefono")]
         [MinLength(10, ErrorMessage = "Inserisci un numero di cellulare valido (compreso il prefisso)")]
         public string Phone { get; set; }
 

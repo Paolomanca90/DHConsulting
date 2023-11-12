@@ -19,8 +19,10 @@ namespace DHConsulting.Models
         [Key]
         public int IdOrdine { get; set; }
 
+        [Display(Name = "Cliente")]
         public int IdCliente { get; set; }
 
+        [Display(Name = "Data ordine")]
         public DateTime? DataOrdine { get; set; } = DateTime.Now;
 
         public byte[] InvoicePdf { get; set; }

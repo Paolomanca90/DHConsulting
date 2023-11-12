@@ -72,7 +72,7 @@ else
 
 
 <!-- Snippet -->
-<section class="flex flex-col justify-around antialiased bg-base-100 min-h-screen">
+<section class="flex flex-col justify-around antialiased bg-base-100">
     <div class="max-w-6xl mx-auto p-4 sm:px-6 h-full">
         <!-- Blog post -->
         <article class="max-w-sm mx-auto md:max-w-none grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center">
@@ -107,11 +107,27 @@ else
                 <p class="text-lg text-gray-400 flex-grow">@Model.DescrizioneLunga</p>
                 @if (Model.Costo > 700)
                 {
-                    <h6 class="text-lg lg:text-xl text-end me-14 mt-4"><span class="text-gray-400">da</span> <strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    if (Model.CostoScontato != null)
+                    {
+                        <h6 class="text-md lg:text-lg text-end me-2 mt-4"><del>@Model.Costo.ToString("C")</del></h6>
+                        <h6 class="text-xl lg:text-2xl text-end me-4 lg:me-14 mt-4"><span class="text-gray-400">da</span> <strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-lg lg:text-xl text-end me-4 lg:me-14 mt-4"><span class="text-gray-400">da</span> <strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    }
                 }
                 else
                 {
-                    <h6 class="text-lg lg:text-xl text-end me-14 mt-4"><strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    if (Model.CostoScontato != null)
+                    {
+                        <h6 class="text-md lg:text-lg text-end me-2 mt-4"><del>@Model.Costo.ToString("C")</del></h6>
+                        <h6 class="text-xl lg:text-2xl text-end me-4 lg:me-14 mt-4"><strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-lg lg:text-xl text-end me-4 lg:me-14 mt-4"><strong>@Model.Costo.ToString("C")</strong> <span class="text-gray-400">i.i.</span></h6>
+                    }
                 }
                 <footer class="mt-4">
                     <div class="font-medium mb-3">Include:</div>
@@ -157,14 +173,14 @@ else
                     using (Html.BeginForm("AddProdotto", "Home", FormMethod.Post, new { @class = "flex w-full p-3 rounded-md border mt-7 items-center tooltip" }))
                     {
                         @Html.AntiForgeryToken()
-                        <div class="w-1/3">
+                        <div class="w-1/2 lg:w-1/3">
                             @Html.Label("Quantità", new { @class = "text-lg font-semibold me-4" })
                             @Html.DropDownList("Quantita", new SelectList(pz), new { id = "Quantita", @class = "rounded-md border-2" })
                         </div>
                         if (cliente.CF == null && cliente.DataNascita == new DateTime(1900, 1, 1))
                         {
-                            <p class="w-2/3">
-                                <input type="submit" value="Aggiungi al carrello" class="btn w-full bg-slate-300 text-black relative" disabled="disabled" />
+                            <p class="w-1/2 lg:w-2/3">
+                                <input type="submit" value="Aggiungi al carrello" class="text-xs md:text-md btn w-full bg-slate-300 text-black relative" disabled="disabled" />
                                 <span class="tooltip-text bg-slate-500 text-white text-xs p-2 rounded-lg absolute -ms-[25%] -mt-16 opacity-0">
                                     Completa la registrazione con tutti i campi richiesti
                                 </span>
@@ -172,8 +188,8 @@ else
                         }
                         else
                         {
-                            <p class="w-2/3">
-                                <input type="submit" value="Aggiungi al carrello" class="btn w-full bg-slate-300 text-black hover:bg-slate-500 hover:text-white" />
+                            <p class="w-1/2 lg:w-2/3">
+                                <input type="submit" value="Aggiungi al carrello" class="text-xs md:text-md btn w-full bg-slate-300 text-black hover:bg-slate-500 hover:text-white" />
                             </p>
                         }
                     }
@@ -217,7 +233,7 @@ else
         else
         {
             <p class="flex justify-center my-12">
-                <a href="~/Cart/Payment" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
+                <a href="~/Payment/Cart" class="btn border border-slate-200 px-12 text-lg">PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i></a>
             </p>
         }
     }
