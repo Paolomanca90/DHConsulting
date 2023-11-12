@@ -16,6 +16,7 @@ using System.Web.Mvc;
 
 namespace DHConsulting.Controllers
 {
+    [Authorize(Roles = "User")]
     public class PaymentController : Controller
     {
         private ModelDb db = new ModelDb();

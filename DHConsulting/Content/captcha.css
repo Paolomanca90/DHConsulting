@@ -23,8 +23,10 @@
         align-self: center !important;
     }
 
-    .spinner {
-        margin: 2em .5em .5em .5em !important;
+
+    input[type="checkbox"] + .checkmark{
+        width: 1em !important;
+        height: 1em !important;
     }
 }
 
@@ -140,11 +142,11 @@ input[type="checkbox"] {
 }
 
 .logo {
-    display: flex;
+    /*display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;*/
     height: 100%;
-    align-self: flex-end;
+/*    align-self: flex-end;*/
     margin: 0.5em 1em;
 }
 

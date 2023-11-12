@@ -13,10 +13,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DHConsulting.Controllers
 {
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         private ModelDb db = new ModelDb();
 
+        [AllowAnonymous]
         //View principale con la lista dei prodotti
         public ActionResult Index()
         {
@@ -24,6 +26,7 @@ namespace DHConsulting.Controllers
             return View(db.Prodotto.ToList());
         }
 
+        [AllowAnonymous]
         //View per la sezione about me
         public ActionResult About()
         {

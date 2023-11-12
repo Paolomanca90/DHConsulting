@@ -28,7 +28,7 @@
                     <div class="w-1/3 flex items-center justify-center border-e-2">
                         <div class="flex flex-col items-center justify-center">
                             <div>
-                                <div class="text-3xl font-bold">@somma.ToString("C")</div>
+                                <div class="text-lg lg:text-3xl font-bold">@somma.ToString("C")</div>
                             </div>
                             <div class="text-sm text-gray-500">Totale</div>
                         </div>
@@ -37,7 +37,7 @@
                     <div class="w-1/3 flex items-center justify-center border-e-2">
                         <div class="flex flex-col items-center justify-center">
                             <div>
-                                <div class="text-3xl font-bold">@DateTime.Now.Year</div>
+                                <div class="text-lg lg:text-3xl font-bold">@DateTime.Now.Year</div>
                             </div>
                             <div class="text-sm text-gray-500">Anno</div>
                         </div>
@@ -46,7 +46,7 @@
                     <div class="w-1/3 items-center justify-center flex">
                         <div class="flex flex-col items-center justify-center">
                             <div>
-                                <div class="text-3xl font-bold">@media.ToString("C")</div>
+                                <div class="text-lg lg:text-3xl font-bold">@media.ToString("C")</div>
                             </div>
                             <div class="text-sm text-gray-500">Valore Medio</div>
                         </div>
@@ -89,16 +89,16 @@
     </div>
 </section>
 <section class="my-12 px-4 sm:px-6">
-    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200">
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5">
         <header class="px-5 py-4 border-b border-gray-100">
-            <h2 class="font-semibold">Riepilogo ordini</h2>
+            <h2 class="font-semibold">Riepilogo ordini totali</h2>
         </header>
         <div class="p-3">
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
                     <thead class="text-xs font-semibold uppercase">
                         <tr>
-                            <th class="p-2 whitespace-nowrap">
+                            <th class="p-2 whitespace-nowrap hidden lg:block">
                                 <div class="font-semibold text-left"></div>
                             </th>
                             <th class="p-2 whitespace-nowrap">
@@ -115,32 +115,266 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm divide-y divide-gray-100">
-                        @foreach (var item in Model)
+                    <tbody class="text-xs lg:text-sm divide-y divide-gray-100">
+                        @if (Model.Any() && Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="p-2 whitespace-nowrap hidden lg:block">
+                                        <div><i class="fa-solid fa-clipboard-list text-2xl"></i></div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="font-medium">@item.IdOrdine</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">@item.Cliente.Nome @item.Cliente.Cognome</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">@string.Format("{0:d}", item.DataOrdine)</div>
+                                    </td>
+                                    @{
+                                        decimal tot = 0;
+                                        foreach (var prod in item.Dettaglio)
+                                        {
+                                            tot += prod.Quantita * prod.Prodotto.Costo;
+                                        }
+                                    }
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left font-medium text-green-500">@tot.ToString("C")</div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div><i class="fa-solid fa-clipboard-list text-2xl"></i></div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="font-medium">@item.IdOrdine</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">@item.Cliente.Nome @item.Cliente.Cognome</div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">@string.Format("{0:d}",item.DataOrdine)</div>
-                                </td>
-                                @{
-                                    decimal tot = 0;
-                                    foreach (var prod in item.Dettaglio)
+                                <td class="text-center italic uppercase py-2" colspan="5">non ci sono ordini</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow">
+        <input type="radio" name="accordion" />
+        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+            <h2 class="font-semibold">Riepilogo ordini basic</h2>
+        </header>
+        <div class="p-3 collapse-content">
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="text-xs font-semibold uppercase">
+                        <tr>
+                            <th class="p-2 whitespace-nowrap hidden lg:block">
+                                <div class="font-semibold text-left"></div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Id ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Cliente</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Data ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Totale</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs lg:text-sm divide-y divide-gray-100">
+                        @if (basic.Count() > 0 && basic != null)
+                        {
+                            foreach (var item in basic)
+                            {
+                                foreach (var i in Model)
+                                {
+                                    if (item.IdOrdine == i.IdOrdine)
                                     {
-                                        tot += prod.Quantita * prod.Prodotto.Costo;
+                                        <tr>
+                                            <td class="p-2 whitespace-nowrap hidden lg:block">
+                                                <div><i class="fa-solid fa-clipboard-list text-2xl"></i></div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="font-medium">@item.IdOrdine</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@i.Cliente.Nome @i.Cliente.Cognome</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@string.Format("{0:d}", i.DataOrdine)</div>
+                                            </td>
+                                            @{
+                                                decimal tot = 0;
+                                                foreach (var prod in i.Dettaglio)
+                                                {
+                                                    tot += prod.Quantita * prod.Prodotto.Costo;
+                                                }
+                                            }
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left font-medium text-green-500">@tot.ToString("C")</div>
+                                            </td>
+                                        </tr>
                                     }
                                 }
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500">@tot.ToString("C")</div>
-                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-center italic uppercase py-2" colspan="5">non ci sono ordini</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow">
+        <input type="radio" name="accordion" />
+        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+            <h2 class="font-semibold">Riepilogo ordini plus</h2>
+        </header>
+        <div class="p-3 collapse-content">
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="text-xs font-semibold uppercase">
+                        <tr>
+                            <th class="p-2 whitespace-nowrap hidden lg:block">
+                                <div class="font-semibold text-left"></div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Id ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Cliente</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Data ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Totale</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs lg:text-sm divide-y divide-gray-100">
+                        @if (plus.Count() > 0 && plus != null)
+                        {
+                            foreach (var item in plus)
+                            {
+                                foreach (var i in Model)
+                                {
+                                    if (item.IdOrdine == i.IdOrdine)
+                                    {
+                                        <tr>
+                                            <td class="p-2 whitespace-nowrap hidden lg:block">
+                                                <div><i class="fa-solid fa-clipboard-list text-2xl"></i></div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="font-medium">@item.IdOrdine</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@i.Cliente.Nome @i.Cliente.Cognome</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@string.Format("{0:d}", i.DataOrdine)</div>
+                                            </td>
+                                            @{
+                                                decimal tot = 0;
+                                                foreach (var prod in i.Dettaglio)
+                                                {
+                                                    tot += prod.Quantita * prod.Prodotto.Costo;
+                                                }
+                                            }
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left font-medium text-green-500">@tot.ToString("C")</div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-center italic uppercase py-2" colspan="5">non ci sono ordini</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 collapse collapse-arrow">
+        <input type="radio" name="accordion"/>
+        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+            <h2 class="font-semibold">Riepilogo ordini pro</h2>
+        </header>
+        <div class="p-3 collapse-content">
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="text-xs font-semibold uppercase">
+                        <tr>
+                            <th class="p-2 whitespace-nowrap hidden lg:block">
+                                <div class="font-semibold text-left"></div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Id ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Cliente</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Data ordine</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">Totale</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs lg:text-sm divide-y divide-gray-100">
+                        @if (pro.Count() > 0 && pro != null)
+                        {
+                            foreach (var item in pro)
+                            {
+                                foreach (var i in Model)
+                                {
+                                    if (item.IdOrdine == i.IdOrdine)
+                                    {
+                                        <tr>
+                                            <td class="p-2 whitespace-nowrap hidden lg:block">
+                                                <div><i class="fa-solid fa-clipboard-list text-2xl"></i></div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="font-medium">@item.IdOrdine</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@i.Cliente.Nome @i.Cliente.Cognome</div>
+                                            </td>
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left">@string.Format("{0:d}", i.DataOrdine)</div>
+                                            </td>
+                                            @{
+                                                decimal tot = 0;
+                                                foreach (var prod in i.Dettaglio)
+                                                {
+                                                    tot += prod.Quantita * prod.Prodotto.Costo;
+                                                }
+                                            }
+                                            <td class="p-2 whitespace-nowrap">
+                                                <div class="text-left font-medium text-green-500">@tot.ToString("C")</div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-center italic uppercase py-2" colspan="5">non ci sono ordini</td>
                             </tr>
                         }
                     </tbody>
@@ -158,52 +392,57 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/1.0.0/chartjs-adapter-moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/it.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.5.2/cdn.js'></script>
     <script id="rendered-js">
-        // Helper function to display thousands in K format
-        const formatThousands = value => Intl.NumberFormat('eu-IT', {
-            maximumSignificantDigits: 3,
-            notation: 'compact'
-        }).
-            format(value);
-        // Define Chart.js default settings
-        Chart.defaults.font.family = '"Inter", sans-serif';
-        Chart.defaults.font.weight = '500';
-        Chart.defaults.color = 'rgb(148, 163, 184)';
-        Chart.defaults.scale.grid.color = 'rgb(241, 245, 249)';
-        Chart.defaults.plugins.tooltip.titleColor = 'rgb(30, 41, 59)';
-        Chart.defaults.plugins.tooltip.bodyColor = 'rgb(30, 41, 59)';
-        Chart.defaults.plugins.tooltip.backgroundColor = '#FFF';
-        Chart.defaults.plugins.tooltip.borderWidth = 1;
-        Chart.defaults.plugins.tooltip.borderColor = 'rgb(226, 232, 240)';
-        Chart.defaults.plugins.tooltip.displayColors = false;
-        Chart.defaults.plugins.tooltip.mode = 'nearest';
-        Chart.defaults.plugins.tooltip.intersect = false;
-        Chart.defaults.plugins.tooltip.position = 'nearest';
-        Chart.defaults.plugins.tooltip.caretSize = 0;
-        Chart.defaults.plugins.tooltip.caretPadding = 20;
-        Chart.defaults.plugins.tooltip.cornerRadius = 4;
-        Chart.defaults.plugins.tooltip.padding = 8;
-        // A chart built with Chart.js 3
-        // https://www.chartjs.org/
         const ctx = document.getElementById('analytics-card-01');
+        const chartData = @Html.Raw(Json.Encode(Model.Select(item => new { DataOrdine = item.DataOrdine, Totale = item.Dettaglio.Sum(prod => prod.Quantita * prod.Prodotto.Costo) })));
+
+        // Estrai le etichette e i dati dalla risposta del server
+        var allDates = [];
+        var values = [];
+
+        // Costruisci un set di tutte le date presenti nei dati del grafico
+        chartData.forEach(item => {
+            var formattedDate = moment(item.DataOrdine).format('MMM YYYY');
+            if (!allDates.includes(formattedDate)) {
+                allDates.push(formattedDate);
+            }
+        });
+
+        // Aggiungi tutti i mesi dell'anno se non presenti
+        for (let i = 0; i < 12; i++) {
+            var month = moment().month(i).format('MMM');
+            var year = moment().year();
+            var formattedDate = `${month} ${year}`;
+
+            if (!allDates.includes(formattedDate)) {
+                allDates.push(formattedDate);
+            }
+        }
+
+        // Ordina le date per garantire l'ordine corretto
+        allDates.sort((a, b) => moment(a, 'MMM YYYY') - moment(b, 'MMM YYYY'));
+
+        // Popola l'array dei valori con i dati corrispondenti alle etichette
+        allDates.forEach(date => {
+            var dataItem = chartData.find(item => moment(item.DataOrdine).format('MMM YYYY') === date);
+            if (dataItem) {
+                values.push(dataItem.Totale);
+            } else {
+                values.push(0);
+            }
+        });
+
+        // A chart built with Chart.js 3
         const chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [
-                    '01-01-2023', '02-01-2023',
-                    '03-01-2023', '04-01-2023', '05-01-2023',
-                    '06-01-2023', '07-01-2023', '08-01-2023',
-                    '09-01-2023', '10-01-2023', '11-01-2023',
-                ],
+                labels: allDates,
                 datasets: [
-                    // Indigo line
                     {
-                        label: 'Current',
-                        data: [
-                            5000, 8700, 7500, 12000, 11000, 9500, 10500,
-                            10000, 15000, 9000, 10000
-                        ],
+                        label: 'Totale Ordini',
+                        data: values,
                         fill: true,
                         backgroundColor: 'rgba(59, 130, 246, 0.08)',
                         borderColor: 'rgb(99, 102, 241)',
@@ -212,24 +451,7 @@
                         pointRadius: 0,
                         pointHoverRadius: 3,
                         pointBackgroundColor: 'rgb(99, 102, 241)'
-                    },
-                    // Gray line
-                    //{
-                    //    label: 'Previous',
-                    //    data: [
-                    //        8000, 5000, 6500, 5000, 6500, 12000, 8000,
-                    //        9000, 8000, 8000, 12500, 10000, 10000, 12000,
-                    //        11000, 16000, 12000, 10000, 10000, 14000, 9000,
-                    //        10000, 15000, 12500, 14000, 11000
-                    //    ],
-                    //    borderColor: 'rgb(203, 213, 225)',
-                    //    fill: false,
-                    //    borderWidth: 2,
-                    //    tension: 0,
-                    //    pointRadius: 0,
-                    //    pointHoverRadius: 3,
-                    //    pointBackgroundColor: 'rgb(203, 213, 225)'
-                    //}
+                    }
                 ]
             },
             options: {
@@ -243,16 +465,19 @@
                             drawBorder: false
                         },
                         ticks: {
-                            callback: value => formatThousands(value)
+                            callback: value => Intl.NumberFormat('eu-IT', {
+                                maximumSignificantDigits: 3,
+                                notation: 'compact'
+                            }).format(value)
                         }
                     },
                     x: {
                         type: 'time',
                         time: {
-                            parser: 'MM-DD-YYYY',
+                            parser: 'MMM YYYY',
                             unit: 'month',
                             displayFormats: {
-                                month: 'MMM YY'
+                                'month': 'MMM YYYY'
                             }
                         },
                         grid: {
@@ -271,8 +496,11 @@
                     },
                     tooltip: {
                         callbacks: {
-                            title: () => false, // Disable tooltip title
-                            label: context => formatThousands(context.parsed.y)
+                            title: () => false,
+                            label: context => Intl.NumberFormat('eu-IT', {
+                                maximumSignificantDigits: 3,
+                                notation: 'compact'
+                            }).format(context.parsed.y)
                         }
                     }
                 },
@@ -283,7 +511,6 @@
                 maintainAspectRatio: false
             }
         });
-            //# sourceURL=pen.js
     </script>
-
 }
+

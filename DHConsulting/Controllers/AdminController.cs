@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace DHConsulting.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ModelDb db = new ModelDb();

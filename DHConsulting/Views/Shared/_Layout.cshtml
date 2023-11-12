@@ -8,6 +8,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="~/Content/style.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,13 +25,26 @@
 
     <div class="navbar bg-base-100 sticky top-0 z-10 border-b border-b-slate-200 shadow-md">
         <div class="navbar-start">
-            <a class="normal-case ms-2" href="~/Home/Index">
-                <div class="flex flex-row items-center">
-                    <img src="~/Content/Img/Logo-2.png"
-                         alt="Logo-Paolo-Manca"
-                         width="150" />
-                </div>
-            </a>
+            @if (User.IsInRole("User") || User.Identity.Name == "")
+            {
+                <a class="normal-case ms-2" href="~/Home/Index">
+                    <div class="flex flex-row items-center">
+                        <img src="~/Content/Img/Logo-2.png"
+                             alt="Logo-Paolo-Manca"
+                             width="150" />
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a class="normal-case ms-2" href="~/Admin/Index">
+                    <div class="flex flex-row items-center">
+                        <img src="~/Content/Img/Logo-2.png"
+                             alt="Logo-Paolo-Manca"
+                             width="150" />
+                    </div>
+                </a>
+            }
         </div>
 
         <div class="navbar-end flex flex-row items-center">
@@ -45,6 +59,7 @@
                     {
                         <li><a href="~/Admin/Index"><i class="fa-solid fa-screwdriver-wrench py-2.5 px-1"></i></a></li>
                         <li class="ms-2"><a href="~/Admin/AddAdmin"><i class="fa-solid fa-unlock py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="~/Admin/Dashboard"><i class="fa-solid fa-chart-line py-2.5 px-1"></i></a></li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -175,20 +190,44 @@
                     </svg>
                 </label>
                 <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>
-                        <a>Accesso</a>
-                        <ul class="p-2">
-                            <li>@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.IsInRole("User") || User.Identity.Name == "")
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a>Accesso</a>
+                            <ul class="p-2">
+                                <li>@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("User"))
+                        {
+                            <li>@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        <li>
+                            <a>Profilo</a>
+                            <ul class="p-2">
+                                @if (User.IsInRole("User"))
+                                {
+                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                                }
+                                <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </div>
 

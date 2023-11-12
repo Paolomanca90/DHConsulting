@@ -1,7 +1,7 @@
 ﻿@model DHConsulting.Models.Cliente
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Registrazione";
 }
 
 @section style{
@@ -16,7 +16,7 @@
     <div class="flex">
 
         <!-- Content -->
-        <div class="w-1/2">
+        <div class="w-full lg:w-1/2">
 
             @if (ViewBag.User != null)
             {
@@ -167,19 +167,23 @@
 
 
                         <div class="captcha">
-                            <div class="spinner">
-                                <label>
-                                    <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
-                                    <span class="checkmark"><span>&nbsp;</span></span>
-                                </label>
+                            <div class="flex items-center">
+                                <div class="spinner my-2 mx-1 md:my-4 md:mx-2">
+                                    <label>
+                                        <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
+                                        <span class="checkmark"><span>&nbsp;</span></span>
+                                    </label>
+                                </div>
+                                <div class="text-sm lg:text-md font-bold">
+                                    Non sono un robot
+                                </div>
                             </div>
-                            <div class="text-md font-bold">
-                                Non sono un robot
-                            </div>
-                            <div class="logo">
+                            <div class="logo flex items-center md:flex-col">
                                 <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/" />
-                                <p>reCAPTCHA</p>
-                                <small>Privacy - Terms</small>
+                                <div class="ms-2 md:ms-0">
+                                    <p>reCAPTCHA</p>
+                                    <small>Privacy - Terms</small>
+                                </div>
                             </div>
                         </div>
 
@@ -213,7 +217,7 @@
         </div>
 
         <!-- Image -->
-        <div class="relative w-1/2" style="background: url(https://images.unsplash.com/photo-1667239711059-9e5d970eb007?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ2fHxsb2dpbnxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
+        <div class="hidden lg:block relative w-1/2" style="background: url(https://images.unsplash.com/photo-1667239711059-9e5d970eb007?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ2fHxsb2dpbnxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
             <img class="absolute" style="top:30%; left: -8%" src="https://preview.cruip.com/mosaic/images/auth-decoration.png" width="150" height="180" alt="Authentication decoration">
         </div>
 
