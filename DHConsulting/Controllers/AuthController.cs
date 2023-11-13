@@ -16,8 +16,7 @@ using GoogleAuthentication.Services;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PayPal.Api;
-using Antlr.Runtime.Misc;
-using static System.Collections.Specialized.BitVector32;
+using System.Net.Mime;
 
 namespace DHConsulting.Controllers
 {
@@ -259,7 +258,6 @@ namespace DHConsulting.Controllers
         // Metodo per inviare l'email di conferma
         private void SendConfirmationEmail(string recipientEmail, string token)
         {
-            string image = Server.MapPath("~/Content/Img/Logo-2.png");
             var utente = db.Cliente.FirstOrDefault(x => x.Email == recipientEmail);
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
@@ -275,52 +273,49 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Conferma la tua registrazione",
-                Body = $@"
-        <section class='max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900'>
-            <header>
-                <span>
-                    <img class='w-auto h-7 sm:h-8' src='{image}' alt='logo'>
-                </span>
+                IsBodyHtml = true,
+            };
+            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
+            Attachment inlineLogo = new Attachment(logoPath);
+            inlineLogo.ContentDisposition.Inline = true;
+            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+            inlineLogo.ContentId = "logo";
+            mailMessage.Attachments.Add(inlineLogo);
+
+            mailMessage.Body = $@"
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
+            <header style='text-align: center;>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
             </header>
 
-            <main class='mt-8'>
-                <p class='text-gray-700 dark:text-gray-200'>Ciao {utente.Nome},</p>
+            <main style='margin-top: 20px;'>
+                <p style='color: #333333; font-size: 16px;'>Ciao {utente.Nome},</p>
 
-                <p class='mt-2 leading-loose text-gray-600 dark:text-gray-300'>
-                    e grazie per la tua registrazione.
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Grazie per la tua registrazione. Per attivare il profilo clicca sul link sottostante.
                 </p>
-                
-                <p class='mt-2 leading-loose text-gray-600 dark:text-gray-300'>
-                   Per attivare il profilo clicca sul link che trovi in basso.
-                </p>
-                
-                <a href='{token}' class='px-6 py-2 mt-8 text-sm font-medium tracking-wider text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80'>
-                    Completa registrazione
+
+                <a href='{token}' style='display: inline-block; margin-top: 20px; padding: 10px 20px; 
+                   background-color: #3498db; color: #ffffff; text-decoration: none; font-size: 14px; 
+                   border-radius: 5px;'>
+                   Completa registrazione
                 </a>
 
-                <p class='mt-2 text-gray-600 dark:text-gray-300'>
-                    Grazie
-                </p>
+                <p style='margin-top: 20px; color: #666666; font-size: 14px;'>Grazie</p>
             </main>
             
-            <footer class='mt-8'>
-                <p class='mt-3 text-gray-500 dark:text-gray-400'>© {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            <footer style='margin-top: 20px; text-align: center;'>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
             </footer>
-        </section>",
+        </div>";
 
-            IsBodyHtml = true,
-            };
             mailMessage.To.Add(recipientEmail);
-
             smtpClient.Send(mailMessage);
         }
 
         //Metodo per inviare la mail di attivazione account
         private void ActivatedAccount(string recipientEmail)
         {
-            var imagePath = Server.MapPath("~/Content/Img/Logo-2.png");
-            var imageBytes = System.IO.File.ReadAllBytes(imagePath);
-            var base64Image = Convert.ToBase64String(imageBytes);
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
@@ -335,24 +330,34 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Account attivato",
-                Body = $@"
-        <section class='max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900'>
-            <header>
-                <span>
-                    <img class='w-auto h-7 sm:h-8' src='data:image/png;base64,{base64Image}' alt='logo'>
-                </span>
-            </header>
-            <main class='mt-8'>
-                <p>Grazie per aver confermato il tuo account.
-                <p>Da questo momento puoi effettuare i tuoi acquisti.
-            </main>
-            
-            <footer class='mt-8'>
-                <p class='mt-3 text-gray-500 dark:text-gray-400'>© {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
-            </footer>
-        </section>",
                 IsBodyHtml = true,
             };
+            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
+            Attachment inlineLogo = new Attachment(logoPath);
+            inlineLogo.ContentDisposition.Inline = true;
+            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+            inlineLogo.ContentId = "logo";
+            mailMessage.Attachments.Add(inlineLogo);
+
+            mailMessage.Body = $@"
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
+            <header style='text-align: center;>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            </header>
+
+            <main style='margin-top: 20px;'>
+                <p style='color: #333333; font-size: 16px;'>Grazie per aver attivato il tuo account.</p>
+
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Da questo momento puoi effettuate i tuoi acquisti.
+                </p>
+            </main>
+            
+            <footer style='margin-top: 20px; text-align: center;'>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </div>";
+
             mailMessage.To.Add(recipientEmail);
 
             smtpClient.Send(mailMessage);

@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
+using System.Net.Mime;
 
 namespace DHConsulting.Controllers
 {
@@ -243,7 +244,7 @@ namespace DHConsulting.Controllers
         }
 
         //Metodo per creare la mail di richiesta per il pacchetto professional
-        public void MailProPack(string description)
+        private void MailProPack(string description)
         {
             var utente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
@@ -278,7 +279,7 @@ namespace DHConsulting.Controllers
                                     Questa email è stata inviata da " + utente.Nome + " " + utente.Cognome + @"
                                 </p>
                                 <p class=""mt-1 leading-loose text-gray-600 dark:text-gray-300"">
-                                    Email: <a href="" + utente.Email + "" class=""text-blue-600 hover:underline dark:text-blue-400"" target=""_blank"">" + utente.Email + @"</a>.
+                                    Email: " + utente.Email + @"
                                 </p>
                                 <p class=""mt-1 leading-loose text-gray-600 dark:text-gray-300"">
                                     Telefono: " + utente.Phone + @"
@@ -293,15 +294,73 @@ namespace DHConsulting.Controllers
             smtpClient.Send(mailMessage);
         }
 
+        //Metodo per inviare istruzioni al cliente via mail
+        private void CustomerMail(string recipientEmail)
+        {
+            string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
+            string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage()
+            {
+                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                Subject = "Richiesta ricevuta",
+                IsBodyHtml = true,
+            };
+            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
+            Attachment inlineLogo = new Attachment(logoPath);
+            inlineLogo.ContentDisposition.Inline = true;
+            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+            inlineLogo.ContentId = "logo";
+            mailMessage.Attachments.Add(inlineLogo);
+
+            mailMessage.Body = $@"
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
+            <header style='text-align: center;>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            </header>
+
+            <main style='margin-top: 20px;'>
+                <p style='color: #333333; font-size: 16px;'>La tua richiesta è stata inviata.</p>
+
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Nelle prossime 48h analizzerò i dettagli del tuo progetto.
+                </p>
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Una volta terminata l'analisi verrai ricontattato per fissare un appuntamento e approfondire ulteriori dettagli
+                </p>
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Grazie e a presto.
+                </p>
+            </main>
+            
+            <footer style='margin-top: 20px; text-align: center;'>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </div>";
+
+            mailMessage.To.Add(recipientEmail);
+
+            smtpClient.Send(mailMessage);
+        }
+
         //Metodo per inviare la mail di richiesta del pro pack
         [HttpPost]
         public ActionResult ProfessionalPack(string description)
         {
+            var utente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
             int id = Convert.ToInt16(TempData["IdProdotto"]);
             if(description != "")
             {
                 MailProPack(description);
-                TempData["Successo"] = "Richiesta inviata con successo. Entro 48h verrai ricontattato per approfondimenti sul tuo progetto";
+                CustomerMail(utente.Email);
+                TempData["Successo"] = "Richiesta inviata con successo. Controlla la tua mail";
                 return RedirectToAction("Details", "Home", new { id = id });
             }
             TempData["Errore"] = "Il campo descrizione non può essere vuoto";

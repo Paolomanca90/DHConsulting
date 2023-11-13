@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mime;
 
 namespace DHConsulting.Controllers
 {
@@ -93,6 +94,7 @@ namespace DHConsulting.Controllers
                     //salvo il pdf con i dettagli dell'ordine appena creato
                     o.InvoicePdf = GenerateOrderPdf(o.IdOrdine);
                     RecapEmail(c.Email, o.InvoicePdf);
+                    MailConsultingPack();
                     db.SaveChanges();
                     //elimino il cookie e quindi il carrello
                     DeleteCart();
@@ -367,6 +369,7 @@ namespace DHConsulting.Controllers
             return Content("Il PDF non è disponibile.");
         }
 
+        //Metodo per inviare la mail di recap al cliente
         private void RecapEmail(string recipientEmail, byte[] pdf)
         {
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
@@ -383,11 +386,83 @@ namespace DHConsulting.Controllers
             {
                 From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
                 Subject = "Dettaglio dell'aquisto",
-                Body = "Grazie per aver acquistato il tuo pacchetto.\r\nIn allegato a questa mail trovi la fattura relativa al tuo ordine.\r\n\r\nPaolo Manca Consulting",
                 IsBodyHtml = true,
             };
+            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
+            Attachment inlineLogo = new Attachment(logoPath);
+            inlineLogo.ContentDisposition.Inline = true;
+            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+            inlineLogo.ContentId = "logo";
+            mailMessage.Attachments.Add(inlineLogo);
+
+            mailMessage.Body = $@"
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
+            <header style='text-align: center;>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            </header>
+
+            <main style='margin-top: 20px;'>
+                <p style='color: #333333; font-size: 16px;'>Grazie per aver acquistato il tuo pacchetto.</p>
+
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Entro 48h verrai contattato per fissare il tuo appuntamento di consulenza.
+                </p>
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    In allegato a questa mail trovi anche la fattura relativa al tuo ordine
+                </p>
+            </main>
+            
+            <footer style='margin-top: 20px; text-align: center;'>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </div>";
+
             mailMessage.To.Add(recipientEmail);
             mailMessage.Attachments.Add(new Attachment(new MemoryStream(pdf), "Ordine.pdf"));
+
+            smtpClient.Send(mailMessage);
+        }
+
+        //Metodo per inviare a me una mail di avvenuto acquisto
+        private void MailConsultingPack()
+        {
+            var utente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
+            string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
+            string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage()
+            {
+                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                Subject = "Pacchetto consulenza acquistato",
+                Body = @"
+                        <section class=""max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900"">
+                            <main class=""mt-8"">
+                                <h2 class=""text-gray-700 dark:text-gray-200"">Pacchetto consulenza</h2>
+
+                                <p class=""text-gray-500 dark:text-gray-400"">
+                                    Acquistato da " + utente.Nome + " " + utente.Cognome + @"
+                                </p>
+                                <p class=""mt-1 leading-loose text-gray-600 dark:text-gray-300"">
+                                    Email: " + utente.Email + @"
+                                </p>
+                                <p class=""mt-1 leading-loose text-gray-600 dark:text-gray-300"">
+                                    Telefono: " + utente.Phone + @"
+                                </p>
+                            </main>
+                            <footer class=""mt-8"">
+                                <p class=""mt-3 text-gray-500 dark:text-gray-400"">" + DateTime.Now + @"</p>
+                            </footer>
+                        </section>",
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add(senderEmail);
 
             smtpClient.Send(mailMessage);
         }
