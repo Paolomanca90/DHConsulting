@@ -19,6 +19,15 @@ namespace DHConsulting.Controllers
     {
         private ModelDb db = new ModelDb();
 
+        [HttpPost]
+        public ActionResult SetLanguage(string culture)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         [AllowAnonymous]
         //View principale con la lista dei prodotti
         public ActionResult Index()
