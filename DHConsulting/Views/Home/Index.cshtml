@@ -11,7 +11,7 @@
 }
 <div class="relative font-inter antialiased">
 
-    <main class="relative min-h-screen flex flex-col justify-center bg-base-100 overflow-hidden">
+    <main class="relative min-h-screen flex flex-col justify-center bg-base-200 overflow-hidden">
         <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
 
             <div class="text-center">
@@ -34,18 +34,18 @@
                 @*bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60*@
 
                 <div class="relative">
-                    <h1 class="inline-flex font-extrabold text-5xl md:text-6xl pb-4">Benvenuto nella tua nuova casa digitale</h1>
+                    <h1 class="inline-flex font-extrabold text-5xl md:text-6xl pb-4 titolo">Benvenuto nella tua nuova casa digitale</h1>
                     <div class="max-w-3xl mx-auto mb-8">
                         <p class="text-lg text-slate-400">Quello di cui hai bisogno per trasformare le tue idee in realtà tech.</p>
                     </div>
                     <div class="inline-flex justify-center space-x-4 pt-14">
                         <div>
-                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group" href="~/Home/About">
+                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group" href="~/Home/About">
                                 Chi sono
                             </a>
                         </div>
                         <div>
-                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-slate-700 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="#service">
+                            <a class="inline-flex justify-center whitespace-nowrap rounded-lg bg-slate-700 px-3.5 py-2.5 text-sm font-medium text-white hover:bg-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="#service">
                                 I miei servizi
                             </a>
                         </div>
@@ -68,7 +68,7 @@
                      class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                     <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
                         <li>
-                            <img src="~/Content/Img/angular.svg" alt="angular" />
+                            <img src="~/Content/Img/angular.svg" alt="angular"/>
                         </li>
                         <li>
                             <img src="~/Content/Img/js.svg" alt="js" />
@@ -476,8 +476,8 @@
                                                     </div>
                                                     <h1 class="text-5xl font-extrabold mb-4">Pacchetto pro</h1>
                                                 }
-                                                <p class="text-slate-500 mb-6">@item.DescrizioneBreve</p>
-                                                <a class="text-md font-medium inline-flex items-center justify-center px-3 py-1.5 mt-5 border border-slate-500 rounded-xl tracking-normal transition hover:text-slate-400 group btn" href="~/Home/Details/@item.IdProdotto">
+                                                <p class="text-slate-400 mb-6">@item.DescrizioneBreve</p>
+                                                <a class="text-md font-medium inline-flex items-center justify-center px-3 py-1.5 mt-5 border border-slate-300 rounded-xl tracking-normal transition hover:border-slate-400 group btn" href="~/Home/Details/@item.IdProdotto">
                                                     Scopri di più <span class="group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1"><i class="fa fa-arrow-right"></i></span>
                                                 </a>
                                             </div>
@@ -577,124 +577,3 @@
         })
     </script>
 }
-
-
-
-@*<div class="max-w-sm mx-auto grid gap-6 lg:grid-cols-3 lg:grid-flow-row-dense items-start lg:max-w-none">
-        @foreach (var item in Model)
-        {
-            if (item.Costo != 299)
-            {
-                <!-- Pricing tab 1 -->
-                <div class="h-full">
-                    <div class="relative flex flex-col h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-900 shadow shadow-slate-950/5">
-                        <div class="mb-5">
-                            @if (item.Costo < 200)
-                            {
-                                <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pacchetto basic</div>
-                                <div class="inline-flex items-baseline mb-2">
-                                    <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
-                                    <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pachetto professional</div>
-                                <div class="inline-flex items-baseline mb-2">
-                                    <span class="text-slate-500 font-medium">da&nbsp;</span>
-                                    <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
-                                    <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
-                                </div>
-                            }
-                            <div class="text-sm text-slate-500 mb-5">@item.DescrizioneBreve</div>
-                            <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="~/Home/Details/@item.IdProdotto">
-                                Scopri di più
-                            </a>
-                        </div>
-                        <div class="text-slate-900 dark:text-slate-200 font-medium mb-3">Include:</div>
-                        <ul class="text-slate-600 dark:text-slate-400 text-sm space-y-3 grow">
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Consulenza one-to-one</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Analisi di fattibilità</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Pdf di riepilogo finale</span>
-                            </li>
-                            @if (item.Costo > 700)
-                            {
-                                <li class="flex items-center">
-                                    <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                    </svg>
-                                    <span>3 revisioni del progetto</span>
-                                </li>
-
-                                <li class="flex items-center">
-                                    <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                    </svg>
-                                    <span>Sito chiavi in mano</span>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <!-- Pricing tab 2 -->
-                <div class="dark h-full">
-                    <div class="relative flex flex-col h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-900 shadow shadow-slate-950/5">
-                        <div class="absolute top-0 right-0 mr-6 -mt-4">
-                            <div class="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-emerald-500 text-white rounded-full shadow-sm shadow-slate-950/5">Più acquistato</div>
-                        </div>
-                        <div class="mb-5">
-                            <div class="text-slate-900 dark:text-slate-200 font-semibold mb-1">Pacchetto plus</div>
-                            <div class="inline-flex items-baseline mb-2">
-                                <span class="text-slate-900 dark:text-slate-200 font-bold text-4xl">@item.Costo.ToString("C")</span>
-                                <span class="text-slate-500 font-medium">&nbsp;iva inlcusa</span>
-                            </div>
-                            <div class="text-sm text-slate-500 mb-5">@item.DescrizioneBreve</div>
-                            <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150" href="~/Home/Details/@item.IdProdotto">
-                                Scropri di più
-                            </a>
-                        </div>
-                        <div class="text-slate-900 dark:text-slate-200 font-medium mb-3">Include:</div>
-                        <ul class="text-slate-600 dark:text-slate-400 text-sm space-y-3 grow">
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Consulenza one-to-one</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Analisi di fattibilità</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
-                                </svg>
-                                <span>Pdf di riepilogo finale</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            }
-
-        }
-
-    </div>*@

@@ -18,8 +18,8 @@
 <section class="flex flex-col lg:flex-row justify-evenly antialiased">
     <div class="max-w-3xl p-4 sm:px-6">
         <!-- Chart widget -->
-        <div class="flex flex-col col-span-full xl:col-span-8 shadow-lg rounded-md border border-gray-200">
-            <header class="px-5 py-4 border-b border-gray-100 flex items-center">
+        <div class="flex flex-col col-span-full xl:col-span-8 shadow-lg rounded-md border border-gray-200 bg-base-100">
+            <header class="px-5 py-4 border-b border-gray-200 flex items-center">
                 <h2 class="font-semibold">Dashboard</h2>
             </header>
             <div class="p-5">
@@ -30,7 +30,7 @@
                             <div>
                                 <div class="text-lg lg:text-3xl font-bold">@somma.ToString("C")</div>
                             </div>
-                            <div class="text-sm text-gray-500">Totale</div>
+                            <div class="text-sm">Totale</div>
                         </div>
                     </div>
                     <!-- Total Pageviews -->
@@ -39,7 +39,7 @@
                             <div>
                                 <div class="text-lg lg:text-3xl font-bold">@DateTime.Now.Year</div>
                             </div>
-                            <div class="text-sm text-gray-500">Anno</div>
+                            <div class="text-sm">Anno</div>
                         </div>
                     </div>
                     <!-- Bounce Rate -->
@@ -48,7 +48,7 @@
                             <div>
                                 <div class="text-lg lg:text-3xl font-bold">@media.ToString("C")</div>
                             </div>
-                            <div class="text-sm text-gray-500">Valore Medio</div>
+                            <div class="text-sm">Valore Medio</div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="p-4 sm:px-6">
         <div>
-            <div class="flex items-center border rounded-md px-4 py-5 shadow-md mb-11">
+            <div class="flex items-center border rounded-md px-4 py-5 shadow-md mb-11 bg-base-100">
                 <img src="https://cdn.pixabay.com/photo/2018/08/18/13/26/interface-3614766_1280.png" alt="info" class="h-20 w-20 rounded-full me-3" />
                 <div>
                     <h3 class="font-bold text-lg">Pacchetto basic</h3>
@@ -69,7 +69,7 @@
                     <p>Totale: @totaleFullBasic.ToString("C")</p>
                 </div>
             </div>
-            <div class="flex items-center border rounded-md px-4 py-5 shadow-md mb-11">
+            <div class="flex items-center border rounded-md px-4 py-5 shadow-md mb-11 bg-base-100">
                 <img src="https://cdn.pixabay.com/photo/2018/08/18/13/26/interface-3614766_1280.png" alt="info" class="h-20 w-20 rounded-full me-3" />
                 <div>
                     <h3 class="font-bold text-lg">Pacchetto plus</h3>
@@ -77,7 +77,7 @@
                     <p>Totale: @totaleFullPlus.ToString("C")</p>
                 </div>
             </div>
-            <div class="flex items-center border rounded-md px-4 py-5 shadow-md">
+            <div class="flex items-center border rounded-md px-4 py-5 shadow-md bg-base-100">
                 <img src="https://cdn.pixabay.com/photo/2018/08/18/13/26/interface-3614766_1280.png" alt="info" class="h-20 w-20 rounded-full me-3" />
                 <div>
                     <h3 class="font-bold text-lg">Pacchetto pro</h3>
@@ -88,9 +88,9 @@
         </div>
     </div>
 </section>
-<section class="my-12 px-4 sm:px-6">
-    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5">
-        <header class="px-5 py-4 border-b border-gray-100">
+<section class="py-12 px-4 sm:px-6">
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 bg-base-100">
+        <header class="px-5 py-4 border-b border-gray-200">
             <h2 class="font-semibold">Riepilogo ordini totali</h2>
         </header>
         <div class="p-3">
@@ -157,9 +157,9 @@
             </div>
         </div>
     </div>
-    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow">
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow bg-base-100">
         <input type="radio" name="accordion" />
-        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+        <header class="px-5 py-4 border-b border-gray-200 collapse-title">
             <h2 class="font-semibold">Riepilogo ordini basic</h2>
         </header>
         <div class="p-3 collapse-content">
@@ -232,9 +232,9 @@
             </div>
         </div>
     </div>
-    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow">
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 mb-5 collapse collapse-arrow bg-base-100">
         <input type="radio" name="accordion" />
-        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+        <header class="px-5 py-4 border-b border-gray-200 collapse-title">
             <h2 class="font-semibold">Riepilogo ordini plus</h2>
         </header>
         <div class="p-3 collapse-content">
@@ -307,9 +307,9 @@
             </div>
         </div>
     </div>
-    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 collapse collapse-arrow">
-        <input type="radio" name="accordion"/>
-        <header class="px-5 py-4 border-b border-gray-100 collapse-title">
+    <div class="w-full max-w-6xl mx-auto shadow-lg rounded-md border border-gray-200 collapse collapse-arrow bg-base-100">
+        <input type="radio" name="accordion" />
+        <header class="px-5 py-4 border-b border-gray-200 collapse-title">
             <h2 class="font-semibold">Riepilogo ordini pro</h2>
         </header>
         <div class="p-3 collapse-content">
@@ -398,11 +398,11 @@
         const ctx = document.getElementById('analytics-card-01');
         const chartData = @Html.Raw(Json.Encode(Model.Select(item => new { DataOrdine = item.DataOrdine, Totale = item.Dettaglio.Sum(prod => prod.Quantita * prod.Prodotto.Costo) })));
 
-        // Estrai le etichette e i dati dalla risposta del server
+        // Prendo le etichette e i dati dalla risposta del server
         var allDates = [];
         var values = [];
 
-        // Costruisci un set di tutte le date presenti nei dati del grafico
+        // Costruisco un set di tutte le date presenti nei dati del grafico
         chartData.forEach(item => {
             var formattedDate = moment(item.DataOrdine).format('MMM YYYY');
             if (!allDates.includes(formattedDate)) {
@@ -410,7 +410,7 @@
             }
         });
 
-        // Aggiungi tutti i mesi dell'anno se non presenti
+        // Aggiungo tutti i mesi dell'anno se non presenti
         for (let i = 0; i < 12; i++) {
             var month = moment().month(i).format('MMM');
             var year = moment().year();
@@ -421,10 +421,10 @@
             }
         }
 
-        // Ordina le date per garantire l'ordine corretto
+        // Ordino le date per garantire l'ordine corretto
         allDates.sort((a, b) => moment(a, 'MMM YYYY') - moment(b, 'MMM YYYY'));
 
-        // Popola l'array dei valori con i dati corrispondenti alle etichette
+        // Popolo l'array dei valori con i dati corrispondenti alle etichette
         allDates.forEach(date => {
             var dataItem = chartData.find(item => moment(item.DataOrdine).format('MMM YYYY') === date);
             if (dataItem) {
@@ -434,7 +434,7 @@
             }
         });
 
-        // A chart built with Chart.js 3
+        // Grafico Chart.js 3
         const chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -450,7 +450,7 @@
                         tension: 0,
                         pointRadius: 0,
                         pointHoverRadius: 3,
-                        pointBackgroundColor: 'rgb(99, 102, 241)'
+                        pointBackgroundColor: 'rgb(99, 102, 241)',
                     }
                 ]
             },
@@ -462,13 +462,15 @@
                     y: {
                         beginAtZero: true,
                         grid: {
-                            drawBorder: false
+                            drawBorder: false,
+                            color: 'rgba(179, 180, 180, 0.3)'
                         },
                         ticks: {
                             callback: value => Intl.NumberFormat('eu-IT', {
                                 maximumSignificantDigits: 3,
                                 notation: 'compact'
-                            }).format(value)
+                            }).format(value),
+                            color: 'darkgrey'
                         }
                     },
                     x: {
@@ -486,7 +488,8 @@
                         },
                         ticks: {
                             autoSkipPadding: 48,
-                            maxRotation: 0
+                            maxRotation: 0,
+                            color: 'darkgrey'
                         }
                     }
                 },
