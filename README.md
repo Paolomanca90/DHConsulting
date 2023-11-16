@@ -4,8 +4,6 @@
     <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="40">
   </a>
 
-  <h3 align="center">PM Consulting</h3>
-
   <p align="center">
     This project represents not only my capstone of the <a href="https://epicode.com/">Epicode</a> course but at the same time the code of my own consultancy website 💻.
     <br />
