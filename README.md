@@ -52,7 +52,7 @@ Completing a Fullstack programming course is certainly an emotion and doing it b
 
 Obviously you can evaluate the code to get an overview of how I approach programming and how I use various frameworks, graphics libraries and external supports to take maximum advantage and obtain the best possible result.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">🔼</a></p>
 
 
 
