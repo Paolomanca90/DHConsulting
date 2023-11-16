@@ -7,7 +7,7 @@
   <h3 align="center">PM Consulting</h3>
 
   <p align="center">
-    This project represents not only my capstone of the Epicode course but at the same time the code of my own consultancy website.
+    This project represents not only my capstone of the <a href="https://epicode.com/">Epicode</a> course but at the same time the code of my own consultancy website 💻.
     <br />
     <a href="https://github.com/Paolomanca90/DHConsulting"><strong>Explore the docs »</strong></a>
     .
@@ -19,7 +19,7 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Contents</summary>
+  <summary>Contents 📑</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -43,7 +43,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## About The Project 💼
 
 <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40" id="about">
 
@@ -55,7 +55,7 @@ Obviously you can evaluate the code to get an overview of how I approach program
 
 
 
-### Built With
+### Built With 🧱
 
 Everything you will see was developed by fully exploiting the power of ASP.NET and its integrations. Below I leave you the complete list:
 
@@ -94,7 +94,7 @@ Also present in this project ChartJs, AlpineJs, AOS.
 
 
 
-### Prerequisites
+### Prerequisites 1️⃣
 
 This is the base you need to use the software.
 * npm
@@ -102,7 +102,7 @@ This is the base you need to use the software.
   npm install npm@latest -g
   ```
 
-### Installation
+### Installation 2️⃣
 
 Testing the project is really simple
 
@@ -130,7 +130,7 @@ You'll find also a copy of my Db in main root if you want to start with some pro
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Usage 3️⃣
 
 The site is divided into 2 sections: one dedicated to admins and one to users with multi-language system (IT-EN).
 First of all you will have to create an admin in your DB. This way you will be able to log in and add the consulting products. At the moment they are divided into price ranges €199, €299, €800; obviously you can create others according to your needs.
