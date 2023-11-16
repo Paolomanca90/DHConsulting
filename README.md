@@ -1,7 +1,7 @@
 
 <div align="center">
   <a href="www.paolomancaconsulting.com">
-    <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="80">
+    <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="60">
   </a>
 
   <h3 align="center">PM Consulting</h3>
@@ -46,18 +46,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40">
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Completing a Fullstack programming course is certainly an emotion and doing it by creating something of your own is even more so. This is why although there are many sites and templates dedicated to professionals, freelancers and consultants online, I decided to get involved and show all the skills acquired, in order to provide future users of the site with all the resources I can put into at their disposal to help them develop their ideas and projects.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Obviously you can evaluate the code to get an overview of how I approach programming and how I use various frameworks, graphics libraries and external supports to take maximum advantage and obtain the best possible result.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
