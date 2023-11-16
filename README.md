@@ -36,6 +36,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -94,7 +95,7 @@ Also present in this project ChartJs, AlpineJs, AOS.
 
 
 
-### Prerequisites 1️⃣
+### Prerequisites 1️⃣ <span id="prerequisites"></span>
 
 This is the base you need to use the software.
 * npm
@@ -102,7 +103,7 @@ This is the base you need to use the software.
   npm install npm@latest -g
   ```
 
-### Installation 2️⃣
+### Installation 2️⃣ <span id="installation"></span>
 
 Testing the project is really simple
 
@@ -130,7 +131,7 @@ You'll find also a copy of my Db in main root if you want to start with some pro
 
 
 <!-- USAGE EXAMPLES -->
-## Usage 3️⃣
+## Usage 3️⃣ <span id="usage"></span>
 
 The site is divided into 2 sections: one dedicated to admins and one to users with multi-language system (IT-EN).
 First of all you will have to create an admin in your DB. This way you will be able to log in and add the consulting products. At the moment they are divided into price ranges €199, €299, €800; obviously you can create others according to your needs.
