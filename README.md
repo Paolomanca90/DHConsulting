@@ -9,6 +9,7 @@
   <p align="center">
     This project represents not only my capstone of the <a href="https://epicode.com/">Epicode</a> course but at the same time the code of my own consultancy website 💻.
     <br />
+    <br />
     <a href="https://github.com/Paolomanca90/DHConsulting"><strong>Explore the docs »</strong></a>
     .
     <a href="www.paolomancaconsulting.com">View Demo</a>
