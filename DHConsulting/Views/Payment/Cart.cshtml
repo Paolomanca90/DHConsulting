@@ -1,12 +1,9 @@
 ﻿@model IEnumerable<DHConsulting.Models.Dettaglio>
-@using System.Globalization
 
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Carrello";
     List<DHConsulting.Models.Prodotto> lista = ViewBag.Prodotti as List<DHConsulting.Models.Prodotto>;
     string clientId = System.Configuration.ConfigurationManager.AppSettings["PayPalClientId"];
-    //decimal totale = 0M;
-    //string totaleFormattato = "";
 }
 
 
@@ -108,30 +105,3 @@ else
         </div>
     </div>
 }
-@*<div id="paypal-button-container"></div>
-        <p id="result-message"></p>
-        <script src="https://www.paypal.com/sdk/js?client-id=@clientId&currency=EUR"></script>
-        <script>
-          paypal.Buttons({
-              createOrder: function (data, actions) {
-                  return actions.order.create({
-                      purchase_units: [
-                          {
-                              amount: {
-                                  value: @totaleFormattato,
-                                  currency_code: "EUR"
-                              }
-                          }
-                      ]
-                  });
-              },
-              onApprove: function (data, actions) {
-                  return actions.order.capture().then(function (details) {
-                      return fetch("/Payment/ConfirmPayment", {
-                          method: "GET",
-                      })
-                  });
-              }
-          }).render('#paypal-button-container');
-        </script>
-    }*@

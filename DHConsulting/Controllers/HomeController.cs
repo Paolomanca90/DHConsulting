@@ -9,7 +9,6 @@ using System.Net.Mail;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using static System.Net.Mime.MediaTypeNames;
 using System.Net.Mime;
 
 namespace DHConsulting.Controllers
@@ -18,15 +17,6 @@ namespace DHConsulting.Controllers
     public class HomeController : Controller
     {
         private ModelDb db = new ModelDb();
-
-        [HttpPost]
-        public ActionResult SetLanguage(string culture)
-        {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
-
-            return Redirect(Request.UrlReferrer.ToString());
-        }
 
         [AllowAnonymous]
         //View principale con la lista dei prodotti

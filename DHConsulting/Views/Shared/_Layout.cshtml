@@ -20,6 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
     <link href="~/Content/general.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @RenderSection("style", required: false)
 </head>
 <body>
@@ -69,7 +70,7 @@
                                 <label tabindex="0">
                                     <i class="fa-solid fa-right-to-bracket p-1 text-lg"></i>
                                 </label>
-                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-100 border rounded-box w-52">
                                     <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
                                     <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
                                 </ul>
@@ -326,6 +327,10 @@
         function toggleMenu() {
             document.getElementById('toggle1').click();
         }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
     @RenderSection("scripts", required: false)
 </body>
