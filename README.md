@@ -1,6 +1,6 @@
 
 <div align="center">
-  <a href="www.paolomancaconsulting.com">
+  <a href="www.paolomancaconsulting.com" id="top">
     <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="60">
   </a>
 
@@ -46,13 +46,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40">
+<img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40" id="about">
 
 Completing a Fullstack programming course is certainly an emotion and doing it by creating something of your own is even more so. This is why although there are many sites and templates dedicated to professionals, freelancers and consultants online, I decided to get involved and show all the skills acquired, in order to provide future users of the site with all the resources I can put into at their disposal to help them develop their ideas and projects.
 
 Obviously you can evaluate the code to get an overview of how I approach programming and how I use various frameworks, graphics libraries and external supports to take maximum advantage and obtain the best possible result.
 
-<p align="right"><a href="#readme-top">🔼</a></p>
+<p align="right"><a href="#top">🔼</a></p>
 
 
 
