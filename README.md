@@ -83,7 +83,7 @@ Everything you will see was developed by fully exploiting the power of ASP.NET a
   </li>
 </ul>
 
-Also present are ChartJs, AlpineJs, AOS.
+Also present in this project ChartJs, AlpineJs, AOS.
 
 <p align="right"><a href="#top">🔼</a></p>
 
@@ -163,9 +163,9 @@ Domain registered at Aruba.it
 <!-- CONTACT -->
 ## Contact
 
-Paolo Leucio Manca - 3880416518 - <a href:"mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a>
+Paolo Leucio Manca - 3880416518 - <a href="mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a>
 
-Linkedin: <a href:"">Paolo Manca</a>
+Linkedin: <a href="https://www.linkedin.com/in/paolo-manca-developer/">Paolo Manca</a>
 
 <p align="right"><a href="#top">🔼</a></p>
 
