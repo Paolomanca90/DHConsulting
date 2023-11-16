@@ -43,9 +43,9 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project 💼
+## About The Project 💼 <span id="about"></span>
 
-<img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40" id="about">
+<img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="150" height="40">
 
 Completing a Fullstack programming course is certainly an emotion and doing it by creating something of your own is even more so. This is why although there are many sites and templates dedicated to professionals, freelancers and consultants online, I decided to get involved and show all the skills acquired, in order to provide future users of the site with all the resources I can put into at their disposal to help them develop their ideas and projects.
 
