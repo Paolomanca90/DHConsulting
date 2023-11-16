@@ -152,8 +152,8 @@ You will also be able to recover your password if you forget it, but be careful 
 - [x] Add Google login 🌐
 - [x] Add PayPal payment 💳
 - [x] Multi-language Support
-    - [x] Italian 🇮🇹
-    - [x] English 🇬🇧
+    - [x] Italian 🍕
+    - [x] English 🍵
 
 I am open to feedback and suggestions to improve the site and especially the user experience
 
@@ -164,7 +164,7 @@ I am open to feedback and suggestions to improve the site and especially the use
 <!-- LICENSE -->
 ## License
 
-Domain registered at Aruba.it
+Domain registered at Aruba.it ©
 
 <p align="right"><a href="#top">🔼</a></p>
 
@@ -173,7 +173,7 @@ Domain registered at Aruba.it
 <!-- CONTACT -->
 ## Contact
 
-Paolo Leucio Manca - 3880416518 - <a href="mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a>
+Paolo Leucio Manca - 3880416518 ☎ - <a href="mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a> 📪
 
 Linkedin: <a href="https://www.linkedin.com/in/paolo-manca-developer/">Paolo Manca</a>
 
