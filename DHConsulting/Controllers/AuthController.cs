@@ -262,7 +262,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -271,7 +271,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                From = new MailAddress(senderEmail, "PM Consulting"),
                 Subject = "Conferma la tua registrazione",
                 IsBodyHtml = true,
             };
@@ -319,7 +319,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -328,7 +328,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                From = new MailAddress(senderEmail, "PM Consulting"),
                 Subject = "Account attivato",
                 IsBodyHtml = true,
             };
@@ -446,7 +446,7 @@ namespace DHConsulting.Controllers
                 string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
                 string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-                var smtpClient = new SmtpClient("smtp.gmail.com")
+                var smtpClient = new SmtpClient("smtps.aruba.it")
                 {
                     Port = 587,
                     Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -455,11 +455,43 @@ namespace DHConsulting.Controllers
 
                 var mailMessage = new MailMessage()
                 {
-                    From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
-                    Subject = "Modifica della password",
-                    Body = "Clicca sul seguente link per modificare la tua password: " + confirmationLink + "\r\nPaolo Manca Consulting",
+                    From = new MailAddress(senderEmail, "PM Consulting"),
+                    Subject = "Modifica password",
                     IsBodyHtml = true,
                 };
+                string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
+                Attachment inlineLogo = new Attachment(logoPath);
+                inlineLogo.ContentDisposition.Inline = true;
+                inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+                inlineLogo.ContentId = "logo";
+                mailMessage.Attachments.Add(inlineLogo);
+
+                mailMessage.Body = $@"
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
+            <header style='text-align: center;>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            </header>
+
+            <main style='margin-top: 20px;'>
+
+                <p style='margin-top: 10px; color: #666666; font-size: 14px;'>
+                    Clicca sul seguente link per ripristinare la password.
+                </p>
+
+                <a href='{confirmationLink}' style='display: inline-block; margin-top: 20px; padding: 10px 20px; 
+                   background-color: #3498db; color: #ffffff; text-decoration: none; font-size: 14px; 
+                   border-radius: 5px;'>
+                   Nuova password
+                </a>
+
+                <p style='margin-top: 20px; color: #666666; font-size: 14px;'>Grazie</p>
+            </main>
+            
+            <footer style='margin-top: 20px; text-align: center;'>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+            </footer>
+        </div>";
+
                 mailMessage.To.Add(cliente.Email);
 
                 smtpClient.Send(mailMessage);

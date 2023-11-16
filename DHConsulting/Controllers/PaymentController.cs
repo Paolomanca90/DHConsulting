@@ -172,7 +172,7 @@ namespace DHConsulting.Controllers
             var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction
             {
-                description = "Ordine Paolo Manca Consulting",
+                description = "Ordine PM Consulting",
                 invoice_number = invoiceId.ToString(),
                 amount = amount,
                 item_list = itemList
@@ -346,7 +346,7 @@ namespace DHConsulting.Controllers
             gfx.DrawString("P.IVA: IT0211134563", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
-            gfx.DrawString("Via Pisa 50, Pisa (PI), 56125", smallFont, XBrushes.Black,
+            gfx.DrawString("Via G.Mazzini 45, Pisa (PI), 56125", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
             gfx.DrawString("info@paolomancaconsulting.com", smallFont, XBrushes.Black,
@@ -375,7 +375,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -384,7 +384,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                From = new MailAddress(senderEmail, "PM Consulting"),
                 Subject = "Dettaglio dell'aquisto",
                 IsBodyHtml = true,
             };
@@ -430,7 +430,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -439,7 +439,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "Paolo Manca Consulting"),
+                From = new MailAddress(senderEmail, "PM Consulting"),
                 Subject = "Pacchetto consulenza acquistato",
                 Body = @"
                         <section class=""max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900"">

@@ -99,7 +99,7 @@
                                             }
                                         </div>
                                     </label>
-                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow border">
+                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 border">
                                         <div class="card-body">
                                             @if (Context.Request.Cookies["carrello"] != null)
                                             {
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                 </label>
-                                <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 border">
+                                <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 bg-base-100 rounded-box w-52 border">
                                     @if (User.IsInRole("User"))
                                     {
                                         <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
@@ -193,7 +193,7 @@
                         </svg>
                     </div>
                 </summary>
-                <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-slate-200">
+                <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-box w-52 border border-slate-200">
                     @if (User.IsInRole("User") || User.Identity.Name == "")
                     {
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
@@ -270,7 +270,7 @@
                             <img class="w-auto h-9" src="~/Content/Img/Logo-2.png" alt="logo">
                         </a>
 
-                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realtà tech.</p>
+                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realtà tech</p>
 
                         <div class="flex mt-6 -mx-2">
                             <a href="https://www.linkedin.com/in/paolo-manca-developer"
@@ -303,7 +303,7 @@
                                 <a href="tel:+393880416518">+39 388 041 6518</a>
                             </span>
                             <span class="block mt-2 text-sm hover:underline hidden md:block">+39 388 041 6518</span>
-                            <a class="block mt-2 text-sm hover:underline" href="mailto:paolomanca1990@gmail.com">paolomanca1990@gmail.com</a>
+                            <a class="block mt-2 text-sm hover:underline" href="mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a>
                         </div>
                     </div>
                 </div>

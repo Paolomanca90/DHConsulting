@@ -249,7 +249,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
@@ -299,7 +299,7 @@ namespace DHConsulting.Controllers
             string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
             string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtps.aruba.it")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(senderEmail, senderPassword),
