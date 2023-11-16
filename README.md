@@ -61,17 +61,13 @@ Obviously you can evaluate the code to get an overview of how I approach program
 Everything you will see was developed by fully exploiting the power of ASP.NET and its integrations. Below I leave you the complete list:
 
 *   <a href="https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet">
-    <img src="https://www.easyask.com/wp-content/uploads/2019/02/asp.net-logo-MSA-Technosoft.png" alt="asp.net"              width="50" height="10">
+    <img src="https://www.easyask.com/wp-content/uploads/2019/02/asp.net-logo-MSA-Technosoft.png" alt="asp.net"              width="60" height="30">
   </a>
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* <a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">
+    <img src="https://www.cbssolutions.co.uk/wp-content/uploads/2016/07/1768.sql_logo.png" alt="sql"              width="60" height="30">
+  </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#top">🔼</a></p>
 
 
 
