@@ -1,7 +1,7 @@
 
 <div align="center">
   <a href="www.paolomancaconsulting.com" id="top">
-    <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="50">
+    <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="40">
   </a>
 
   <h3 align="center">PM Consulting</h3>
