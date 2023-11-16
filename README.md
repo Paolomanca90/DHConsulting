@@ -123,9 +123,9 @@ Testing the project is really simple
    update-database
    ```
 
-You'll find also a copy of my Db if you want to start with some products or users.
+You'll find also a copy of my Db in main root if you want to start with some products or users.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#top">🔼</a></p>
 
 
 
@@ -139,21 +139,21 @@ With registration you will receive an email to confirm your account containing a
 You can also sign up simply using your Google account. In this case, after registration you will not be redirected to the Home page but to your Profile page in order to complete the missing fields. Even in this case, without filling in all the fields you will not be able to finalize your purchase as the add to cart and proceed buttons will be disabled.
 You will also be able to recover your password if you forget it, but be careful because you only have 3 attempts to enter the correct one, after which you will be blocked for 15 minutes.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#top">🔼</a></p>
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add security token
-- [x] Add password management
-- [x] Add mail service
-- [x] Add Google login
-- [x] Add PayPal payment
+- [x] Add security token 🔐
+- [x] Add password management 🔑
+- [x] Add mail service 📧
+- [x] Add Google login 🌐
+- [x] Add PayPal payment 💳
 - [x] Multi-language Support
-    - [x] Italian
-    - [x] English
+    - [x] Italian 🇮🇹
+    - [x] English 🇬🇧
 
 I am open to feedback and suggestions to improve the site and especially the user experience
 
