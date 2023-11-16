@@ -78,7 +78,7 @@ Everything you will see was developed by fully exploiting the power of ASP.NET a
   </li>
   <li>
     <a href="https://tailwindcss.com/">
-    <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-ar21.png" alt="tailwind"              width="100" height="40">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/1280px-Tailwind_CSS_logo.svg.png" alt="tailwind"              width="100" height="40">
   </a>
   </li>
 </ul>
