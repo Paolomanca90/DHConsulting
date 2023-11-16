@@ -37,7 +37,6 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -115,9 +114,16 @@ Testing the project is really simple
    ```sh
    npm install
    ```
-3. Replace your credentials in `web.config` for PayPal, Mail and Google+
+3. Create your sandbox credentials for <a href="https://developer.paypal.com/home">PayPal</a> , <a href="https://console.cloud.google.com/">Google+<a/> and you favorite mail client
 
-4. 
+4. Replace your credentials in `web.config`
+
+5. Generate your DB
+   ```sh
+   update-database
+   ```
+
+You'll find also a copy of my Db if you want to start with some products or users.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -126,9 +132,12 @@ Testing the project is really simple
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+The site is divided into 2 sections: one dedicated to admins and one to users with multi-language system (IT-EN).
+First of all you will have to create an admin in your DB. This way you will be able to log in and add the consulting products. At the moment they are divided into price ranges €199, €299, €800; obviously you can create others according to your needs.
+Perfect! once the products have been created you will be able to register as a user and proceed with the purchase of one of them using your PayPal sandbox credentials.
+With registration you will receive an email to confirm your account containing a personal jwt token. Without account confirmation you will not be able to complete the purchase.
+You can also sign up simply using your Google account. In this case, after registration you will not be redirected to the Home page but to your Profile page in order to complete the missing fields. Even in this case, without filling in all the fields you will not be able to finalize your purchase as the add to cart and proceed buttons will be disabled.
+You will also be able to recover your password if you forget it, but be careful because you only have 3 attempts to enter the correct one, after which you will be blocked for 15 minutes.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -170,20 +179,3 @@ Linkedin: <a href="https://www.linkedin.com/in/paolo-manca-developer/">Paolo Man
 
 <p align="right"><a href="#top">🔼</a></p>
 
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
