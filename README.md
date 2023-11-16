@@ -22,9 +22,9 @@
   <summary>Contents 📑</summary>
   <ol>
     <li>
-      <a href="#about-the-project-💼">About The Project</a>
+      <a href="#about">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built">Built With</a></li>
       </ul>
     </li>
     <li>
@@ -55,7 +55,7 @@ Obviously you can evaluate the code to get an overview of how I approach program
 
 
 
-### Built With 🧱
+### Built With 🧱 <span id="built"></span>
 
 Everything you will see was developed by fully exploiting the power of ASP.NET and its integrations. Below I leave you the complete list:
 
