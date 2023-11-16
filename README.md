@@ -60,7 +60,7 @@ Obviously you can evaluate the code to get an overview of how I approach program
 
 Everything you will see was developed by fully exploiting the power of ASP.NET and its integrations. Below I leave you the complete list:
 
-<ul>
+<ul class="flex-column justify-content-center">
   <li>
     <a href="https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet">
     <img src="https://www.easyask.com/wp-content/uploads/2019/02/asp.net-logo-MSA-Technosoft.png" alt="asp.net"              width="100" height="40">
