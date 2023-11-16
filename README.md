@@ -77,8 +77,8 @@ Everything you will see was developed by fully exploiting the power of ASP.NET a
   </a>
   </li>
   <li>
-    <a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">
-    <img src="https://www.cbssolutions.co.uk/wp-content/uploads/2016/07/1768.sql_logo.png" alt="tailwind"              width="100" height="40">
+    <a href="https://tailwindcss.com/">
+    <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-ar21.png" alt="tailwind"              width="100" height="40">
   </a>
   </li>
 </ul>
