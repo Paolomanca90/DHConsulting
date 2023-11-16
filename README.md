@@ -3,7 +3,8 @@
   <a href="www.paolomancaconsulting.com" id="top">
     <img src="https://github.com/Paolomanca90/DHConsulting/blob/master/DHConsulting/Content/Img/Logo-2.png" alt="Logo" width="200" height="40">
   </a>
-<br />
+  <br />
+  <br />
   <p align="center">
     This project represents not only my capstone of the <a href="https://epicode.com/">Epicode</a> course but at the same time the code of my own consultancy website 💻.
     <br />
