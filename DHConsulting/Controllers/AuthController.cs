@@ -39,7 +39,7 @@ namespace DHConsulting.Controllers
         {
             //Gestisco le credenziali per l'accesso tramite google
             string clientId = ConfigurationManager.AppSettings["IDClient"];
-            var url = "https://localhost:44339/Auth/GoogleLogin";
+            var url = "https://paolomancaconsulting.com/Auth/GoogleLogin";
             var response = GoogleAuth.GetAuthUrl(clientId, url);
             ViewBag.Response = response;
             return View();
@@ -118,7 +118,7 @@ namespace DHConsulting.Controllers
         {
             //Gestisco le credenziali per l'accesso tramite google
             string clientId = ConfigurationManager.AppSettings["IDClient"];
-            var url = "https://localhost:44339/Auth/GoogleLogin";
+            var url = "https://paolomancaconsulting.com/Auth/GoogleLogin";
             var response = GoogleAuth.GetAuthUrl(clientId, url);
             ViewBag.Response = response;
             return View();
@@ -190,7 +190,7 @@ namespace DHConsulting.Controllers
             {
                 string clientId = ConfigurationManager.AppSettings["IDClient"];
                 string secretClient = ConfigurationManager.AppSettings["ClientSecret"];
-                var url = "https://localhost:44339/Auth/GoogleLogin";
+                var url = "https://paolomancaconsulting.com/Auth/GoogleLogin";
                 var token = await GoogleAuth.GetAuthAccessToken(code, clientId, secretClient, url);
                 var userProfile = await GoogleAuth.GetProfileResponseAsync(token.AccessToken.ToString());
                 var googleUser = JsonConvert.DeserializeObject<GoogleProfile>(userProfile);

@@ -36,6 +36,7 @@ namespace DHConsulting.Controllers
         //View di dettaglio di ogni prodotto
         public ActionResult Details(int id)
         {
+            ViewBag.Prodotti = db.Prodotto.Where(x => x.IdProdotto != id).ToList();
             ViewBag.Cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
             var prodotto = db.Prodotto.Find(id);
             return View(prodotto);

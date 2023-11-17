@@ -21,6 +21,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
     <link href="~/Content/general.css" rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    @*<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfcuxIpAAAAAFpTCHO5H1LIUL0GpSCNLPIvzhge" async defer></script>
+    <script>
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.enterprise.ready(async () => {
+                const token = await grecaptcha.enterprise.execute('6LfcuxIpAAAAAFpTCHO5H1LIUL0GpSCNLPIvzhge', { action: 'LOGIN' });
+            });
+        }
+    </script>*@
     @RenderSection("style", required: false)
 </head>
 <body>
