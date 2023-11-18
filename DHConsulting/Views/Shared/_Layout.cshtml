@@ -177,72 +177,101 @@
                     }
                 </ul>
             </div>
-            <details class="dropdown dropdown-end me-1.5">
-                <summary onclick="toggleMenu()" class="list-none flex items-center">
-                    <div class="swap swap-rotate lg:hidden">
-                        <!-- this hidden checkbox controls the state -->
-                        <input type="checkbox" id="toggle1" />
 
-                        <!-- hamburger icon -->
-                        <svg class="swap-off fill-current"
-                             xmlns="http://www.w3.org/2000/svg"
-                             width="32"
-                             height="32"
-                             viewBox="0 0 512 512">
-                            <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-                        </svg>
+            <!-- Open the modal using ID.showModal() method -->
+            <button onclick="my_modal_5.showModal();toggleMenu()" class="me-1.5 p-0 flex items-center">
+                <div class="swap swap-rotate lg:hidden">
+                    <!-- this hidden checkbox controls the state -->
+                    <input type="checkbox" id="toggle1" />
 
-                        <!-- close icon -->
-                        <svg class="swap-on fill-current"
-                             xmlns="http://www.w3.org/2000/svg"
-                             width="32"
-                             height="32"
-                             viewBox="0 0 512 512">
-                            <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-                        </svg>
-                    </div>
-                </summary>
-                <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-box w-52 border border-slate-200">
-                    @if (User.IsInRole("User") || User.Identity.Name == "")
-                    {
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li>
-                            <a>Accesso</a>
-                            <ul class="p-2">
-                                <li>@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                                <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        if (User.IsInRole("User"))
+                    <!-- hamburger icon -->
+                    <svg class="swap-off fill-current"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="32"
+                         height="32"
+                         viewBox="0 0 512 512">
+                        <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                    </svg>
+
+                    <!-- close icon -->
+                    <svg class="swap-on fill-current"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="32"
+                         height="32"
+                         viewBox="0 0 512 512">
+                        <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                    </svg>
+                </div>
+            </button>
+            <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box">
+                    <h3 class="font-bold text-2xl">Menu</h3>
+                    <ul class="p-3 text-xl">
+                        @if (User.IsInRole("User") || User.Identity.Name == "")
                         {
-                            <li>@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-2">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-2">@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                         }
-                        <li>
-                            <a>Profilo</a>
-                            <ul class="p-2">
+                        else
+                        {
+                            <li class="mb-2">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-2">@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-2">@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <div class="collapse collapse-arrow">
+                                    <input type="radio" name="my-accordion-2"/>
+                                    <div class="collapse-title -mt-8 p-0 flex items-center">
+                                        Accesso
+                                    </div>
+                                    <div class="collapse-content -mt-4 py-0">
+                                        <p class="mb-2">@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
+                                        <p class="mb-2">@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            if (User.IsInRole("User"))
+                            {
+                                <li class="mb-2">@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                            }
+                    <li>
+                        <div class="collapse collapse-arrow">
+                            <input type="radio" name="my-accordion-2" />
+                            <div class="collapse-title -mt-8 p-0 flex items-center">
+                                Profilo
+                            </div>
+                            <div class="collapse-content -mt-4 py-0">
                                 @if (User.IsInRole("User"))
                                 {
-                                    <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                                    <p class="mb-2">@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</p>
                                 }
-                                <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-            </details>
+                                <p class="mb-2">@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
+                            </div>
+                        </div>
+                    </li>
+                        }
+                    </ul>
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn rounded-full py-1 px-2" onclick="toggleMenu()">
+                                <svg class="swap-on fill-current"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     width="32"
+                                     height="32"
+                                     viewBox="0 0 512 512">
+                                    <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
 
             <label class="swap swap-rotate">
                 <!-- this hidden checkbox controls the state -->
