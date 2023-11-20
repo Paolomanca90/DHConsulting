@@ -348,6 +348,7 @@
     <Content Include="Content\Img\professional.jpg" />
     <Content Include="Content\Img\professional2.jpg" />
     <Content Include="Content\Img\sass.svg" />
+    <Content Include="Content\Img\sqlserver.svg" />
     <Content Include="Content\Img\tailwindcss.svg" />
     <Content Include="Content\Img\ts.svg" />
     <Content Include="Content\style.css" />

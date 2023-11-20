@@ -75,6 +75,9 @@
                             <img src="~/Content/Img/sass.svg" alt="sass" />
                         </li>
                         <li>
+                            <img src="~/Content/Img/sqlserver.svg" alt="sql" />
+                        </li>
+                        <li>
                             <img src="~/Content/Img/dotnet.svg" alt="dotnet" />
                         </li>
                         <li>
@@ -92,7 +95,7 @@
         </div>
 
         <div class="w-full max-w-3xl px-5 md:px-6 mx-auto" data-aos="fade-up"
-     data-aos-duration="3000">
+             data-aos-duration="3000">
 
             <div class="flex justify-center max-w-[25rem] m-auto mb-8 lg:mb-16">
                 <div class="p-1 px-2 bg-white dark:bg-slate-900 rounded-full border border-slate-200 shadow-sm shadow-slate-950/5">
@@ -189,7 +192,7 @@
 
         <!-- Fancy testimonial slider component -->
         <div class="w-full max-w-3xl px-3 mx-auto text-center mt-24" x-data="slider" data-aos="fade-up"
-     data-aos-duration="3000" data-aos-offset="150">
+             data-aos-duration="3000" data-aos-offset="150">
             <!-- Testimonial image -->
             <div class="relative h-32">
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[480px] pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-b before:from-indigo-500/25 before:via-indigo-500/5 before:via-25% before:to-indigo-500/0 before:to-75% before:rounded-full before:-z-10">
@@ -241,8 +244,9 @@
         @if (User.Identity.Name == "")
         {
 
+            <span id="service"></span>
             <section class="text-gray-600 min-h-screen p-4 lg:mb-16 mt-8" data-aos="fade-up"
-            data-aos-duration="3000" data-aos-offset="150">
+                     data-aos-duration="3000" data-aos-offset="150">
 
                 <div class="flex justify-center max-w-[25rem] m-auto my-8 lg:mb-16">
                     <div class="p-1 px-2 bg-white dark:bg-slate-900 rounded-full border border-slate-200 shadow-sm shadow-slate-950/5">
@@ -250,9 +254,9 @@
                     </div>
                 </div>
 
-                <div class="h-full flex justify-around">
+                <div class="h-full flex flex-col lg:flex-row justify-around">
                     <!-- Card -->
-                    <div class="max-w-[360px] mx-auto">
+                    <div class="w-full lg:max-w-[360px] mb-5 lg:mb-0 mx-auto">
                         <div class="bg-white shadow-lg rounded-lg px-5 py-[29px] border border-slate-200">
                             <ul class="space-y-8">
                                 <li>
@@ -308,7 +312,7 @@
                     </div>
 
 
-                    <div class="max-w-sm mx-auto">
+                    <div class="w-full lg:max-w-sm mx-auto">
                         @foreach (var item in Model)
                         {
                             <div class="flex flex-col bg-white shadow-lg rounded-md mb-5 border border-gray-200">
@@ -317,9 +321,9 @@
                                     <div class="flex justify-between items-start">
                                         <!-- Image + name -->
                                         <header>
-                                            <div class="flex items-center">
-                                                <div class="relative inline-flex items-start mr-5">
-                                                    <img class="rounded w-full h-11" src="~/Content/Img/@item.Image" alt="img_card" />
+                                            <div class="flex flex-col md:flex-row md:items-center">
+                                                <div class="relative md:inline-flex md:items-start md:mr-5">
+                                                    <img class="rounded w-full md:h-20 lg:h-11" src="~/Content/Img/@item.Image" alt="img_card" />
                                                 </div>
                                                 <div class="pr-1">
                                                     <a class="inline-flex text-gray-800 hover:text-gray-900" href="~/Auth/Login">
@@ -337,7 +341,7 @@
                                                         }
                                                     </a>
                                                     <div>
-                                                        <span class="text-sm font-medium text-gray-400 -mt-0.5 mr-1 truncate">@item.DescrizioneBreve</span>
+                                                        <span class="text-sm font-medium text-gray-400 -mt-0.5 mr-1 lg:truncate">@item.DescrizioneBreve</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,7 +366,7 @@
         else
         {
             <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-5 my-16" data-aos="fade-up"
-     data-aos-duration="3000" data-aos-offset="150">
+                 data-aos-duration="3000" data-aos-offset="150">
 
                 <div class="flex justify-center max-w-[25rem] m-auto mb-8 lg:mb-16">
                     <div class="p-1 px-2 bg-white dark:bg-slate-900 rounded-full border border-slate-200 shadow-sm shadow-slate-950/5">

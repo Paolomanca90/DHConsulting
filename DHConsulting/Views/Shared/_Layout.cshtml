@@ -209,7 +209,7 @@
                     <ul class="p-3 text-xl">
                         @if (User.IsInRole("User") || User.Identity.Name == "")
                         {
-                            <li class="mb-2">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-5">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="mb-2">@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                         else
@@ -223,10 +223,10 @@
                             <li>
                                 <div class="collapse collapse-arrow">
                                     <input type="radio" name="my-accordion-2"/>
-                                    <div class="collapse-title -mt-8 p-0 flex items-center">
+                                    <div class="collapse-title p-0 flex items-center">
                                         Accesso
                                     </div>
-                                    <div class="collapse-content -mt-4 py-0">
+                                    <div class="collapse-content py-0">
                                         <p class="mb-2">@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
                                         <p class="mb-2">@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
                                     </div>
@@ -242,10 +242,10 @@
                     <li>
                         <div class="collapse collapse-arrow">
                             <input type="radio" name="my-accordion-2" />
-                            <div class="collapse-title -mt-8 p-0 flex items-center">
+                            <div class="collapse-title p-0 flex items-center">
                                 Profilo
                             </div>
-                            <div class="collapse-content -mt-4 py-0">
+                            <div class="collapse-content py-0">
                                 @if (User.IsInRole("User"))
                                 {
                                     <p class="mb-2">@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</p>
