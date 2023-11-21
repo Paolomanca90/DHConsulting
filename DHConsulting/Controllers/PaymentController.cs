@@ -305,8 +305,8 @@ namespace DHConsulting.Controllers
             List<Dettaglio> carrello = CartFromCookie();
             decimal totale = 0;
             double col1X = tableMargin;
-            double col2X = 200;
-            double col3X = 300;
+            double col2X = 300;
+            double col3X = 400;
             void DrawCell(XGraphics g, XRect rect, string text, XFont font, XBrush brush)
             {
                 g.DrawRectangle(XPens.Black, XBrushes.Transparent, rect);
@@ -388,17 +388,11 @@ namespace DHConsulting.Controllers
                 Subject = "Dettaglio dell'aquisto",
                 IsBodyHtml = true,
             };
-            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
-            Attachment inlineLogo = new Attachment(logoPath);
-            inlineLogo.ContentDisposition.Inline = true;
-            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
-            inlineLogo.ContentId = "logo";
-            mailMessage.Attachments.Add(inlineLogo);
 
             mailMessage.Body = $@"
         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
-            <header style='text-align: center;>
-                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            <header style='text-align: center;'>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.paolomancaconsulting.com/Content/Img/Logo-2.png' alt='logo'>
             </header>
 
             <main style='margin-top: 20px;'>

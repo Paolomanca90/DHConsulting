@@ -1,11 +1,5 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_1b531f5b8f5e81fc239a1610a541fae82'
-    });
-</script>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -21,16 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
     <link href="~/Content/general.css" rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    @*<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfcuxIpAAAAAFpTCHO5H1LIUL0GpSCNLPIvzhge" async defer></script>
-    <script>
-        function onClick(e) {
-            e.preventDefault();
-            grecaptcha.enterprise.ready(async () => {
-                const token = await grecaptcha.enterprise.execute('6LfcuxIpAAAAAFpTCHO5H1LIUL0GpSCNLPIvzhge', { action: 'LOGIN' });
-            });
-        }
-    </script>*@
     @RenderSection("style", required: false)
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    <script>
+        Weglot.initialize({
+            api_key: '@System.Configuration.ConfigurationManager.AppSettings["Weglot"]'
+        });
+    </script>
 </head>
 <body>
 
@@ -144,7 +135,7 @@
                                             else
                                             {
                                                 <span class="font-bold text-lg">0 articoli</span>
-                                                <span class="text-info">Totale: € 0.00</span>
+                                                <span class="text-info">Totale: &euro; 0.00</span>
                                             }
                                             <div class="card-actions">
                                                 @Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white btn-block" })
@@ -214,8 +205,8 @@
                         }
                         else
                         {
-                            <li class="mb-2">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li class="mb-2">@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-5">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="mb-5">@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="mb-2">@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                         @if (!User.Identity.IsAuthenticated)
@@ -237,7 +228,7 @@
                         {
                             if (User.IsInRole("User"))
                             {
-                                <li class="mb-2">@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li class="mb-2 mt-5">@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
                             }
                     <li>
                         <div class="collapse collapse-arrow">
@@ -281,14 +272,14 @@
                        data-act-class="ACTIVECLASS" />
 
                 <!-- sun icon -->
-                <svg class="swap-on fill-current w-7 h-7 me-3"
+                <svg id="sun" class="swap-on fill-current w-7 h-7 me-3"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24">
                     <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
                 </svg>
 
                 <!-- moon icon -->
-                <svg class="swap-off fill-current w-7 h-7 me-3"
+                <svg id="moon" class="swap-off fill-current w-7 h-7 me-3"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24">
                     <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
@@ -308,7 +299,7 @@
                             <img class="w-auto h-9" src="~/Content/Img/Logo-2.png" alt="logo">
                         </a>
 
-                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realtà tech</p>
+                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realt&agrave; tech</p>
 
                         <div class="flex mt-6 -mx-2">
                             <a href="https://www.linkedin.com/in/paolo-manca-developer"
@@ -333,6 +324,12 @@
                             <a href="~/Home/About" class="block mt-2 text-sm hover:underline">Chi sono</a>
                             <a href="~/Home/Index#service" class="block mt-2 text-sm hover:underline">Prodotti</a>
                             <a href="~/Home/Index#rewievs" class="block mt-2 text-sm hover:underline">Recensioni</a>
+                            <p class="mt-2">
+                                <a href="https://www.iubenda.com/privacy-policy/52602854" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+                            </p>
+                            <p class="mt-2">
+                                <a href="https://www.iubenda.com/privacy-policy/52602854/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+                            </p>
                         </div>
 
                         <div>
@@ -350,13 +347,62 @@
             <hr class="h-px my-6 bg-gray-200 border-none dark:bg-gray-700">
 
             <div>
-                <p class="text-center ">© PM Consulting @DateTime.Now.Year - Tutti i diritti sono riservati</p>
+                <p class="text-center ">&copy; PM Consulting @DateTime.Now.Year - Tutti i diritti sono riservati</p>
             </div>
         </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+    
+        document.addEventListener("DOMContentLoaded", function () {
+        // Controlla se c'è uno stato salvato nel localStorage
+        const currentTheme = localStorage.getItem("theme");
+
+        // Applica lo stato salvato o imposta quello predefinito
+        if (currentTheme) {
+            document.documentElement.setAttribute("data-theme", currentTheme);
+            if (currentTheme === "night") {
+                // Se il tema è notte, imposta l'interruttore della modalità notte
+                document.getElementById("toggle").checked = true;
+            }
+        } else {
+            // Nessuno stato salvato, usa il tema predefinito
+            const defaultTheme = "light";
+            document.documentElement.setAttribute("data-theme", defaultTheme);
+        }
+
+        // Aggiorna l'SVG in base allo stato del tema
+        updateSvg(currentTheme);
+
+        // Gestisci il cambiamento di tema
+        const themeToggle = document.getElementById("toggle");
+        themeToggle.addEventListener("change", function () {
+            const selectedTheme = themeToggle.checked ? "night" : "light";
+            document.documentElement.setAttribute("data-theme", selectedTheme);
+            // Salva lo stato nel localStorage
+            localStorage.setItem("theme", selectedTheme);
+            // Aggiorna l'SVG in base allo stato del tema
+            updateSvg(selectedTheme);
+        });
+
+        function updateSvg(theme) {
+            // Ottieni riferimenti agli elementi SVG
+            const moonIcon = document.querySelector("#moon");
+            const sunIcon = document.querySelector("#sun");
+
+            // Aggiorna l'SVG in base allo stato del tema
+            if (theme === "night") {
+                moonIcon.style.display = "none";
+                sunIcon.style.display = "block";
+            } else {
+                moonIcon.style.display = "block";
+                sunIcon.style.display = "none";
+            }
+        }
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
     <script src="~/Scripts/script.js"></script>
     <script type="module" src="~/Scripts/alpinejs.js"></script>
@@ -371,5 +417,12 @@
         AOS.init();
     </script>
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        var _iub = _iub || [];
+        _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"enableFadp":true,"enableLgpd":true,"enableUspr":false,"fadpApplies":false,"floatingPreferencesButtonDisplay":"anchored-bottom-left","perPurposeConsent":true,"siteId":3386603,"usprApplies":true,"whitelabel":false,"cookiePolicyId":52602854,"lang":"it", "banner":{ "acceptButtonDisplay":true,"closeButtonDisplay":false,"customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"position":"float-top-center","rejectButtonDisplay":true }};
+    </script>
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3386603.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
 </body>
 </html>

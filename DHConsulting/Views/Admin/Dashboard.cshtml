@@ -12,7 +12,7 @@
     var totalePro = pro.Sum(dettaglio => dettaglio.Quantita);
     decimal totaleFullPro = pro.Sum(dettaglio => dettaglio.Quantita * dettaglio.Prodotto.Costo);
     decimal somma = totaleFullBasic + totaleFullPlus + totaleFullPro;
-    decimal media = somma / Model.Count();
+    decimal media = Model.Count() > 0 ? somma / Model.Count() : 0;
 }
 
 <section class="flex flex-col lg:flex-row justify-evenly antialiased">

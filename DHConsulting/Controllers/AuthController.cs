@@ -275,17 +275,11 @@ namespace DHConsulting.Controllers
                 Subject = "Conferma la tua registrazione",
                 IsBodyHtml = true,
             };
-            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
-            Attachment inlineLogo = new Attachment(logoPath);
-            inlineLogo.ContentDisposition.Inline = true;
-            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
-            inlineLogo.ContentId = "logo";
-            mailMessage.Attachments.Add(inlineLogo);
 
             mailMessage.Body = $@"
         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
-            <header style='text-align: center;>
-                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            <header style='text-align: center;'>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.paolomancaconsulting.com/Content/Img/Logo-2.png' alt='logo'>
             </header>
 
             <main style='margin-top: 20px;'>
@@ -332,17 +326,11 @@ namespace DHConsulting.Controllers
                 Subject = "Account attivato",
                 IsBodyHtml = true,
             };
-            string logoPath = Server.MapPath("~/Content/Img/Logo-2.png");
-            Attachment inlineLogo = new Attachment(logoPath);
-            inlineLogo.ContentDisposition.Inline = true;
-            inlineLogo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
-            inlineLogo.ContentId = "logo";
-            mailMessage.Attachments.Add(inlineLogo);
 
             mailMessage.Body = $@"
         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
-            <header style='text-align: center;>
-                <img style='width: 100px; height: auto; max-width: 100%;' src='cid:logo' alt='logo'>
+            <header style='text-align: center;'>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.paolomancaconsulting.com/Content/Img/Logo-2.png' alt='logo'>
             </header>
 
             <main style='margin-top: 20px;'>

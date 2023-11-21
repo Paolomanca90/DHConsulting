@@ -198,7 +198,7 @@ else
                         }
                         @if (cliente.CF == null && cliente.DataNascita == new DateTime(1900, 1, 1))
                         {
-                            <p class="mt-5 tooltip">
+                            <p class="mt-5 tooltip w-full">
                                 <btn class="btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white px-12 text-lg relative w-full" disabled="disabled">
                                     PROCEDI <i class="fa-brands fa-cc-paypal text-2xl ms-3"></i>
                                     <span class="tooltip-text bg-slate-500 text-white text-xs p-2 rounded-lg absolute -mt-24 opacity-0" style="width:35vw">
@@ -221,7 +221,7 @@ else
 
     @if (Model.Costo > 700)
     {
-        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-2/3 m-auto my-12 tooltip" }))
+        using (Html.BeginForm("ProfessionalPack", "Home", FormMethod.Post, new { @class = "flex flex-col w-[90%] lg:w-2/3 m-auto my-12 tooltip" }))
         {
             <label class="text-md font-semibold mx-2">Descrizione del progetto</label>
             <textarea rows="5" class="rounded-md p-2 border-2 w-full mt-1 mb-7" placeholder="Descrivi brevemente la tua idea o il tuo progetto da realizzare e sarai ricontattato" id="description" name="description"></textarea>
@@ -238,8 +238,7 @@ else
             }
         }
     }
-    else
-    {
+
         <div class="max-w-5xl mx-auto py-4 px-6 my-12">
             <h3 class="text-md lg:text-xl font-bold mb-4">Prodotti correlati:</h3>
             <div class="flex flex-col md:flex-row lg:justify-around gap-3 lg:gap-12">
@@ -259,7 +258,7 @@ else
                 }
             </div>
         </div>
-    }
+
 
 </section>
 
