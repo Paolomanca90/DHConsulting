@@ -188,7 +188,7 @@
 
         // Altrimenti, imposta il colore del riempimento predefinito
 
-        this.context.fillStyle = `rgba(255, 0, 100, ${alpha})`;
+        this.context.fillStyle = `rgba(255, 175, 0, ${alpha})`;
 
     }
 
