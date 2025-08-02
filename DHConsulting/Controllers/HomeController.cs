@@ -23,7 +23,7 @@ namespace DHConsulting.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            return View(db.Prodotto.ToList());
+			return View(db.Prodotto.ToList());
         }
 
         [AllowAnonymous]
@@ -33,8 +33,9 @@ namespace DHConsulting.Controllers
             return View();
         }
 
-        //View di dettaglio di ogni prodotto
-        public ActionResult Details(int id)
+		[AllowAnonymous]
+		//View di dettaglio di ogni prodotto
+		public ActionResult Details(int id)
         {
             ViewBag.Prodotti = db.Prodotto.Where(x => x.IdProdotto != id).ToList();
             ViewBag.Cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);

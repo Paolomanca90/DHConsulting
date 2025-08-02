@@ -1,197 +1,570 @@
-﻿
-@{
-    ViewBag.Title = "About";
+﻿@{
+    ViewBag.Title = "Chi Siamo";
 }
 
-<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="relative py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-72 h-72 bg-yellow-500 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-yellow-400 rounded-full blur-3xl"></div>
+    </div>
 
-    <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-16" id="myself">
-        <div class="flex justify-center">
+    <div class="relative container mx-auto px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" data-aos="fade-up">
+                Chi Siamo
+                <span class="text-gradient font-caveat block">Five Innovation Hub</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Un'azienda con una forte passione per il cambiamento, l'arte, l'elettronica e l'informatica
+            </p>
 
-            <article class="max-w-[40rem] mx-auto">
-                <header class="mb-4">
-                    <h1 class="text-4xl font-extrabold">Qualche info su di me</h1>
-                </header>
-                <div class="[&>p]:my-6 [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&_strong]:font-medium [&_strong]:text-slate-900 [&_a]:font-medium [&_a]:text-indigo-500 [&_a]:underline [&_a:hover]:no-underline [&_img]:rounded-xl [&_blockquote]:italic [&_blockquote]:before:block [&_blockquote]:before:w-[18px] [&_blockquote]:before:h-[17px] [&_blockquote]:before:bg-[url('./quotes.svg')] [&_blockquote]:before:bg-no-repeat [&_blockquote]:before:mb-2 [&_figcaption]:text-center [&_figcaption]:text-xs [&_figcaption]:italic [&_figcaption]:mt-3">
-                    <p>
-                        Sono un Fullstack Developer con una forte passione per il cambiamento, l’arte, l’elettronica e l’informatica.
-                    </p>
-                    <div class="space-y-6 sm:flex sm:items-center sm:space-x-8 sm:space-y-0 md:-ml-12">
-                        <figure class="shrink-0 sm:max-w-[270px]">
-                            <img class="object-cover h-[180px] sm:h-auto" width="640" height="426" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Article 01" />
-                        </figure>
-                        <blockquote>
-                            <p>Ho un background in aziende di vario genere: dal logistico, alla grande distribuzione, fino al commerciale. Questo mi ha permesso di acquisire competenze legate alla vendita, al marketing e al posizionamento nel web e quindi di conseguenza nella vita reale.</p>
+            <!-- Trust Indicators -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-400">50+</div>
+                    <div class="text-sm text-gray-300">Progetti Completati</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-400">98%</div>
+                    <div class="text-sm text-gray-300">Soddisfazione Cliente</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-400">5+</div>
+                    <div class="text-sm text-gray-300">Anni di Esperienza</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-400">24h</div>
+                    <div class="text-sm text-gray-300">Supporto Rapido</div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="animate-bounce mt-16" data-aos="fade-up" data-aos-delay="600">
+                <i class="fa-solid fa-chevron-down text-2xl text-yellow-400"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <article class="prose prose-lg max-w-none">
+                <!-- Introduction -->
+                <div class="mb-16" data-aos="fade-up">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-900 mb-6">La Nostra Storia</h2>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                                Siamo un'azienda con una forte passione per il cambiamento, l'arte, l'elettronica e l'informatica.
+                                La nostra missione è trasformare idee innovative in soluzioni digitali concrete e di successo.
+                            </p>
+                            <p class="text-lg text-gray-600 leading-relaxed">
+                                Abbiamo un ampio background che spazia dal logistico alla grande distribuzione, fino al commerciale.
+                                Questo ci permette di fornire competenze legate alla vendita, al marketing e al posizionamento
+                                nel web e quindi di conseguenza nella vita reale.
+                            </p>
+                        </div>
+                        <div class="relative">
+                            <div class="aspect-square bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl p-1">
+                                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                     alt="Five Innovation Hub Team"
+                                     class="w-full h-full object-cover rounded-3xl">
+                            </div>
+                            <!-- Floating Elements -->
+                            <div class="absolute -top-6 -right-6 w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-lightbulb text-2xl text-yellow-600"></i>
+                            </div>
+                            <div class="absolute -bottom-6 -left-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center shadow-lg">
+                                <i class="fa-solid fa-code text-xl text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission -->
+                <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 md:p-12 mb-16 text-white" data-aos="fade-up">
+                    <div class="text-center">
+                        <i class="fa-solid fa-quote-left text-3xl text-yellow-400 mb-6"></i>
+                        <blockquote class="text-2xl md:text-3xl font-medium mb-6 leading-relaxed">
+                            "Il nostro supporto è rivolto a tutti quei clienti consapevoli delle proprie potenzialità
+                            che vogliono <span class="text-yellow-400">distinguersi dalla massa</span>."
                         </blockquote>
+                        <cite class="text-yellow-400 font-semibold text-lg">— Five Innovation Hub</cite>
                     </div>
-                    <p>
-                        Il mio supporto è rivolto a tutti quei clienti <span class="underline">consapevoli delle proprie potenzialità</span> che vogliono <span class="underline">distinguersi dalla massa.</span>
-                        Come web developer baso il mio lavoro sulla creatività, quindi mi impegno a sviluppare siti web che non solo soddisfano le esigenze tecniche, ma anche in grado di catturare l'essenza unica di ogni cliente, con un piano personalizzato e varie revisioni durante tutto il percorso di creazione.
-                    </p>
-                    <div class="space-y-6 sm:flex sm:items-center sm:space-x-8 sm:space-y-0 md:-mr-12" data-aos="fade-up" data-aos-duration="3000">
-                        <p>
-                            La mia missione è portare la tua visione online e farla brillare in tutto il suo splendore. La mia esperienza si estende alla creazione di <b>sistemi gestionali, piattaforme di e-commerce e landing page</b> di prima classe. Inoltre posso offrirti un servizio di consulenza esperto per aiutarti a prendere le decisioni giuste per il tuo progetto.
-                        </p>
-                        <figure class="shrink-0 sm:max-w-[270px]">
-                            <img class="object-cover h-[180px] sm:h-auto" width="640" height="426" src="https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_1280.jpg" alt="Article 02" />
-                        </figure>
+                </div>
+
+                <!-- Approach -->
+                <div class="mb-16" data-aos="fade-up">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 lg:order-1">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                     alt="Il Nostro Approccio"
+                                     class="w-full h-96 object-cover rounded-2xl shadow-lg">
+                                <!-- Overlay with stats -->
+                                <div class="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <div class="text-4xl font-bold text-yellow-400 mb-2">100%</div>
+                                        <div class="text-lg">Creatività</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-1 lg:order-2">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-6">Il Nostro Approccio</h2>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                                Come web developer basiamo il nostro lavoro sulla creatività. Ci impegniamo a sviluppare
+                                siti web che non solo soddisfano le esigenze tecniche, ma sono anche in grado di
+                                catturare l'essenza unica di ogni cliente.
+                            </p>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                                Ogni progetto include un piano personalizzato e varie revisioni durante tutto il
+                                percorso di creazione, garantendo risultati che superano le aspettative.
+                            </p>
+
+                            <!-- Key Features -->
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-check text-yellow-500 mr-3"></i>
+                                    <span class="text-gray-700">Piano personalizzato per ogni cliente</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-check text-yellow-500 mr-3"></i>
+                                    <span class="text-gray-700">Revisioni multiple durante lo sviluppo</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-check text-yellow-500 mr-3"></i>
+                                    <span class="text-gray-700">Focus su creatività e innovazione</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div data-aos="fade-up" data-aos-duration="3000">
-                        <blockquote>
-                            <p>Se quello che cerchi è distinguerti <span class="underline">ho un’ottima notizia per te.</span></p>
-                        </blockquote>
-                        <p>
-                            Lavorare con me significa collaborare con un esperto che si impegna al massimo per fornire risultati straordinari e soddisfare le tue esigenze. Un'esperienza di sviluppo web che va oltre la semplice codifica.
-                            Se sei pronto a trasformare la tua idea in realtà, <b>sono qui per aiutarti a raggiungere i tuoi obiettivi.</b>
-                        </p>
+                </div>
+
+                <!-- Services -->
+                <div class="mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">In Cosa Possiamo Supportarti</h2>
+
+                    <!-- Tabs component -->
+                    <div x-data="{ activeTab: 1 }" class="max-w-4xl mx-auto">
+                        <!-- Buttons -->
+                        <div class="flex justify-center mb-8">
+                            <div class="flex flex-col lg:flex-row bg-gray-100 rounded-2xl p-1">
+                                <button class="flex-1 text-sm font-medium h-10 px-6 py-2 rounded-xl whitespace-nowrap transition-all duration-200"
+                                        :class="activeTab === 1 ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'"
+                                        @@click="activeTab = 1">
+                                    Consulenza
+                                </button>
+                                <button class="flex-1 text-sm font-medium h-10 px-6 py-2 rounded-xl whitespace-nowrap transition-all duration-200"
+                                        :class="activeTab === 2 ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'"
+                                        @@click="activeTab = 2">
+                                    Sviluppo Web
+                                </button>
+                                <button class="flex-1 text-sm font-medium h-10 px-6 py-2 rounded-xl whitespace-nowrap transition-all duration-200"
+                                        :class="activeTab === 3 ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'"
+                                        @@click="activeTab = 3">
+                                    Tecnologie
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tab panels -->
+                        <div class="relative">
+                            <!-- Panel 1 -->
+                            <div x-show="activeTab === 1"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform translate-y-4"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-1/2 p-2">
+                                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                             alt="Consulenza"
+                                             class="w-full h-48 md:h-full object-cover rounded-lg">
+                                    </div>
+                                    <div class="md:w-1/2 p-6 flex flex-col justify-center">
+                                        <div class="text-sm text-yellow-600 font-semibold mb-2">One-to-one</div>
+                                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Consulenza Strategica</h3>
+                                        <p class="text-gray-600">
+                                            Una guida esperta e personalizzata per aiutarti a raggiungere i tuoi obiettivi.
+                                            Attraverso il servizio di consulenza ti forniremo assistenza e analisi per dare un
+                                            boost alle tue idee e sviluppare strategie di successo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 2 -->
+                            <div x-show="activeTab === 2"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform translate-y-4"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-1/2 p-2">
+                                        <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                             alt="Sviluppo Web"
+                                             class="w-full h-48 md:h-full object-cover rounded-lg">
+                                    </div>
+                                    <div class="md:w-1/2 p-6 flex flex-col justify-center">
+                                        <div class="text-sm text-yellow-600 font-semibold mb-2">Percorso completo</div>
+                                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Creazione Siti Web</h3>
+                                        <p class="text-gray-600">
+                                            La creazione di siti web è come l'arte. Siamo appassionati di design, sviluppo e user experience.
+                                            Il sito web che otterrai non sarà solo bello da vedere, ma anche altamente funzionale e ottimizzato
+                                            per ottenere risultati tangibili per la tua idea.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 3 -->
+                            <div x-show="activeTab === 3"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform translate-y-4"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                                <div class="md:flex">
+                                    <div class="md:w-1/2 p-2">
+                                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                             alt="Tecnologie"
+                                             class="w-full h-48 md:h-full object-cover rounded-lg">
+                                    </div>
+                                    <div class="md:w-1/2 p-6 flex flex-col justify-center">
+                                        <div class="text-sm text-yellow-600 font-semibold mb-2">Web a tutto tondo</div>
+                                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Stack Tecnologico</h3>
+                                        <p class="text-gray-600">
+                                            La programmazione è il cuore pulsante della tecnologia moderna. Le nostre competenze in
+                                            Angular, JavaScript, TypeScript, PHP, C# e .NET garantiscono che il tuo software sia
+                                            efficiente, scalabile e all'avanguardia.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <figure class="md:-mx-12 mt-5" data-aos="fade-up" data-aos-duration="3000">
-                        <img class="object-cover h-[180px] sm:h-auto" width="736" height="240" src="https://cdn.pixabay.com/photo/2019/01/30/07/45/web-3963945_1280.jpg" alt="Article 03" />
-                        <figcaption>Il tuo futuro inizia oggi</figcaption>
+                </div>
+
+                <!-- Experience -->
+                <div class="mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">La Nostra Missione</h2>
+
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                                La nostra missione è portare la tua visione online e farla brillare in tutto il suo splendore.
+                                Possiamo supportarti nella creazione di <strong>sistemi gestionali</strong>,
+                                <strong>piattaforme di e-commerce</strong> e <strong>landing page</strong> di prima classe.
+                            </p>
+                            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                                Inoltre offriamo un servizio di consulenza esperto per aiutarti a prendere le decisioni
+                                giuste per il tuo progetto digitale.
+                            </p>
+                            <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-400 p-6 rounded-r-2xl lg:w-[80%] lg:ms-auto">
+                                <p class="text-lg font-medium text-gray-900 mb-2">
+                                    <i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
+                                    "Se quello che cerchi è distinguerti, abbiamo un'ottima notizia per te."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <img src="https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_1280.jpg"
+                                 alt="La Nostra Missione"
+                                 class="w-full h-80 object-cover rounded-2xl shadow-lg">
+                            <!-- Service Icons Overlay -->
+                            <div class="absolute top-4 right-4 space-y-2">
+                                <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-cogs text-blue-500"></i>
+                                </div>
+                                <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-shopping-cart text-green-500"></i>
+                                </div>
+                                <div class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-rocket text-purple-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Values -->
+                <div class="mb-16" data-aos="fade-up">
+                    <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8 md:p-12">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">I Nostri Valori</h2>
+                            <p class="text-gray-600">Quello che ci distingue nel mercato digitale</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fa-solid fa-users text-2xl text-blue-600"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-3">Team di Esperti</h3>
+                                <p class="text-gray-600">
+                                    Collaboriamo come team di esperti che si impegnano al massimo per fornire
+                                    risultati straordinari e soddisfare le tue esigenze.
+                                </p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fa-solid fa-palette text-2xl text-yellow-600"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-3">Creatività & Innovazione</h3>
+                                <p class="text-gray-600">
+                                    Un'esperienza di sviluppo web che va oltre la semplice codifica,
+                                    basata sulla creatività e l'innovazione continua.
+                                </p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fa-solid fa-bullseye text-2xl text-green-600"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-3">Risultati Concreti</h3>
+                                <p class="text-gray-600">
+                                    Se sei pronto a trasformare la tua idea in realtà,
+                                    siamo qui per aiutarti a raggiungere i tuoi obiettivi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-white relative overflow-hidden">
+                        <!-- Background Pattern -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-0 left-0 w-32 h-32 bg-yellow-400 rounded-full"></div>
+                            <div class="absolute bottom-0 right-0 w-40 h-40 bg-yellow-400 rounded-full"></div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                                Lavorare con noi significa collaborare con esperti
+                            </h2>
+                            <p class="text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+                                che si impegnano al massimo per fornire risultati straordinari e soddisfare le tue esigenze.
+                                Un'esperienza di sviluppo web che va oltre la semplice codifica.
+                            </p>
+                            <p class="text-lg text-gray-300 mb-8">
+                                Se sei pronto a trasformare la tua idea in realtà, siamo qui per aiutarti a raggiungere i tuoi obiettivi.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="@Url.Action("Index", "Home", new { }, null)#service" class="btn btn-primary btn-lg px-8">
+                                    <i class="fa-solid fa-rocket mr-2"></i>
+                                    Scopri i Servizi
+                                </a>
+                                <a href="https://wa.me/393880416518" class="btn btn-outline border-white text-white hover:bg-white hover:text-gray-900 btn-lg px-8">
+                                    <i class="fa-brands fa-whatsapp mr-2"></i>
+                                    Contattaci Ora
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Image -->
+                <div class="text-center" data-aos="fade-up">
+                    <figure class="relative">
+                        <div class="relative overflow-hidden rounded-3xl">
+                            <img src="https://cdn.pixabay.com/photo/2019/01/30/07/45/web-3963945_1280.jpg"
+                                 alt="Il vostro futuro digitale inizia oggi"
+                                 class="w-full h-80 object-cover">
+                            <!-- Overlay with call-to-action -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center lg:justify-start">
+                                <div class="p-8 text-white">
+                                    <h3 class="text-2xl font-bold mb-2">Il Vostro Futuro Digitale</h3>
+                                    <p class="text-lg opacity-90">Inizia Oggi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <figcaption class="text-center text-gray-600 mt-6 italic text-lg">
+                            Il vostro futuro digitale inizia oggi con Five Innovation Hub
+                        </figcaption>
                     </figure>
                 </div>
             </article>
-
         </div>
     </div>
+</section>
 
-    <h2 class="text-center font-extrabold text-3xl mt-8" data-aos="fade-up" data-aos-duration="3000">Di cosa mi occupo</h2>
-    <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-16" data-aos="fade-up" data-aos-duration="1500">
+<!-- Skills Section -->
+<section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Le Nostre Competenze</h2>
+                <p class="text-gray-600">Tecnologie e strumenti che utilizziamo per creare soluzioni innovative</p>
+            </div>
 
-        <!-- Tabs component -->
-        <div x-data="{ activeTab: 1 }">
+            <!-- Tech Stack Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-angular text-3xl text-red-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">Angular</h3>
+                </div>
 
-            <!-- Buttons -->
-            <div class="flex justify-center">
-                <div role="tablist"
-                     class="max-[480px]:max-w-[180px] inline-flex flex-wrap justify-center bg-slate-200 rounded-[20px] p-1 mb-8 min-[480px]:mb-12"
-                     x-on:keydown.right.prevent.stop="$refs.tabButtons.wrap().next()"
-                     x-on:keydown.left.prevent.stop="$refs.tabButtons.wrap().prev()"
-                     x-on:keydown.home.prevent.stop="$refs.tabButtons.first()"
-                     x-on:keydown.end.prevent.stop="$refs.tabButtons.last()">
-                    <!-- Button #1 -->
-                    <button id="tab-1"
-                            class="flex-1 text-sm font-medium h-8 px-4 rounded-2xl whitespace-nowrap focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150 ease-in-out"
-                            :class="activeTab === 1 ? 'bg-white text-slate-900' : 'text-slate-600 hover:text-slate-900'"
-                            :tabindex="activeTab === 1 ? 0 : -1"
-                            :aria-selected="activeTab === 1"
-                            x-on:click="activeTab = 1"
-                            x-on:focus="activeTab = 1">
-                        Consulenza
-                    </button>
-                    <!-- Button #2 -->
-                    <button id="tab-2"
-                            class="flex-1 text-sm font-medium h-8 px-4 rounded-2xl whitespace-nowrap focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150 ease-in-out"
-                            :class="activeTab === 2 ? 'bg-white text-slate-900' : 'text-slate-600 hover:text-slate-900'"
-                            :tabindex="activeTab === 2 ? 0 : -1"
-                            :aria-selected="activeTab === 2"
-                            x-on:click="activeTab = 2"
-                            x-on:focus="activeTab = 2">
-                        Creazione siti web
-                    </button>
-                    <!-- Button #3 -->
-                    <button id="tab-3"
-                            class="flex-1 text-sm font-medium h-8 px-4 rounded-2xl whitespace-nowrap focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150 ease-in-out"
-                            :class="activeTab === 3 ? 'bg-white text-slate-900' : 'text-slate-600 hover:text-slate-900'"
-                            :tabindex="activeTab === 3 ? 0 : -1"
-                            :aria-selected="activeTab === 3"
-                            x-on:click="activeTab = 3"
-                            x-on:focus="activeTab = 3">
-                        Linguaggi
-                    </button>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-js-square text-3xl text-yellow-500"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">JavaScript</h3>
+                </div>
+
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-sass text-3xl text-pink-500"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">Sass</h3>
+                </div>
+
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fas fa-database text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">SQL Server</h3>
+                </div>
+
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-microsoft text-3xl text-blue-500"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">.NET</h3>
+                </div>
+
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-html5 text-3xl text-orange-500"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">HTML5</h3>
+                </div>
+
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="700">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900">CSS3</h3>
                 </div>
             </div>
 
-            <!-- Tab panels -->
-            <div class="max-w-[640px] mx-auto">
-                <div class="relative flex flex-col">
-
-                    <!-- Panel #1 -->
-                    <article id="tabpanel-1"
-                             class="w-full bg-white rounded-2xl shadow-xl min-[480px]:flex items-stretch focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 border border-slate-200"
-                             role="tabpanel"
-                             tabindex="0"
-                             :aria-labelledby="`tab-${activeTab}`"
-                             x-show="activeTab === 1"
-                             x-transition:enter="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-700 transform order-first"
-                             x-transition:enter-start="opacity-0 -translate-y-8"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-300 transform absolute"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 translate-y-12">
-                        <figure class="min-[480px]:w-1/2 p-2">
-                            <img class="w-full h-[180px] min-[480px]:h-full object-cover rounded-lg" width="304" height="214" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tab 01" />
-                        </figure>
-                        <div class="min-[480px]:w-1/2 flex flex-col justify-center p-5 pl-3">
-                            <div class="flex justify-between mb-1">
-                                <header>
-                                    <div class="font-caveat text-xl font-medium text-sky-500">One-to-one</div>
-                                    <h1 class="text-xl font-bold text-slate-900">Consulenza</h1>
-                                </header>
-                            </div>
-                            <div class="text-slate-500 text-sm mb-2">Una guida esperta e personalizzata per aiutarti a raggiungere i tuoi obiettivi. Attraverso il servizio di consulenza ti fornirò assistenza e analisi per dare un boost alle tue idee e sviluppare strategie di successo.</div>
+            <!-- Additional Tech Info -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Il Nostro Stack Tecnologico Completo</h3>
+                    <div class="grid md:grid-cols-3 gap-6 text-left">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Frontend</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>• Angular & TypeScript</li>
+                                <li>• HTML5 & CSS3</li>
+                                <li>• JavaScript ES6+</li>
+                                <li>• Sass & TailwindCSS</li>
+                            </ul>
                         </div>
-                    </article>
-
-                    <!-- Panel #2 -->
-                    <article id="tabpanel-2"
-                             class="w-full bg-white rounded-2xl shadow-xl min-[480px]:flex items-stretch focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 border border-slate-200"
-                             role="tabpanel"
-                             tabindex="0"
-                             :aria-labelledby="`tab-${activeTab}`"
-                             x-show="activeTab === 2"
-                             x-transition:enter="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-700 transform order-first"
-                             x-transition:enter-start="opacity-0 -translate-y-8"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-300 transform absolute"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 translate-y-12">
-                        <figure class="min-[480px]:w-1/2 p-2">
-                        <img class="w-full h-[180px] min-[480px]:h-full object-cover rounded-lg" width="304" height="214" src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tab 02" />
-                    </figure>
-                    <div class="min-[480px]:w-1/2 flex flex-col justify-center p-5 pl-3">
-                        <div class="flex justify-between mb-1">
-                            <header>
-                                <div class="font-caveat text-xl font-medium text-sky-500">Percorso completo</div>
-                                <h1 class="text-xl font-bold text-slate-900">Creazione siti web</h1>
-                            </header>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Backend</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>• ASP.NET MVC & Core</li>
+                                <li>• C# & .NET Framework</li>
+                                <li>• PHP & Laravel</li>
+                                <li>• RESTful APIs</li>
+                            </ul>
                         </div>
-                        <div class="text-slate-500 text-sm mb-2">La creazione di siti web è come l'arte. Sono appassionato di design, sviluppo e user experience. Il sito web che otterrai non sarà solo bello da vedere, ma anche altamente funzionale e ottimizzato per ottenere risultati tangibili per la tua idea.</div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Database & Tools</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>• SQL Server & MySQL</li>
+                                <li>• Cloud Services</li>
+                                <li>• Git</li>
+                                <li>• Agile Development</li>
+                            </ul>
+                        </div>
                     </div>
-                </article>
-
-                <!-- Panel #3 -->
-                <article id="tabpanel-3"
-                         class="w-full bg-white rounded-2xl shadow-xl min-[480px]:flex items-stretch focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 border border-slate-200"
-                         role="tabpanel"
-                         tabindex="0"
-                         :aria-labelledby="`tab-${activeTab}`"
-                         x-show="activeTab === 3"
-                         x-transition:enter="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-700 transform order-first"
-                         x-transition:enter-start="opacity-0 -translate-y-8"
-                         x-transition:enter-end="opacity-100 translate-y-0"
-                         x-transition:leave="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-300 transform absolute"
-                         x-transition:leave-start="opacity-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 translate-y-12">
-                    <figure class="min-[480px]:w-1/2 p-2">
-                        <img class="w-full h-[180px] min-[480px]:h-full object-cover rounded-lg" width="304" height="214" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tab 03" />
-                    </figure>
-                    <div class="min-[480px]:w-1/2 flex flex-col justify-center p-5 pl-3">
-                        <div class="flex justify-between mb-1">
-                            <header>
-                                <div class="font-caveat text-xl font-medium text-sky-500">Web a tutto tondo</div>
-                                <h1 class="text-xl font-bold text-slate-900">Linguaggi</h1>
-                            </header>
-                        </div>
-                        <div class="text-slate-500 text-sm mb-2">La programmazione è il cuore pulsante della tecnologia moderna. Le mie competenze in Angular, JS, TS, C# e .Net, garantiscono che il tuo software sia efficiente, scalabile e all'avanguardia.</div>
-                    </div>
-                </article>
-
+                </div>
             </div>
         </div>
-
     </div>
-    <!-- End: Tabs component -->
+</section>
 
-</div>
-</main>
+<!-- Contact Section -->
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Iniziamo a Collaborare</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Hai un progetto in mente? Parliamone insieme e trasformiamo la tua idea in realtà digitale.
+                    Il nostro team è pronto ad accompagnarti in ogni fase del percorso.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-envelope text-2xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Email</h3>
+                    <p class="text-gray-600">info@fiveinnovationhub.com</p>
+                </div>
+
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-brands fa-whatsapp text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">WhatsApp</h3>
+                    <p class="text-gray-600">+39 388 041 6518</p>
+                </div>
+
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-map-marker-alt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Sede</h3>
+                    <p class="text-gray-600">Guimarães, Portogallo</p>
+                </div>
+
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-clock text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Orari</h3>
+                    <p class="text-gray-600">Lun-Ven: 9:00-18:00</p>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-3xl p-8 md:p-12 text-center text-black" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">Pronto per il Prossimo Passo?</h3>
+                <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+                    Non aspettare oltre. Contattaci oggi stesso e scopri come possiamo trasformare
+                    la tua visione in una realtà digitale di successo.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="@Url.Action("Index", "Home", new { }, null)#service" class="btn bg-black text-white hover:bg-gray-800 btn-lg px-8 border-0">
+                        <i class="fa-solid fa-eye mr-2"></i>
+                        Vedi i Pacchetti
+                    </a>
+                    <a href="https://wa.me/393880416518" class="btn bg-white text-black hover:bg-gray-100 btn-lg px-8 border-0">
+                        <i class="fa-brands fa-whatsapp mr-2"></i>
+                        Contattaci Ora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+}

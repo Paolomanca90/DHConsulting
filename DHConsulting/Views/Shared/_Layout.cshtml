@@ -1,49 +1,193 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="it" data-theme="light">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - PM Consulting</title>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Five Innovation Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
-    <link href="~/Content/general.css" rel="stylesheet" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     @RenderSection("style", required: false)
-    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-    <script>
-        Weglot.initialize({
-            api_key: '@System.Configuration.ConfigurationManager.AppSettings["Weglot"]'
-        });
-    </script>
-</head>
-<body>
 
-    <div class="navbar bg-base-100 sticky top-0 z-10 shadow-md">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --primary-gold: #fbbf24;
+            --primary-gold-light: #fcd34d;
+            --primary-gold-dark: #d97706;
+            --primary-gray: #6b7280;
+            --primary-gray-light: #9ca3af;
+            --primary-gray-dark: #374151;
+            --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 50%, #2a2a2a 100%);
+        }
+
+        .gradient-bg {
+            background: var(--bg-gradient);
+        }
+
+        .glass-effect {
+            background: rgba(251, 191, 36, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @@keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
+        }
+
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+            border: 2px solid #e5e7eb;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
+        }
+
+        .testimonial-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
+            border: 1px solid #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-caveat {
+            font-family: 'Caveat', cursive;
+        }
+
+        .infinite-scroll {
+            animation: infinite-scroll 25s linear infinite;
+        }
+
+        @@keyframes infinite-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
+            border: none;
+            color: var(--primary-black);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-gold-light) 0%, var(--primary-gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            background: transparent;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-gold);
+            color: var(--primary-black);
+        }
+
+        /* Dark mode improvements */
+        [data-theme="dark"] {
+            --primary-black: #ffffff;
+            --primary-gray: #d1d5db;
+            --primary-gray-light: #9ca3af;
+            --primary-gray-dark: #6b7280;
+        }
+
+        [data-theme="dark"] .service-card {
+            background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+            border-color: #374151;
+            color: #f9fafb;
+        }
+
+        [data-theme="dark"] .testimonial-card {
+            background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+            color: #f9fafb;
+            border-color: #374151;
+        }
+
+        [data-theme="dark"] .text-gray-800 {
+            color: #f9fafb !important;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: #e5e7eb !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: #d1d5db !important;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: #1f2937 !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: #111827 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation -->
+    <div class="navbar bg-gray-50 backdrop-blur-md sticky top-0 z-50 shadow-lg border-b border-gray-200">
         <div class="navbar-start">
             @if (User.IsInRole("User") || User.Identity.Name == "")
             {
-                <a class="normal-case ms-2" href="~/Home/Index">
+                <a class="normal-case ms-2" href="@Url.Action("Index", "Home")">
                     <div class="flex flex-row items-center">
-                        <img src="~/Content/Img/Logo-2.png"
-                             alt="Logo-Paolo-Manca"
-                             width="150" />
+                        <img src="/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" width="250" />
                     </div>
                 </a>
             }
             else
             {
-                <a class="normal-case ms-2" href="~/Admin/Index">
+                <a class="normal-case ms-2" href="@Url.Action("Index", "Admin")">
                     <div class="flex flex-row items-center">
-                        <img src="~/Content/Img/Logo-2.png"
-                             alt="Logo-Paolo-Manca"
-                             width="150" />
+                        <img src="/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" width="250" />
                     </div>
                 </a>
             }
@@ -54,38 +198,20 @@
                 <ul class="menu menu-horizontal px-1 items-center">
                     @if (User.IsInRole("User") || User.Identity.Name == "")
                     {
-                        <li><a href="~/Home/Index"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
-                        <li class="ms-2"><a href="~/Home/About"><i class="fa-solid fa-user-tie py-2.5 px-1"></i></a></li>
-                    }
-                    else
-                    {
-                        <li><a href="~/Admin/Index"><i class="fa-solid fa-screwdriver-wrench py-2.5 px-1"></i></a></li>
-                        <li class="ms-2"><a href="~/Admin/AddAdmin"><i class="fa-solid fa-unlock py-2.5 px-1"></i></a></li>
-                        <li class="ms-2"><a href="~/Admin/Dashboard"><i class="fa-solid fa-chart-line py-2.5 px-1"></i></a></li>
-                    }
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li tabindex="0">
-                            <div class="dropdown dropdown-hover dropdown-end dropdown-bottom">
-                                <label tabindex="0">
-                                    <i class="fa-solid fa-right-to-bracket p-1 text-lg"></i>
-                                </label>
-                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-100 border rounded-box w-52">
-                                    <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                                    <li>@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
-                                </ul>
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        if (User.IsInRole("User"))
+                        <li><a href="@Url.Action("Index", "Home")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="@Url.Action("Index", "Home", new { }, null)#service" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-briefcase py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-comments py-2.5 px-1"></i></a></li>
+
+                        if (User.Identity.IsAuthenticated)
                         {
+                            <!-- Cart Icon -->
                             <li tabindex="0">
-                                <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3 border">
-                                    <label tabindex="0" class="btn">
+                                <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3">
+                                    <label tabindex="0" class="btn btn-ghost border border-gray-300">
                                         <div class="indicator">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
                                             @if (Context.Request.Cookies["carrello"] != null)
                                             {
                                                 var carrello = Context.Request.Cookies["carrello"].Value;
@@ -95,20 +221,33 @@
                                                 {
                                                     indicatorT += ind.Quantita;
                                                 }
-                                                <span class="badge badge-sm indicator-item border border-slate-300">@indicatorT</span>
+                                                <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">@indicatorT</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">0</span>
                                             }
                                         </div>
                                     </label>
-                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-base-100 border">
+                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-white shadow-xl border">
                                         <div class="card-body">
                                             @if (Context.Request.Cookies["carrello"] != null)
                                             {
                                                 var carrello = Context.Request.Cookies["carrello"].Value;
                                                 var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
                                                 var indicatorT = 0;
-                                                foreach (var ind in indicator)
+                                                decimal totale = 0;
+                                                var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;
+                                                foreach (var item in indicator)
                                                 {
-                                                    indicatorT += ind.Quantita;
+                                                    indicatorT += item.Quantita;
+                                                    foreach (var i in prodotti)
+                                                    {
+                                                        if (item.IdProdotto == i.IdProdotto)
+                                                        {
+                                                            totale += item.Quantita * i.Costo;
+                                                        }
+                                                    }
                                                 }
                                                 if (indicatorT < 2)
                                                 {
@@ -118,144 +257,102 @@
                                                 {
                                                     <span class="font-bold text-lg">@indicatorT articoli</span>
                                                 }
-                                                decimal totale = 0;
-                                                var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;
-                                                foreach (var item in indicator)
-                                                {
-                                                    foreach (var i in prodotti)
-                                                    {
-                                                        if (item.IdProdotto == i.IdProdotto)
-                                                        {
-                                                            totale += item.Quantita * i.Costo;
-                                                        }
-                                                    }
-                                                }
-                                                <span class="text-info">Totale: @totale.ToString("C")</span>
+                                                <span class="text-yellow-600 font-semibold">Totale: @totale.ToString("C")</span>
                                             }
                                             else
                                             {
                                                 <span class="font-bold text-lg">0 articoli</span>
-                                                <span class="text-info">Totale: &euro; 0.00</span>
+                                                <span class="text-yellow-600 font-semibold">Totale: €0.00</span>
                                             }
                                             <div class="card-actions">
-                                                @Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white btn-block" })
+                                                <a href="@Url.Action("Cart", "Payment")" class="btn btn-primary btn-block">Vai al carrello</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                         }
-                        <li tabindex="0">
-                            <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3 border">
-                                <label tabindex="0">
-                                    <div class="btn px-5">
-                                        <div class="w-3">
-                                            @{ char letter = char.ToUpper(User.Identity.Name[0]);}
-                                            <span class="text-xl">@letter</span>
-                                        </div>
-                                    </div>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Index", "Admin")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-screwdriver-wrench py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="@Url.Action("AddAdmin", "Admin")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-unlock py-2.5 px-1"></i></a></li>
+                        <li class="ms-2"><a href="@Url.Action("Dashboard", "Admin")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-chart-line py-2.5 px-1"></i></a></li>
+                    }
+
+                    <!-- User Menu -->
+                    <li tabindex="0">
+                        <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <label tabindex="0" class="btn btn-primary">
+                                    <i class="fa-solid fa-user"></i>
                                 </label>
-                                <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 bg-base-100 rounded-box w-52 border">
+                                <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 bg-white rounded-box w-52 shadow-xl border">
+                                    <li><a href="@Url.Action("Login", "Auth")" class="hover:bg-yellow-50">Login</a></li>
+                                    <li><a href="@Url.Action("Register", "Auth")" class="hover:bg-yellow-50">Registrati</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <label tabindex="0" class="btn btn-primary">
+                                    @{ char letter = char.ToUpper(User.Identity.Name[0]);}
+                                    <span class="text-xl">@letter</span>
+                                </label>
+                                <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 bg-white rounded-box w-52 shadow-xl border">
                                     @if (User.IsInRole("User"))
                                     {
-                                        <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                                        <li><a href="@Url.Action("Profilo", "Home")" class="hover:bg-yellow-50">Profilo</a></li>
                                         <hr class="my-1" />
                                     }
-                                    <li>@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                                    <li><a href="@Url.Action("Logout", "Auth")" class="hover:bg-yellow-50">Logout</a></li>
                                 </ul>
-                            </div>
-                        </li>
-                    }
+                            }
+                        </div>
+                    </li>
                 </ul>
             </div>
 
-            <!-- Open the modal using ID.showModal() method -->
-            <button onclick="my_modal_5.showModal();toggleMenu()" class="me-1.5 p-0 flex items-center">
-                <div class="swap swap-rotate lg:hidden">
-                    <!-- this hidden checkbox controls the state -->
-                    <input type="checkbox" id="toggle1" />
-
-                    <!-- hamburger icon -->
-                    <svg class="swap-off fill-current"
-                         xmlns="http://www.w3.org/2000/svg"
-                         width="32"
-                         height="32"
-                         viewBox="0 0 512 512">
-                        <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-                    </svg>
-
-                    <!-- close icon -->
-                    <svg class="swap-on fill-current"
-                         xmlns="http://www.w3.org/2000/svg"
-                         width="32"
-                         height="32"
-                         viewBox="0 0 512 512">
-                        <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-                    </svg>
-                </div>
+            <!-- Mobile Menu -->
+            <button onclick="my_modal_5.showModal()" class="me-1.5 p-2 lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 512 512">
+                    <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                </svg>
             </button>
+
             <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-                <div class="modal-box">
-                    <h3 class="font-bold text-2xl">Menu</h3>
-                    <ul class="p-3 text-xl">
+                <div class="modal-box bg-white">
+                    <h3 class="font-bold text-2xl mb-4">Menu</h3>
+                    <ul class="space-y-4 text-lg">
                         @if (User.IsInRole("User") || User.Identity.Name == "")
                         {
-                            <li class="mb-5">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li class="mb-2">@Html.ActionLink("Chi Sono", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        }
-                        else
-                        {
-                            <li class="mb-5">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li class="mb-5">@Html.ActionLink("Gestisci Admin", "AddAdmin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li class="mb-2">@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        }
-                        @if (!User.Identity.IsAuthenticated)
-                        {
-                            <li>
-                                <div class="collapse collapse-arrow">
-                                    <input type="radio" name="my-accordion-2"/>
-                                    <div class="collapse-title p-0 flex items-center">
-                                        Accesso
-                                    </div>
-                                    <div class="collapse-content py-0">
-                                        <p class="mb-2">@Html.ActionLink("Accedi", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
-                                        <p class="mb-2">@Html.ActionLink("Registrati", "Register", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        else
-                        {
-                            if (User.IsInRole("User"))
+                            <li><a href="@Url.Action("Index", "Home")" class="block py-2 hover:text-yellow-600">Home</a></li>
+                            <li><a href="@Url.Action("Index", "Home", new { }, null)#service" class="block py-2 hover:text-yellow-600">Servizi</a></li>
+                            <li><a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="block py-2 hover:text-yellow-600">Recensioni</a></li>
+                            if (User.Identity.IsAuthenticated)
                             {
-                                <li class="mb-2 mt-5">@Html.ActionLink("Carrello", "Cart", "Payment", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li><a href="@Url.Action("Cart", "Payment")" class="block py-2 hover:text-yellow-600">Carrello</a></li>
+                                <li><a href="@Url.Action("Profilo", "Home")" class="block py-2 hover:text-yellow-600">Profilo</a></li>
+                                <li><a href="@Url.Action("Logout", "Auth")" class="block py-2 hover:text-yellow-600">Logout</a></li>
                             }
-                    <li>
-                        <div class="collapse collapse-arrow">
-                            <input type="radio" name="my-accordion-2" />
-                            <div class="collapse-title p-0 flex items-center">
-                                Profilo
-                            </div>
-                            <div class="collapse-content py-0">
-                                @if (User.IsInRole("User"))
-                                {
-                                    <p class="mb-2">@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "nav-link" })</p>
-                                }
-                                <p class="mb-2">@Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</p>
-                            </div>
-                        </div>
-                    </li>
+                            else
+                            {
+                                <li><a href="@Url.Action("Login", "Auth")" class="block py-2 hover:text-yellow-600">Accedi</a></li>
+                                <li><a href="@Url.Action("Register", "Auth")" class="block py-2 hover:text-yellow-600">Registrati</a></li>
+                            }
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Index", "Admin")" class="block py-2 hover:text-yellow-600">Gestione Prodotti</a></li>
+                            <li><a href="@Url.Action("AddAdmin", "Admin")" class="block py-2 hover:text-yellow-600">Gestione Admin</a></li>
+                            <li><a href="@Url.Action("Dashboard", "Admin")" class="block py-2 hover:text-yellow-600">Dashboard</a></li>
+                            <li><a href="@Url.Action("Logout", "Auth")" class="block py-2 hover:text-yellow-600">Logout</a></li>
                         }
                     </ul>
                     <div class="modal-action">
                         <form method="dialog">
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn rounded-full py-1 px-2" onclick="toggleMenu()">
-                                <svg class="swap-on fill-current"
-                                     xmlns="http://www.w3.org/2000/svg"
-                                     width="32"
-                                     height="32"
-                                     viewBox="0 0 512 512">
+                            <button class="btn btn-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                                     <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
                                 </svg>
                             </button>
@@ -264,165 +361,143 @@
                 </div>
             </dialog>
 
-            <label class="swap swap-rotate">
-                <!-- this hidden checkbox controls the state -->
-                <input type="checkbox"
-                       id="toggle"
-                       data-toggle-theme="night,light"
-                       data-act-class="ACTIVECLASS" />
-
-                <!-- sun icon -->
-                <svg id="sun" class="swap-on fill-current w-7 h-7 me-3"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24">
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate ml-4">
+                <input type="checkbox" id="toggle" />
+                <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
                 </svg>
-
-                <!-- moon icon -->
-                <svg id="moon" class="swap-off fill-current w-7 h-7 me-3"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24">
+                <svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
                 </svg>
             </label>
         </div>
     </div>
-    <div class="bg-base-200">
+
+    <!-- Main Content -->
+    <div>
         @RenderBody()
     </div>
-    <footer class="border-t-2 pt-5 bg-base-100">
-        <div class="container p-6 mx-auto">
-            <div class="lg:flex">
-                <div class="w-full -mx-6 lg:w-2/5">
-                    <div class="px-6">
-                        <a href="~/Home/Index">
-                            <img class="w-auto h-9" src="~/Content/Img/Logo-2.png" alt="logo">
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <img src="/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" width="350" class="-ms-2 mb-6">
+                    <p class="text-gray-400 mb-6 max-w-md leading-relaxed">
+                        Trasformiamo le tue idee in realt&agrave; digitali di successo.
+                        Esperienza, innovazione e tecnologie all'avanguardia al servizio del tuo business.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/paolo-manca-developer" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
                         </a>
-
-                        <p class="max-w-sm mt-2">Quello di cui hai bisogno per trasformare le tue idee in realt&agrave; tech</p>
-
-                        <div class="flex mt-6 -mx-2">
-                            <a href="https://www.linkedin.com/in/paolo-manca-developer"
-                               class="mx-2 transition-colors duration-300 hover:text-orange-500"
-                               aria-label="Reddit">
-                                <i class="fa-brands fa-linkedin"></i>
-                            </a>
-
-                            <a href="https://github.com/Paolomanca90"
-                               class="mx-2 transition-colors duration-300 hover:text-orange-500"
-                               aria-label="Github">
-                                <i class="fa-brands fa-github"></i>
-                            </a>
-                        </div>
+                        <a href="https://github.com/Paolomanca90" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="mt-6 lg:mt-0 lg:flex-1">
-                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        <div>
-                            <h3 class="uppercase">Link utili</h3>
-                            <a href="~/Home/About" class="block mt-2 text-sm hover:underline">Chi sono</a>
-                            <a href="~/Home/Index#service" class="block mt-2 text-sm hover:underline">Prodotti</a>
-                            <a href="~/Home/Index#rewievs" class="block mt-2 text-sm hover:underline">Recensioni</a>
-                            <p class="mt-2">
-                                <a href="https://www.iubenda.com/privacy-policy/52602854" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-                            </p>
-                            <p class="mt-2">
-                                <a href="https://www.iubenda.com/privacy-policy/52602854/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-                            </p>
-                        </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-yellow-400">Link Utili</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        @if (User.IsInRole("User") || User.Identity.Name == "")
+                        {
+                            <li><a href="@Url.Action("Index", "Home", new { }, null)#service" class="hover:text-yellow-400 transition-colors">Servizi</a></li>
+                            <li><a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="hover:text-yellow-400 transition-colors">Recensioni</a></li>
+                            <li><a href="@Url.Action("About", "Home")" class="hover:text-yellow-400 transition-colors">Chi Siamo</a></li>
+                        }
+                        <li>
+                            <a href="https://www.iubenda.com/privacy-policy/52602854" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy Policy</a>
+                            <script type="text/javascript">(function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; if (w.addEventListener) { w.addEventListener("load", loader, false); } else if (w.attachEvent) { w.attachEvent("onload", loader); } else { w.onload = loader; } })(window, document);</script>
+                        </li>
+                        <li>
+                            <a href="https://www.iubenda.com/privacy-policy/52602854/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Cookie Policy ">Cookie Policy</a>
+                            <script type="text/javascript">(function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; if (w.addEventListener) { w.addEventListener("load", loader, false); } else if (w.attachEvent) { w.attachEvent("onload", loader); } else { w.onload = loader; } })(window, document);</script>
+                        </li>
+                    </ul>
+                </div>
 
-                        <div>
-                            <h3 class="uppercase">Contatti</h3>
-                            <span class="block mt-2 text-sm hover:underline md:hidden">
-                                <a href="tel:+393880416518">+39 388 041 6518</a>
-                            </span>
-                            <span class="block mt-2 text-sm hover:underline hidden md:block">+39 388 041 6518</span>
-                            <a class="block mt-2 text-sm hover:underline" href="mailto:info@paolomancaconsulting.com">info@paolomancaconsulting.com</a>
-                        </div>
-                    </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-yellow-400">Contatti</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-clock mr-3 text-yellow-400"></i>
+                            <span>Five Innovation Hub, LDA</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone mr-3 text-yellow-400"></i>
+                            <span>+39 388 041 6518</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-envelope mr-3 text-yellow-400"></i>
+                            <span>info@fiveinnovationhub.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-map-marker-alt mr-3 text-yellow-400"></i>
+                            <span>Av. S&atilde;o Gon&ccedil;alo 1614, 4835-105, Guimar&atilde;es, Braga</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <hr class="h-px my-6 bg-gray-200 border-none dark:bg-gray-700">
-
-            <div>
-                <p class="text-center ">&copy; PM Consulting @DateTime.Now.Year - Tutti i diritti sono riservati</p>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Five Innovation Hub - Tutti i diritti riservati | P.IVA PT518557332</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script>
-    
-        document.addEventListener("DOMContentLoaded", function () {
-        // Controlla se c'è uno stato salvato nel localStorage
-        const currentTheme = localStorage.getItem("theme");
 
-        // Applica lo stato salvato o imposta quello predefinito
-        if (currentTheme) {
-            document.documentElement.setAttribute("data-theme", currentTheme);
-            if (currentTheme === "night") {
-                // Se il tema è notte, imposta l'interruttore della modalità notte
-                document.getElementById("toggle").checked = true;
-            }
-        } else {
-            // Nessuno stato salvato, usa il tema predefinito
-            const defaultTheme = "light";
-            document.documentElement.setAttribute("data-theme", defaultTheme);
-        }
-
-        // Aggiorna l'SVG in base allo stato del tema
-        updateSvg(currentTheme);
-
-        // Gestisci il cambiamento di tema
-        const themeToggle = document.getElementById("toggle");
-        themeToggle.addEventListener("change", function () {
-            const selectedTheme = themeToggle.checked ? "night" : "light";
-            document.documentElement.setAttribute("data-theme", selectedTheme);
-            // Salva lo stato nel localStorage
-            localStorage.setItem("theme", selectedTheme);
-            // Aggiorna l'SVG in base allo stato del tema
-            updateSvg(selectedTheme);
-        });
-
-        function updateSvg(theme) {
-            // Ottieni riferimenti agli elementi SVG
-            const moonIcon = document.querySelector("#moon");
-            const sunIcon = document.querySelector("#sun");
-
-            // Aggiorna l'SVG in base allo stato del tema
-            if (theme === "night") {
-                moonIcon.style.display = "none";
-                sunIcon.style.display = "block";
-            } else {
-                moonIcon.style.display = "block";
-                sunIcon.style.display = "none";
-            }
-        }
-    });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
     <script src="~/Scripts/script.js"></script>
     <script type="module" src="~/Scripts/alpinejs.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script>
-        function toggleMenu() {
-            document.getElementById('toggle1').click();
-        }
-    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Theme Toggle
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", currentTheme);
+            document.getElementById("toggle").checked = currentTheme === "dark";
+
+            document.getElementById("toggle").addEventListener("change", function () {
+                const selectedTheme = this.checked ? "dark" : "light";
+                document.documentElement.setAttribute("data-theme", selectedTheme);
+                localStorage.setItem("theme", selectedTheme);
+            });
+        });
     </script>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         var _iub = _iub || [];
-        _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"enableFadp":true,"enableLgpd":true,"enableUspr":false,"fadpApplies":false,"floatingPreferencesButtonDisplay":"anchored-bottom-left","perPurposeConsent":true,"siteId":3386603,"usprApplies":true,"whitelabel":false,"cookiePolicyId":52602854,"lang":"it", "banner":{ "acceptButtonDisplay":true,"closeButtonDisplay":false,"customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"position":"float-top-center","rejectButtonDisplay":true }};
+        _iub.csConfiguration = { "askConsentAtCookiePolicyUpdate": true, "enableFadp": true, "enableLgpd": true, "enableUspr": false, "fadpApplies": false, "floatingPreferencesButtonDisplay": "anchored-bottom-left", "perPurposeConsent": true, "siteId": 3386603, "usprApplies": true, "whitelabel": false, "cookiePolicyId": 52602854, "lang": "it", "banner": { "acceptButtonDisplay": true, "closeButtonDisplay": false, "customizeButtonDisplay": true, "explicitWithdrawal": true, "listPurposes": true, "position": "float-top-center", "rejectButtonDisplay": true } };
     </script>
     <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3386603.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="fixed bottom-8 right-8 z-40 floating-animation">
+        <a href="https://wa.me/393880416518" target="_blank"
+           class="btn btn-circle btn-lg bg-green-500 hover:bg-green-600 text-white border-0 shadow-xl">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
 </body>
 </html>

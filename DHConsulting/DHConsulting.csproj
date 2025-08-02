@@ -345,6 +345,7 @@
     <Content Include="Content\Img\Logo-.png" />
     <Content Include="Content\Img\Logo-2.png" />
     <Content Include="Content\Img\logo-electron.svg" />
+    <Content Include="Content\Img\logo_orizz_sf.png" />
     <Content Include="Content\Img\Logo_Paolo.png" />
     <Content Include="Content\Img\mysql-logo.svg" />
     <Content Include="Content\Img\PayPal.svg" />
