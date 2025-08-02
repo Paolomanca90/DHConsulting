@@ -5,213 +5,628 @@
     string datanascita = Model.DataNascita.ToShortDateString();
 }
 
-<section class="min-h-screen">
-    <div class="container min-h-screen">
-        <div class="md:flex min-h-screen">
-            <div class="w-1/3 md:px-3" style="background: url(https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGluZm9ybWF0aW9uJTIwdGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
+@if (ViewBag.Errore != null)
+{
+    <div class="flex justify-center py-12">
+        <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-red-500">
+            <div class="flex items-center justify-center w-12 bg-red-500">
+                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
+                </svg>
             </div>
-
-            <div class="w-full lg:w-2/3 px-7 py-12">
-                @if (ViewBag.Errore != null)
-                {
-                    <div class="flex justify-center my-12">
-                        <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                            <div class="flex items-center justify-center w-12 bg-red-500">
-                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                                </svg>
-                            </div>
-
-                            <div class="px-4 py-2 -mx-3">
-                                <div class="mx-3">
-                                    <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                    <p class="text-sm">
-                                        @ViewBag.Errore
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                @if (TempData["Utente"] != null)
-                {
-                    <div class="flex justify-center my-12">
-                        <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                            <div class="flex items-center justify-center w-12 bg-red-500">
-                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                                </svg>
-                            </div>
-
-                            <div class="px-4 py-2 -mx-3">
-                                <div class="mx-3">
-                                    <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                    <p class="text-sm">
-                                        @TempData["Utente"]
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.IdCliente)
-                    @Html.HiddenFor(model => model.Nome)
-                    @Html.HiddenFor(model => model.Cognome)
-                    if (Model.DataNascita != new DateTime(1900, 1, 1))
-                    {
-                        @Html.HiddenFor(model => model.DataNascita)
-                        @Html.HiddenFor(model => model.CF)
-                    }
-                    @Html.HiddenFor(model => model.Username)
-                    @Html.HiddenFor(model => model.Password)
-                    <div class="pb-6 border-b border-gray-300 flex justify-between items-center">
-                        <h5 class="text-xl font-semibold">@Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Cognome)</h5>
-                        <input type="submit" value="Salva modifiche" class="btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white text-md" />
-                    </div>
-                    <div class="gap-[30px] py-6">
-                        <div>
-                            <h5 class="text-xl font-semibold">Aggiorna profilo:</h5>
-                            <div class="mt-6">
-                                @if (Model.DataNascita != new DateTime(1900, 1, 1))
-                                {
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark fea icon-ex-md text-slate-400 mr-3">
-                                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">CF:</h6>
-                                            <p class="text-slate-400 mb-0">@Html.DisplayFor(model => model.CF);</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift fea icon-ex-md text-slate-400 mr-3">
-                                            <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                                            <rect x="2" y="7" width="20" height="5"></rect>
-                                            <line x1="12" y1="22" x2="12" y2="7"></line>
-                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">Data di nascita:</h6>
-                                            <p class="text-slate-400 mb-0">@datanascita</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe fea icon-ex-md text-slate-400 mr-3">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">Username:</h6>
-                                            <p class="text-slate-400 mb-0">@Html.DisplayFor(model => model.Username)</p>
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark fea icon-ex-md text-slate-400 mr-3">
-                                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">CF:</h6>
-                                            @Html.EditorFor(model => model.CF, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                            @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-red-500" })
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift fea icon-ex-md text-slate-400 mr-3">
-                                            <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                                            <rect x="2" y="7" width="20" height="5"></rect>
-                                            <line x1="12" y1="22" x2="12" y2="7"></line>
-                                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">Data di nascita:</h6>
-                                            @Html.EditorFor(model => model.DataNascita, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" , type="date"} })
-                                            @Html.ValidationMessageFor(model => model.DataNascita, "", new { @class = "text-red-500" })
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe fea icon-ex-md text-slate-400 mr-3">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <h6 class="font-medium mb-0">Username:</h6>
-                                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
-                                        </div>
-                                    </div>
-                                }
-                                <div class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-ex-md text-slate-400 mr-3">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                    <div class="flex-1 mt-3">
-                                        <h6 class="font-medium mb-0">Email:</h6>
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500" })
-                                    </div>
-                                </div>
-                                <div class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    <div class="flex-1">
-                                        <h6 class="font-medium mb-0">Indirizzo:</h6>
-                                        @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                        @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500" })
-                                    </div>
-                                </div>
-                                <div class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    <div class="flex-1">
-                                        <h6 class="font-medium mb-0">Città:</h6>
-                                        @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                        @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500" })
-                                    </div>
-                                </div>
-                                <div class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-italic fea icon-ex-md text-slate-400 mr-3">
-                                        <line x1="19" y1="4" x2="10" y2="4"></line>
-                                        <line x1="14" y1="20" x2="5" y2="20"></line>
-                                        <line x1="15" y1="4" x2="9" y2="20"></line>
-                                    </svg>
-                                    <div class="flex-1">
-                                        <h6 class="font-medium mb-0">P.IVA:</h6>
-                                        @Html.EditorFor(model => model.Piva, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                        @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500" })
-                                    </div>
-                                </div>
-                                <div class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone fea icon-ex-md text-slate-400 mr-3">
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                    </svg>
-                                    <div class="flex-1">
-                                        <h6 class="font-medium mb-0">Telefono:</h6>
-                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full lg:w-1/2 mt-1" } })
-                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>               
+            <div class="px-4 py-2 -mx-3">
+                <div class="mx-3">
+                    <span class="font-semibold text-red-500">Attenzione</span>
+                    <p class="text-sm">@ViewBag.Errore</p>
+                </div>
+            </div>
         </div>
-        <!--end grid-->
     </div>
-    <!--end container-->
+}
+
+@if (TempData["Utente"] != null)
+{
+    <div class="flex justify-center py-12">
+        <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-yellow-500">
+            <div class="flex items-center justify-center w-12 bg-yellow-500">
+                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
+                </svg>
+            </div>
+            <div class="px-4 py-2 -mx-3">
+                <div class="mx-3">
+                    <span class="font-semibold text-yellow-700">Attenzione</span>
+                    <p class="text-sm">@TempData["Utente"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Edit Profile Hero Section -->
+<section class="py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <nav class="flex mb-8" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-yellow-600">
+                            <i class="fa-solid fa-home mr-2"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-400 mx-2"></i>
+                            <a href="@Url.Action("Profilo", "Home")" class="text-sm font-medium text-gray-700 hover:text-yellow-600">
+                                Profilo
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-400 mx-2"></i>
+                            <span class="text-sm font-medium text-gray-500">Modifica</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="text-center mb-12" data-aos="fade-up">
+                <div class="w-24 h-24 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i class="fa-solid fa-user-edit text-3xl text-white"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Modifica Profilo
+                </h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Aggiorna le tue informazioni personali per mantenere il profilo sempre aggiornato
+                </p>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- Edit Form Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            @using (Html.BeginForm("EditProfilo", "Home", FormMethod.Post, new { @class = "space-y-8" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IdCliente)
+                @Html.HiddenFor(model => model.Nome)
+                @Html.HiddenFor(model => model.Cognome)
+
+                if (Model.DataNascita != new DateTime(1900, 1, 1))
+                {
+                    @Html.HiddenFor(model => model.DataNascita)
+                    @Html.HiddenFor(model => model.CF)
+                }
+
+                @Html.HiddenFor(model => model.Username)
+                @Html.HiddenFor(model => model.Password)
+
+                <!-- Form Header -->
+                <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                        <div class="flex items-center mb-4 lg:mb-0">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl font-bold text-white">
+                                    @{char firstLetter = char.ToUpper(Model.Nome[0]);}
+                                    @firstLetter
+                                </span>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900">@Model.Nome @Model.Cognome</h2>
+                                <p class="text-gray-600">Aggiorna le tue informazioni</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-save mr-2"></i>
+                            Salva Modifiche
+                        </button>
+                    </div>
+
+                    <!-- Readonly Information -->
+                    @if (Model.DataNascita != new DateTime(1900, 1, 1))
+                    {
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 mb-8">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-6 flex items-center">
+                                <i class="fa-solid fa-lock text-gray-500 mr-2"></i>
+                                Informazioni Non Modificabili
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="flex items-center p-4 bg-white rounded-xl border border-gray-200">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa-solid fa-id-card text-yellow-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Codice Fiscale</h4>
+                                        <p class="text-gray-600 font-mono">@Model.CF</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-white rounded-xl border border-gray-200">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa-solid fa-calendar text-yellow-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Data di Nascita</h4>
+                                        <p class="text-gray-600">@Model.DataNascita.ToString("dd MMMM yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-white rounded-xl border border-gray-200">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa-solid fa-at text-yellow-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Username</h4>
+                                        <p class="text-gray-600">@Model.Username</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Editable Fields -->
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Personal Information Card -->
+                    <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-8">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa-solid fa-user text-xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900">Informazioni Personali</h3>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-envelope text-gray-500 mr-2"></i>
+                                    Email
+                                </label>
+                                @Html.EditorFor(model => model.Email, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @placeholder = "La tua email"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500 text-sm mt-1" })
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="form-group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-phone text-gray-500 mr-2"></i>
+                                    Telefono
+                                </label>
+                                @Html.EditorFor(model => model.Phone, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @placeholder = "Il tuo numero di telefono"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500 text-sm mt-1" })
+                            </div>
+
+                            <!-- P.IVA -->
+                            <div class="form-group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-building text-gray-500 mr-2"></i>
+                                    Partita IVA
+                                    <span class="text-xs text-gray-500">(opzionale)</span>
+                                </label>
+                                @Html.EditorFor(model => model.Piva, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @placeholder = "La tua P.IVA (se disponibile)"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500 text-sm mt-1" })
+                            </div>
+
+                            @if (Model.DataNascita == new DateTime(1900, 1, 1))
+                            {
+                                <!-- CF (only if not set) -->
+                                <div class="form-group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        <i class="fa-solid fa-id-card text-gray-500 mr-2"></i>
+                                        Codice Fiscale
+                                    </label>
+                                    @Html.EditorFor(model => model.CF, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @placeholder = "Il tuo codice fiscale"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-red-500 text-sm mt-1" })
+                                </div>
+
+                                <!-- Birth Date (only if not set) -->
+                                <div class="form-group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        <i class="fa-solid fa-calendar text-gray-500 mr-2"></i>
+                                        Data di Nascita
+                                    </label>
+                                    @Html.EditorFor(model => model.DataNascita, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @type = "date"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.DataNascita, "", new { @class = "text-red-500 text-sm mt-1" })
+                                </div>
+
+                                <!-- Username (only if not set) -->
+                                <div class="form-group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        <i class="fa-solid fa-at text-gray-500 mr-2"></i>
+                                        Username
+                                    </label>
+                                    @Html.EditorFor(model => model.Username, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @placeholder = "Il tuo username"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500 text-sm mt-1" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Address Information Card -->
+                    <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-8">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa-solid fa-map-marker-alt text-xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900">Indirizzo</h3>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Address -->
+                            <div class="form-group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-road text-gray-500 mr-2"></i>
+                                    Via/Piazza
+                                </label>
+                                @Html.EditorFor(model => model.Indirizzo, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @placeholder = "Es. Via Roma, 123"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500 text-sm mt-1" })
+                            </div>
+
+                            <!-- City -->
+                            <div class="form-group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-city text-gray-500 mr-2"></i>
+                                    Città
+                                </label>
+                                @Html.EditorFor(model => model.Citta, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @placeholder = "La tua città"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500 text-sm mt-1" })
+                            </div>
+
+                            <!-- Info Card -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fa-solid fa-info text-blue-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-900 mb-2">Informazioni Importanti</h4>
+                                        <ul class="text-sm text-blue-800 space-y-1">
+                                            <li>• Assicurati che l'indirizzo sia corretto per la fatturazione</li>
+                                            <li>• L'email verrà utilizzata per tutte le comunicazioni</li>
+                                            <li>• Il numero di telefono è necessario per il supporto clienti</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-8">
+                            <i class="fa-solid fa-save mr-2"></i>
+                            Salva Modifiche
+                        </button>
+                        <a href="@Url.Action("Profilo", "Home")" class="btn btn-outline-secondary btn-lg px-8">
+                            <i class="fa-solid fa-times mr-2"></i>
+                            Annulla
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Security Notice -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 text-white" data-aos="fade-up">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fa-solid fa-shield-halved text-xl text-black"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">I Tuoi Dati Sono Sicuri</h3>
+                        <p class="text-gray-300">Tutte le informazioni sono protette e crittografate</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-lock text-2xl text-yellow-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Crittografia SSL</h4>
+                        <p class="text-sm text-gray-300">Tutti i dati sono trasmessi in modo sicuro</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-database text-2xl text-yellow-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Backup Sicuri</h4>
+                        <p class="text-sm text-gray-300">I tuoi dati sono sempre al sicuro</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-eye-slash text-2xl text-yellow-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Privacy Garantita</h4>
+                        <p class="text-sm text-gray-300">Non condividiamo mai i tuoi dati</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <style>
+        .form-group {
+            position: relative;
+        }
+
+            .form-group input:focus {
+                outline: none;
+                transform: translateY(-1px);
+                box-shadow: 0 10px 25px rgba(251, 191, 36, 0.15);
+            }
+
+            .form-group label {
+                transition: all 0.3s ease;
+            }
+
+            .form-group input:focus + label,
+            .form-group input:not(:placeholder-shown) + label {
+                transform: translateY(-8px) scale(0.85);
+                background: white;
+                padding: 0 8px;
+                margin-left: -4px;
+            }
+
+        /* Enhanced button hover effects */
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Custom validation styling */
+        .field-validation-error {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.875rem;
+            color: #ef4444;
+        }
+
+        .input-validation-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+        }
+
+        /* Loading state for form submission */
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fbbf24;
+            border-radius: 4px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #f59e0b;
+            }
+    </style>
+
+    <script>
+        // Form validation enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const submitBtn = document.querySelector('button[type="submit"]');
+
+            // Add loading state on form submission
+            form.addEventListener('submit', function(e) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Salvando...';
+            });
+
+            // Real-time validation feedback
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"]');
+
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+
+                input.addEventListener('input', function() {
+                    // Remove error styling on input
+                    this.classList.remove('input-validation-error');
+                    const errorMsg = this.parentNode.querySelector('.field-validation-error');
+                    if (errorMsg) {
+                        errorMsg.style.opacity = '0';
+                    }
+                });
+            });
+
+            function validateField(field) {
+                const value = field.value.trim();
+                const fieldType = field.type;
+                const fieldName = field.name;
+
+                // Basic validation rules
+                let isValid = true;
+                let errorMessage = '';
+
+                if (field.hasAttribute('required') && !value) {
+                    isValid = false;
+                    errorMessage = 'Questo campo è obbligatorio';
+                } else if (fieldType === 'email' && value) {
+                    const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                    if (!emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Inserisci un indirizzo email valido';
+                    }
+                } else if (fieldName === 'Phone' && value) {
+                    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+                    if (!phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Inserisci un numero di telefono valido';
+                    }
+                } else if (fieldName === 'CF' && value) {
+                    if (value.length !== 16) {
+                        isValid = false;
+                        errorMessage = 'Il codice fiscale deve essere di 16 caratteri';
+                    }
+                } else if (fieldName === 'Piva' && value) {
+                    if (value.length !== 11) {
+                        isValid = false;
+                        errorMessage = 'La partita IVA deve essere di 11 cifre';
+                    }
+                }
+
+                // Update field styling
+                if (!isValid) {
+                    field.classList.add('input-validation-error');
+                    showFieldError(field, errorMessage);
+                } else {
+                    field.classList.remove('input-validation-error');
+                    hideFieldError(field);
+                }
+
+                return isValid;
+            }
+
+            function showFieldError(field, message) {
+                let errorElement = field.parentNode.querySelector('.field-validation-error');
+                if (!errorElement) {
+                    errorElement = document.createElement('span');
+                    errorElement.className = 'field-validation-error';
+                    field.parentNode.appendChild(errorElement);
+                }
+                errorElement.textContent = message;
+                errorElement.style.opacity = '1';
+            }
+
+            function hideFieldError(field) {
+                const errorElement = field.parentNode.querySelector('.field-validation-error');
+                if (errorElement) {
+                    errorElement.style.opacity = '0';
+                }
+            }
+
+            // Smooth scroll to validation errors
+            const validationErrors = document.querySelectorAll('.field-validation-error');
+            if (validationErrors.length > 0) {
+                const firstError = validationErrors[0];
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Auto-format inputs
+            const phoneInput = document.querySelector('input[name="Phone"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 0) {
+                        if (value.length <= 3) {
+                            value = value;
+                        } else if (value.length <= 6) {
+                            value = value.slice(0, 3) + ' ' + value.slice(3);
+                        } else if (value.length <= 10) {
+                            value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
+                        } else {
+                            value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 10);
+                        }
+                    }
+                    e.target.value = value;
+                });
+            }
+
+            // Auto-uppercase CF
+            const cfInput = document.querySelector('input[name="CF"]');
+            if (cfInput) {
+                cfInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.toUpperCase();
+                });
+            }
+        });
+    </script>
+}

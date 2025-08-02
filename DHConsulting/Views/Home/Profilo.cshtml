@@ -4,145 +4,374 @@
     ViewBag.Title = "Profilo";
 }
 
-
-<section class="min-h-screen">
-    <div class="container min-h-screen">
-        <div class="md:flex min-h-screen">
-            <div class="lg:w-1/4 md:w-1/3 md:px-3" style="background: url(https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGluZm9ybWF0aW9uJTIwdGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D); background-size:cover;">
+@if (TempData["Successo"] != null)
+{
+    <div class="flex justify-center py-12">
+        <div class="flex w-full max-w-md overflow-hidden rounded-lg shadow-md border border-blue-500">
+            <div class="flex items-center justify-center w-12 bg-blue-500">
+                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
+                </svg>
             </div>
-
-            <div class="lg:w-3/4 md:w-2/3 px-7 py-12">
-                @if (TempData["Successo"] != null)
-                {
-                    <div class="flex justify-center my-12">
-                        <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-blue-500">
-                            <div class="flex items-center justify-center w-12 bg-blue-500">
-                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
-                                </svg>
-                            </div>
-
-                            <div class="px-4 py-2 -mx-3">
-                                <div class="mx-3">
-                                    <span class="font-semibold text-blue-500 dark:text-blue-400">Complimenti</span>
-                                    <p class="text-sm">@TempData["Successo"]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            <div>
-                <div class="pb-6 border-b border-gray-300 flex justify-between items-center">
-                    <h5 class="text-xl font-semibold">@Model.Nome @Model.Cognome</h5>
-                    @Html.ActionLink("Aggiorna profilo", "EditProfilo", new { id = Model.IdCliente }, new { @class = "btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white text-md" })
+            <div class="px-4 py-2 -mx-3">
+                <div class="mx-3">
+                    <span class="font-semibold text-blue-500">Complimenti</span>
+                    <p class="text-sm">@TempData["Successo"]</p>
                 </div>
+            </div>
+        </div>
+    </div>
+}
 
-                <div class="grid lg:grid-cols-2 grid-cols-1 gap-[30px] pt-6">
-                    <div>
-                        <h5 class="text-xl font-semibold">Dettagli personali:</h5>
-                        <div class="mt-6">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-ex-md text-slate-400 mr-3">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Email:</h6>
-                                    <a href="" class="text-slate-400">@Model.Email</a>
-                                </div>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark fea icon-ex-md text-slate-400 mr-3">
-                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">CF:</h6>
-                                    <p class="text-slate-400 mb-0">@Model.CF</p>
-                                </div>
-                            </div>
-                            @if (Model.Piva != null)
-                            {
-                                <div class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-italic fea icon-ex-md text-slate-400 mr-3">
-                                        <line x1="19" y1="4" x2="10" y2="4"></line>
-                                        <line x1="14" y1="20" x2="5" y2="20"></line>
-                                        <line x1="15" y1="4" x2="9" y2="20"></line>
-                                    </svg>
-                                    <div class="flex-1">
-                                        <h6 class="font-medium mb-0">P.IVA:</h6>
-                                        <p class="text-slate-400 mb-0">@Model.Piva</p>
-                                    </div>
-                                </div>
-                            }
-                            <div class="flex items-center mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe fea icon-ex-md text-slate-400 mr-3">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Username:</h6>
-                                    <p class="text-slate-400 mb-0">@Model.Username</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift fea icon-ex-md text-slate-400 mr-3">
-                                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                                    <rect x="2" y="7" width="20" height="5"></rect>
-                                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Data di nascita:</h6>
-                                    <p class="text-slate-400 mb-0">@Model.DataNascita.ToShortDateString()</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Indirizzo:</h6>
-                                    <p class="text-slate-400 mb-0">@Model.Citta, @Model.Indirizzo</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone fea icon-ex-md text-slate-400 mr-3">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                                <div class="flex-1">
-                                    <h6 class="font-medium mb-0">Telefono:</h6>
-                                    <p class="text-slate-400 mb-0">@Model.Phone</p>
-                                </div>
-                            </div>
+<!-- Profile Hero Section -->
+<section class="py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Breadcrumb -->
+            <nav class="flex mb-8" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-yellow-600">
+                            <i class="fa-solid fa-home mr-2"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-400 mx-2"></i>
+                            <span class="text-sm font-medium text-gray-500">Il Mio Profilo</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Profile Header -->
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 mb-8" data-aos="fade-up">
+                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+                    <!-- Avatar -->
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="text-5xl font-bold text-white">
+                                @{char firstLetter = char.ToUpper(Model.Nome[0]);}
+                                @firstLetter
+                            </span>
+                        </div>
+                        <!-- Status Badge -->
+                        <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                            <i class="fa-solid fa-check text-white text-sm"></i>
                         </div>
                     </div>
 
-                    <div class="mt-[30px] lg:mt-0">
-                        <h5 class="text-xl font-semibold">Riepilogo acquisti:</h5>
-                        @foreach (var item in Model.Ordine)
+                    <!-- Profile Info -->
+                    <div class="flex flex-col lg:flex-row lg:justify-between flex-1 text-center lg:text-left">
+                        <div>
+                            <h1 class="text-4xl font-bold text-gray-900 mb-2">@Model.Nome @Model.Cognome</h1>
+                            <p class="text-xl text-gray-600 mb-4">Cliente verificato</p>
+
+                            <!-- Quick Stats -->
+                            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                                <div class="bg-gray-50 rounded-2xl px-4 py-3 border border-gray-200">
+                                    <div class="text-2xl font-bold text-yellow-600">@Model.Ordine.Count()</div>
+                                    <div class="text-sm text-gray-600">Ordini totali</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-2xl px-4 py-3 border border-gray-200">
+                                    <div class="text-2xl font-bold text-green-600">
+                                        @{
+                                            decimal totaleSpeso = 0;
+                                            foreach (var ordine in Model.Ordine)
+                                            {
+                                                foreach (var dettaglio in ordine.Dettaglio)
+                                                {
+                                                    totaleSpeso += dettaglio.Quantita * dettaglio.Prodotto.Costo;
+                                                }
+                                            }
+                                        }
+                                        @totaleSpeso.ToString("C")
+                                    </div>
+                                    <div class="text-sm text-gray-600">Totale speso</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <a href="@Url.Action("EditProfilo", "Home", new { id = Model.IdCliente })"
+                           class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-edit mr-2"></i>
+                            Modifica Profilo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Profile Details -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Personal Information -->
+                <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-user text-xl text-blue-600"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900">Informazioni Personali</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
+                                <p class="text-gray-600 truncate">@Model.Email</p>
+                            </div>
+                        </div>
+
+                        <!-- CF -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-id-card text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Codice Fiscale</h4>
+                                <p class="text-gray-600 font-mono tracking-wider">@Model.CF</p>
+                            </div>
+                        </div>
+
+                        <!-- P.IVA -->
+                        @if (!string.IsNullOrEmpty(Model.Piva))
                         {
-                            <div class="flex transition-all duration-500 hover:scale-105 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 ease-in-out items-center p-4 rounded-md mt-6 border border-slate-200">
-                                <a href="@Url.Action("DownloadOrderPdf", "Payment", new { id = item.IdOrdine })" target="_blank">
-                                    <img src="https://cdn.pixabay.com/photo/2013/07/13/11/53/file-158878_1280.png" class="h-16 w-16 p-4 bg-slate-50 dark:bg-slate-800 shadow dark:shadow-gray-800 rounded-md" alt="pdf">
-                                </a>
-                                <div class="flex-1 content ml-4">
-                                    <h4 class="text-lg text-medium">Data ordine: @string.Format("{0:dd/MM/yyyy}", item.DataOrdine)</h4>
-                                    @foreach (var dettaglio in item.Dettaglio)
-                                    {
-                                        <p class="text-slate-400 mb-0">@(dettaglio.Quantita)x @dettaglio.Prodotto.DescrizioneBreve (@string.Format("{0:C}", (dettaglio.Prodotto.Costo * @dettaglio.Quantita)))</p>
-                                    }
+                            <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa-solid fa-building text-yellow-600"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-semibold text-gray-900 mb-1">P. IVA</h4>
+                                    <p class="text-gray-600 font-mono tracking-wider">@Model.Piva</p>
                                 </div>
                             </div>
                         }
+
+                        <!-- Username -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-at text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Username</h4>
+                                <p class="text-gray-600">@Model.Username</p>
+                            </div>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-calendar-day text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Data di Nascita</h4>
+                                <p class="text-gray-600">@Model.DataNascita.ToString("dd MMMM yyyy")</p>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-map-marker-alt text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Indirizzo</h4>
+                                <p class="text-gray-600">@Model.Indirizzo, @Model.Citta</p>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fa-solid fa-phone text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 mb-1">Telefono</h4>
+                                <p class="text-gray-600">@Model.Phone</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Order History -->
+                <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa-solid fa-shopping-bag text-xl text-blue-600"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900">Storico Ordini</h2>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold">
+                            @Model.Ordine.Count() ordini
+                        </span>
+                    </div>
+
+                    @if (Model.Ordine.Any())
+                    {
+                        <div class="space-y-4 max-h-96 overflow-y-auto">
+                            @foreach (var ordine in Model.Ordine.OrderByDescending(o => o.DataOrdine))
+                            {
+                                <div class="group bg-gray-50 hover:bg-gray-100 rounded-2xl p-6 border border-gray-200 transition-all duration-300 hover:shadow-lg">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                                                <i class="fa-solid fa-receipt text-white text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900">Ordine #@ordine.IdOrdine</h4>
+                                                <p class="text-sm text-gray-600">@ordine.DataOrdine.Value.ToString("dd MMM yyyy")</p>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("DownloadOrderPdf", "Payment", new { id = ordine.IdOrdine })"
+                                           target="_blank"
+                                           class="btn btn-sm btn-outline-primary group-hover:btn-primary transition-all">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            PDF
+                                        </a>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        @{
+                                            decimal totaleOrdine = 0;
+                                        }
+                                        @foreach (var dettaglio in ordine.Dettaglio)
+                                        {
+                                            decimal subtotale = dettaglio.Quantita * dettaglio.Prodotto.Costo;
+                                            totaleOrdine += subtotale;
+
+                                            <div class="flex justify-between items-center text-sm">
+                                                <span class="text-gray-700">
+                                                    @dettaglio.Quantita× @dettaglio.Prodotto.DescrizioneBreve
+                                                </span>
+                                                <span class="font-semibold text-gray-900">@subtotale.ToString("C")</span>
+                                            </div>
+                                        }
+
+                                        <!-- Totale -->
+                                        <div class="border-t border-gray-300 pt-2 mt-3">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-semibold text-gray-900">Totale:</span>
+                                                <span class="font-bold text-lg text-green-600">@totaleOrdine.ToString("C")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-12">
+                            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fa-solid fa-shopping-cart text-2xl text-gray-400"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-600 mb-2">Nessun ordine ancora</h3>
+                            <p class="text-gray-500 mb-6">Inizia ad acquistare i nostri servizi per vedere lo storico qui</p>
+                            <a href="@Url.Action("Index", "Home", new { }, null)#service" class="btn btn-primary">
+                                <i class="fa-solid fa-shopping-bag mr-2"></i>
+                                Scopri i Servizi
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-        <!--end grid-->
     </div>
-    <!--end container-->
 </section>
+
+<!-- Quick Actions -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Azioni Rapide</h2>
+                <p class="text-gray-600">Gestisci il tuo profilo e scopri i nostri servizi</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Edit Profile -->
+                <div class="bg-white rounded-2xl p-8 text-center border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-user-edit text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Modifica Profilo</h3>
+                    <p class="text-gray-600 mb-6">Aggiorna le tue informazioni personali e mantieni il profilo sempre aggiornato</p>
+                    <a href="@Url.Action("EditProfilo", "Home", new { id = Model.IdCliente })" class="btn btn-outline-primary w-full">
+                        Modifica
+                    </a>
+                </div>
+
+                <!-- View Services -->
+                <div class="bg-white rounded-2xl p-8 text-center border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-briefcase text-2xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">I Nostri Servizi</h3>
+                    <p class="text-gray-600 mb-6">Scopri tutti i pacchetti disponibili e trova quello perfetto per te</p>
+                    <a href="@Url.Action("Index", "Home", new { }, null)#service" class="btn btn-outline-primary w-full">
+                        Scopri
+                    </a>
+                </div>
+
+                <!-- View Cart -->
+                <div class="bg-white rounded-2xl p-8 text-center border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-shopping-cart text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Il Mio Carrello</h3>
+                    <p class="text-gray-600 mb-6">Controlla gli articoli nel carrello e procedi con l'acquisto</p>
+                    <a href="@Url.Action("Cart", "Payment")" class="btn btn-outline-primary w-full">
+                        Vai al Carrello
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <style>
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+            .hover-lift:hover {
+                transform: translateY(-8px);
+            }
+
+        /* Custom scrollbar for order history */
+        .overflow-y-auto {
+            scrollbar-width: thin;
+            scrollbar-color: #fbbf24 #f3f4f6;
+        }
+
+            .overflow-y-auto::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .overflow-y-auto::-webkit-scrollbar-track {
+                background: #f3f4f6;
+                border-radius: 3px;
+            }
+
+            .overflow-y-auto::-webkit-scrollbar-thumb {
+                background: #fbbf24;
+                border-radius: 3px;
+            }
+
+                .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+                    background: #f59e0b;
+                }
+    </style>
+}
