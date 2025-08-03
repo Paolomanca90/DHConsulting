@@ -5,256 +5,946 @@
 }
 
 @section style{
-    <link href="~/Content/captcha.css" rel="stylesheet" />
-    <link href="~/Content/google-login.css" rel="stylesheet" />
+    <style>
+        .register-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 50%, #2a2a2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(251, 191, 36, 0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            right: 5%;
+            animation-delay: -3s;
+        }
+
+        .particle:nth-child(3) {
+            width: 180px;
+            height: 180px;
+            bottom: 10%;
+            left: 40%;
+            animation-delay: -6s;
+        }
+
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(3deg); }
+            66% { transform: translateY(15px) rotate(-2deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: white;
+            padding: 0 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input:focus + .floating-label,
+        .form-input:not(:placeholder-shown) + .floating-label {
+            transform: translateY(-1.75rem) scale(0.85);
+            color: #fbbf24;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .social-login {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .social-login:hover {
+            border-color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-custom:hover {
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-primary-custom:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: #fbbf24;
+        }
+
+        .alert-custom {
+            background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
+            border: 1px solid #fca5a5;
+            border-radius: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @@keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-section {
+            color: white;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            flex-shrink: 0;
+        }
+
+        .captcha-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .captcha-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @@keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .captcha-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .captcha-checkbox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .captcha-checkbox input[type="checkbox"] {
+            opacity: 0;
+            width: 24px;
+            height: 24px;
+            margin: 0;
+        }
+
+        .captcha-checkbox .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .captcha-checkbox input:checked + .checkmark {
+            background: #fbbf24;
+            border-color: #f59e0b;
+        }
+
+        .captcha-checkbox .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .captcha-checkbox input:checked + .checkmark:after {
+            display: block;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .captcha-logo {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @@media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            margin: 0 4px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background: #fbbf24;
+            transform: scale(1.2);
+        }
+
+        @@media (max-width: 1024px) {
+            .register-hero {
+                min-height: auto;
+            }
+
+            .glass-card {
+                margin: 1rem;
+            }
+        }
+    </style>
 }
 
-
-
-<main class="min-h-screen">
-
-    <div class="flex">
-
-        <!-- Content -->
-        <div class="w-full lg:w-1/2">
-
-            @if (ViewBag.User != null)
-            {
-                <div class="flex justify-center my-12">
-                    <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                        <div class="flex items-center justify-center w-12 bg-red-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                            </svg>
-                        </div>
-
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                <p class="text-sm">
-                                    @ViewBag.User
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (TempData["Token"] != null)
-            {
-                <div class="flex justify-center my-12">
-                    <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                        <div class="flex items-center justify-center w-12 bg-red-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                            </svg>
-                        </div>
-
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                <p class="text-sm">
-                                    @TempData["Token"]
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            <div class="w-4/5 md:w-2/3 m-auto my-12">
-
-                <h1 class="text-3xl font-bold mb-4">Crea il tuo account</h1>
-                <!-- Form -->
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
-                        <p class="text-red-600 italic text-xs text-center py-3">⚠ i campi di questo form sono tutti obbligatori</p>
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.Label("Data di nascita", htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.DataNascita, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "date" } })
-                                @Html.ValidationMessageFor(model => model.DataNascita, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.Label("Città", htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Citta, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.CF, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.CF, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.Label("P.IVA", htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <span class="text-red-600 italic text-xs">* (indicare al posto del CF se in possesso)</span>
-                            <div>
-                                @Html.EditorFor(model => model.Piva, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.Label("Telefono", htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                            <div class="relative">
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password", id = "Password" } })
-                                <span class="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer" onclick="togglePasswordVisibility()">
-                                    <i class="fa fa-eye-slash" id="togglePassword"></i>
-                                </span>
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
-                            </div>
-                        </div>
-
-
-                        <div class="captcha">
-                            <div class="flex items-center">
-                                <div class="spinner my-2 mx-1 md:my-4 md:mx-2">
-                                    <label>
-                                        <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
-                                        <span class="checkmark"><span>&nbsp;</span></span>
-                                    </label>
-                                </div>
-                                <div class="text-sm lg:text-md font-bold">
-                                    Non sono un robot
-                                </div>
-                            </div>
-                            <div class="logo flex items-center md:flex-col">
-                                <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/" />
-                                <div class="ms-2 md:ms-0">
-                                    <p>reCAPTCHA</p>
-                                    <small>Privacy - Terms</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <input type="submit" value="Registrati" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
-                        </div>
-
-                    </div>
-                }
-
-                <div class="divider -mb-2 mt-5">oppure</div>
-
-                <div class="mt-7 flex justify-center login-div p-3 rounded-md bg-white">
-                    <a href="@ViewBag.Response" class="login-with-google-btn rounded-md flex justify-center items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png?20230822192911" alt="logo-google" class="h-4 me-2" />
-                        Accedi con Google
-                    </a>
-                </div>
-
-                <!-- Footer -->
-                <div class="border-t-2 py-5 mt-8">
-                    <div class="text-md">
-                        Sei già iscritto? <a class="text-indigo-500" href="~/Auth/Login">Login</a>
-                    </div>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <!-- Image -->
-        <div class="hidden lg:block relative w-1/2" style="background: url(https://images.unsplash.com/photo-1667239711059-9e5d970eb007?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ2fHxsb2dpbnxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
-            <img class="absolute" style="top:30%; left: -8%" src="https://preview.cruip.com/mosaic/images/auth-decoration.png" width="150" height="180" alt="Authentication decoration">
-        </div>
-
+<main class="register-hero min-h-screen">
+    <!-- Floating Particles -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
+    <div class="relative min-h-screen flex items-center justify-center p-4 py-8">
+        <div class="w-full max-w-7xl mx-auto grid lg:grid-cols-5 gap-8 items-start">
+
+            <!-- Left Side - Branding (30%) -->
+            <div class="brand-section hidden lg:block lg:col-span-2" data-aos="fade-right" data-aos-duration="1000">
+                <div class="max-w-lg sticky top-8">
+                    <!-- Logo -->
+                    <div class="mb-8">
+                        <img src="~/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" class="w-72 mb-6">
+                    </div>
+
+                    <h1 class="text-4xl font-bold mb-6 leading-tight">
+                        Inizia il tuo viaggio
+                        <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent font-caveat text-5xl block">
+                            nell'innovazione
+                        </span>
+                    </h1>
+
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                        Unisciti alla comunità di innovatori digitali. Crea il tuo account e scopri
+                        come trasformare le tue idee in realtà.
+                    </p>
+
+                    <!-- Features -->
+                    <div class="space-y-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-user-check text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Account Verificato</h3>
+                                <p class="text-gray-400 text-sm">Processo di verifica sicuro e veloce</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-gift text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Benvenuto Speciale</h3>
+                                <p class="text-gray-400 text-sm">Offerte esclusive per i nuovi utenti</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-headset text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Supporto Dedicato</h3>
+                                <p class="text-gray-400 text-sm">Team sempre disponibile per aiutarti</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Registration Form (70%) -->
+            <div class="w-full lg:col-span-3" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div class="glass-card rounded-3xl shadow-2xl p-6 lg:p-8">
+
+                    <!-- Mobile Logo -->
+                    <div class="lg:hidden text-center mb-6">
+                        <img src="~/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" class="w-48 mx-auto mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900">Crea il tuo account</h2>
+                    </div>
+
+                    <!-- Desktop Header -->
+                    <div class="hidden lg:block text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fa-solid fa-user-plus text-2xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Crea il tuo account</h2>
+                        <p class="text-gray-600">Compila il form per iniziare il tuo viaggio digitale</p>
+                    </div>
+
+                    <!-- Progress Indicator -->
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+                    <!-- Error Messages -->
+                    @if (ViewBag.User != null || TempData["Token"] != null)
+                    {
+                        <div class="alert-custom p-4 mb-6">
+                            <div class="flex items-center">
+                                <div class="flex items-center justify-center w-10 h-10 bg-red-100 rounded-full mr-3">
+                                    <i class="fa-solid fa-exclamation-triangle text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Attenzione</h4>
+                                    <p class="text-red-700 text-sm">@(ViewBag.User ?? TempData["Token"])</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Registration Form -->
+                    @using (Html.BeginForm("Register", "Auth", FormMethod.Post, new { @class = "space-y-4", @id = "registrationForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <!-- Required Fields Notice -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-info-circle text-blue-600 mr-2"></i>
+                                <span class="text-blue-800 text-sm font-medium">Tutti i campi sono obbligatori</span>
+                            </div>
+                        </div>
+
+                        <!-- Name and Surname -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Nome, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "given-name"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-user mr-2"></i>Nome
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Cognome, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "family-name"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-user mr-2"></i>Cognome
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+                        </div>
+
+                        <!-- Birth Date and Address -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.DataNascita, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-input",
+                                            @type = "date",
+                                            @placeholder = " "
+                                        }
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-calendar mr-2"></i>Data di Nascita
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.DataNascita, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Indirizzo, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "street-address"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-map-marker-alt mr-2"></i>Indirizzo
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+                        </div>
+
+                        <!-- City and CF -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Citta, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "address-level2"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-city mr-2"></i>Città
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Citta, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.CF, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @maxlength = "16",
+                                        @style = "text-transform: uppercase"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-id-card mr-2"></i>Codice Fiscale <span class="text-xs bg-transparent">(opzionale)</span>
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+                        </div>
+
+                        <!-- P.IVA and Phone -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Piva, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @maxlength = "11"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-building mr-2"></i>P.IVA <span class="text-xs bg-transparent">(opzionale)</span>
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Piva, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Phone, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "tel"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-phone mr-2"></i>Telefono
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+                        </div>
+
+                        <!-- Email and Username -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Email, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "email",
+                                        @type = "email"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-envelope mr-2"></i>Email
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <div>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Username, new
+                                    {
+                                        @class = "form-input",
+                                        @placeholder = " ",
+                                        @autocomplete = "username"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-at mr-2"></i>Username
+                                    </label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="form-grid">
+                            <div>
+                                <div class="input-group">
+                                    <div class="relative w-full">
+                                        @Html.PasswordFor(model => model.Password, new
+                                        {
+                                            @class = "form-input rounded-none rounded-tl-lg rounded-bl-lg",
+                                            @placeholder = " ",
+                                            @id = "passwordField",
+                                            @autocomplete = "new-password"
+                                        })
+                                        <label class="floating-label">
+                                            <i class="fa-solid fa-lock mr-2"></i>Password
+                                        </label>
+                                        <span class="password-toggle bg-transparent" onclick="togglePassword()">
+                                            <i class="fa-solid fa-eye" id="passwordIcon"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                            </div>
+
+                            <!-- Password Requirements -->
+                            <div class="mt-2 text-xs text-gray-600">
+                                <p>La password deve contenere:</p>
+                                <ul class="list-disc list-inside mt-1 space-y-1">
+                                    <li>Almeno 8 caratteri</li>
+                                    <li>Una lettera minuscola e una maiuscola</li>
+                                    <li>Un numero</li>
+                                    <li>Un carattere speciale (.!?@@&$%)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                            <!-- Captcha -->
+                            <div class="captcha-container">
+                                <div class="captcha-content">
+                                    <div class="flex items-center">
+                                        <label class="captcha-checkbox mr-3">
+                                            <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <span class="font-medium text-gray-700">Non sono un robot</span>
+                                    </div>
+                                    <div class="captcha-logo">
+                                        <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/" class="w-8 h-8 mr-2">
+                                        <div>
+                                            <div class="font-semibold">reCAPTCHA</div>
+                                            <div class="text-xs">Privacy - Terms</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary-custom w-full btn-lg rounded-xl" id="submitBtn">
+                                <i class="fa-solid fa-user-plus mr-2"></i>
+                                Crea Account
+                            </button>
+                            }
+
+                            <!-- Divider -->
+                            <div class="divider my-6">
+                                <span class="px-4 text-gray-500 font-medium">oppure</span>
+                            </div>
+
+                            <!-- Google Registration -->
+                            <a href="@ViewBag.Response" class="social-login w-full p-4 rounded-xl flex items-center justify-center space-x-3 mb-6">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png"
+                                     alt="Google" class="w-6 h-6">
+                                <span class="font-medium text-gray-700">Registrati con Google</span>
+                            </a>
+
+                            <!-- Footer Links -->
+                            <div class="text-center">
+                                <span class="text-sm text-gray-600">Hai già un account? </span>
+                                <a href="@Url.Action("Login", "Auth")"
+                                   class="text-sm text-yellow-600 hover:text-yellow-700 font-semibold transition-colors">
+                                    Accedi ora
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
 </main>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     <script>
+        // Global Variables
         var isCaptchaChecked = false;
 
+        // Captcha Handler
         function disableCheckbox(checkbox) {
             isCaptchaChecked = checkbox.checked;
             if (checkbox.checked) {
                 checkbox.disabled = true;
+                updateProgress();
             }
         }
 
-        document.querySelector("form").addEventListener("submit", function (e) {
-            if (!isCaptchaChecked) {
-                e.preventDefault();
-                alert("Devi confermare di non essere un robot.");
-            }
-        });
-    </script>
-    <script>
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById('Password');
-            var passwordIcon = document.getElementById('togglePassword');
+        // Password Toggle
+        function togglePassword() {
+            const passwordField = document.getElementById('passwordField');
+            const passwordIcon = document.getElementById('passwordIcon');
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordIcon.className = 'fa fa-eye';
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.className = 'fa-solid fa-eye-slash';
             } else {
-                passwordInput.type = 'password';
-                passwordIcon.className = 'fa fa-eye-slash';
+                passwordField.type = 'password';
+                passwordIcon.className = 'fa-solid fa-eye';
             }
         }
+
+        // Form Progress Tracking
+        function updateProgress() {
+            const form = document.getElementById('registrationForm');
+            const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"]');
+            const requiredInputs = Array.from(inputs).filter(input =>
+                input.name !== 'Piva' // P.IVA is optional
+            );
+
+            let filledInputs = 0;
+            requiredInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    filledInputs++;
+                }
+            });
+
+            // Add captcha to progress
+            if (isCaptchaChecked) {
+                filledInputs++;
+            }
+
+            const totalFields = requiredInputs.length + 1; // +1 for captcha
+            const progress = (filledInputs / totalFields) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Form Enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const inputs = form.querySelectorAll('input');
+
+            // Add event listeners for progress tracking
+            inputs.forEach(input => {
+                input.addEventListener('input', updateProgress);
+                input.addEventListener('change', updateProgress);
+
+                // Real-time validation feedback
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+
+                // Auto-format specific fields
+                if (input.name === 'CF') {
+                    input.addEventListener('input', function() {
+                        this.value = this.value.toUpperCase();
+                    });
+                } else if (input.name === 'Phone') {
+                    input.addEventListener('input', function() {
+                        // Simple phone formatting
+                        let value = this.value.replace(/\D/g, '');
+                        if (value.length > 10) {
+                            value = value.substring(0, 10);
+                        }
+                        this.value = value;
+                    });
+                } else if (input.name === 'Piva') {
+                    input.addEventListener('input', function() {
+                        let value = this.value.replace(/\D/g, '');
+                        if (value.length > 11) {
+                            value = value.substring(0, 11);
+                        }
+                        this.value = value;
+                    });
+                }
+            });
+
+            // Form submission validation
+            form.addEventListener('submit', function(e) {
+                if (!isCaptchaChecked) {
+                    e.preventDefault();
+                    showAlert('Devi confermare di non essere un robot.', 'error');
+                    return false;
+                }
+
+                // Show loading state
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Creando account...';
+            });
+
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.btn-primary-custom');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.disabled) return;
+
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // Field Validation
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldName = field.name;
+            let isValid = true;
+            let errorMessage = '';
+
+            // Remove previous error state
+            field.classList.remove('error');
+
+            // Basic validation rules
+            if (field.hasAttribute('required') && !value && fieldName !== 'Piva') {
+                isValid = false;
+                errorMessage = 'Questo campo è obbligatorio';
+            } else if (fieldName === 'Email' && value) {
+                const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                if (!emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Inserisci un indirizzo email valido';
+                }
+            } else if (fieldName === 'CF' && value) {
+                if (value.length !== 16) {
+                    isValid = false;
+                    errorMessage = 'Il codice fiscale deve essere di 16 caratteri';
+                }
+            } else if (fieldName === 'Piva' && value) {
+                if (value.length !== 11) {
+                    isValid = false;
+                    errorMessage = 'La partita IVA deve essere di 11 cifre';
+                }
+            } else if (fieldName === 'Phone' && value) {
+                if (value.length < 10) {
+                    isValid = false;
+                    errorMessage = 'Inserisci un numero di telefono valido';
+                }
+            }
+
+            // Update field styling
+            if (!isValid) {
+                field.classList.add('error');
+                showFieldError(field, errorMessage);
+            } else {
+                hideFieldError(field);
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(field, message) {
+            hideFieldError(field); // Remove existing error
+
+            const errorElement = document.createElement('div');
+            errorElement.className = 'text-red-500 text-sm mt-1 field-error';
+            errorElement.textContent = message;
+
+            field.parentNode.appendChild(errorElement);
+        }
+
+        function hideFieldError(field) {
+            const existingError = field.parentNode.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+        function showAlert(message, type = 'info') {
+            // Simple alert implementation
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert-custom p-4 mb-4 ${type === 'error' ? 'bg-red-50 border-red-200' : 'bg-blue-50 border-blue-200'}`;
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fa-solid fa-exclamation-triangle ${type === 'error' ? 'text-red-600' : 'text-blue-600'} mr-2"></i>
+                    <span class="${type === 'error' ? 'text-red-800' : 'text-blue-800'}">${message}</span>
+                </div>
+            `;
+
+            const form = document.getElementById('registrationForm');
+            form.insertBefore(alertDiv, form.firstChild);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
     </script>
+
+    <style>
+        @@keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
 }

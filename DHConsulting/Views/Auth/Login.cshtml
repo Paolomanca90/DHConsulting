@@ -5,162 +5,464 @@
 }
 
 @section style{
-    <link href="~/Content/google-login.css" rel="stylesheet" />
+    <style>
+        .login-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 50%, #2a2a2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -4s;
+        }
+
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(2deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: white;
+            padding: 0 0.5rem;
+        }
+
+        .form-input:focus + .floating-label,
+        .form-input:not(:placeholder-shown) + .floating-label {
+            transform: translateY(-1.75rem) scale(0.85);
+            color: #fbbf24;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .social-login {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .social-login:hover {
+            border-color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #fbbf24;
+        }
+
+        .alert-custom {
+            background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
+            border: 1px solid #fca5a5;
+            border-radius: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @@keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-section {
+            color: white;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @@media (max-width: 1024px) {
+            .login-hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+        }
+    </style>
 }
 
-<main class="min-h-screen">
-
-    <div class="flex min-h-screen">
-
-        <!-- Content -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-center items-center">
-
-            @if (TempData["Errore"] != null)
-            {
-                <div class="flex justify-center my-12">
-                    <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                        <div class="flex items-center justify-center w-12 bg-red-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                            </svg>
-                        </div>
-
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                <p class="text-sm">
-                                    @TempData["Errore"]
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (ViewBag.Errore != null)
-            {
-                <div class="flex justify-center my-12">
-                    <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                        <div class="flex items-center justify-center w-12 bg-red-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                            </svg>
-                        </div>
-
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                <p class="text-sm">
-                                    @ViewBag.Errore
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (TempData["Token"] != null)
-            {
-                <div class="flex justify-center my-12">
-                    <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-red-500">
-                        <div class="flex items-center justify-center w-12 bg-red-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-                            </svg>
-                        </div>
-
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-red-500 dark:text-red-400">Attenzione</span>
-                                <p class="text-sm">
-                                    @TempData["Token"]
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
-
-        <div class="w-4/5 md:w-2/3 m-auto my-12">
-
-            <h1 class="text-3xl font-bold mb-4">Bentornato</h1>
-            <!-- Form -->
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-red-500" })
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                        <div>
-                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1" } })
-                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500" })
-                        </div>
-                    </div>
-
-                    <div class="mb-7">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-md font-semibold mx-2" })
-                        <div class="relative">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "rounded-md p-2 border-2 w-full mt-1", type = "password", id = "Password" } })
-                            <span class="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer" onclick="togglePasswordVisibility()">
-                                <i class="fa fa-eye-slash" id="togglePassword"></i>
-                            </span>
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500" })
-                        </div>
-                    </div>
-
-                    <div>
-                        <input type="submit" value="Accedi" class="btn bg-slate-200 hover:bg-slate-500 text-black hover:text-white w-full" />
-                    </div>
-
-                </div>
-            }
-
-            <div class="divider -mb-2 mt-5">oppure</div>
-
-            <div class="mt-7 flex justify-center login-div p-3 rounded-md bg-white">
-                <a href="@ViewBag.Response" class="login-with-google-btn rounded-md flex justify-center items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png?20230822192911" alt="logo-google" class="h-4 me-2" />
-                    Accedi con Google
-                </a>
-            </div>
-
-            <!-- Footer -->
-            <div class="border-t-2 py-5 mt-8">
-                <div class="text-md">
-                    Password dimenticata? <a href="@Url.Action("ChangePassword", "Auth")" class="text-indigo-500">Recupera password <i class="fa fa-key"></i></a>
-                </div>
-            </div>
-
-        </div>
-
-
-        </div>
-
-        <!-- Image -->
-        <div class="hidden lg:block relative w-1/2" style="background: url(https://images.unsplash.com/photo-1667239711059-9e5d970eb007?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ2fHxsb2dpbnxlbnwwfHwwfHx8MA%3D%3D); background-size: cover;">
-            <img class="absolute" style="top:30%; left: -8%" src="https://preview.cruip.com/mosaic/images/auth-decoration.png" width="150" height="180" alt="Authentication decoration">
-        </div>
-
+<main class="login-hero min-h-screen">
+    <!-- Floating Particles -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Left Side - Branding & Features -->
+            <div class="brand-section hidden lg:block" data-aos="fade-right" data-aos-duration="1000">
+                <div class="max-w-lg">
+                    <!-- Logo -->
+                    <div class="mb-8">
+                        <img src="~/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" class="w-80 mb-6">
+                    </div>
+
+                    <h1 class="text-5xl font-bold mb-6 leading-tight">
+                        Bentornato nella tua
+                        <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent font-caveat text-6xl block pb-1">
+                            casa digitale
+                        </span>
+                    </h1>
+
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Accedi al tuo account per continuare il tuo viaggio verso l'innovazione digitale.
+                        Gestisci i tuoi progetti e scopri nuove opportunità.
+                    </p>
+
+                    <!-- Features -->
+                    <div class="space-y-6">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-shield-halved text-yellow-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Sicurezza Garantita</h3>
+                                <p class="text-gray-400">I tuoi dati sono protetti con crittografia avanzata</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-rocket text-yellow-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Accesso Rapido</h3>
+                                <p class="text-gray-400">Login veloce con Google o credenziali tradizionali</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-headset text-yellow-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Supporto 24/7</h3>
+                                <p class="text-gray-400">Assistenza continua per tutti i nostri clienti</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="w-full" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div class="glass-card rounded-3xl shadow-2xl p-8 lg:p-12">
+
+                    <!-- Mobile Logo -->
+                    <div class="lg:hidden text-center mb-8">
+                        <img src="~/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" class="w-60 mx-auto mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900">Bentornato!</h2>
+                    </div>
+
+                    <!-- Desktop Header -->
+                    <div class="hidden lg:block text-center mb-8">
+                        <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <i class="fa-solid fa-user text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Accedi al tuo account</h2>
+                        <p class="text-gray-600">Inserisci le tue credenziali per continuare</p>
+                    </div>
+
+                    <!-- Error Messages -->
+                    @if (TempData["Errore"] != null || ViewBag.Errore != null || TempData["Token"] != null)
+                    {
+                        <div class="alert-custom p-4 mb-6">
+                            <div class="flex items-center">
+                                <div class="flex items-center justify-center w-10 h-10 bg-red-100 rounded-full mr-3">
+                                    <i class="fa-solid fa-exclamation-triangle text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Attenzione</h4>
+                                    <p class="text-red-700 text-sm">
+                                        @(TempData["Errore"] ?? ViewBag.Errore ?? TempData["Token"])
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Login Form -->
+                    @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @class = "space-y-6" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div>
+                            <!-- Username Field -->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Username, new
+                                {
+                                    @class = "form-input",
+                                    @placeholder = " ",
+                                    @autocomplete = "username"
+                                })
+                                <label class="floating-label">
+                                    <i class="fa-solid fa-user mr-2"></i>Username
+                                </label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                        </div>
+
+                        <div>
+                            <!-- Password Field -->
+                            <div class="input-group">
+                                <div class="relative w-full ">
+                                    @Html.PasswordFor(model => model.Password, new
+                                    {
+                                        @class = "form-input rounded-none rounded-tl-lg rounded-bl-lg",
+                                        @placeholder = " ",
+                                        @id = "passwordField",
+                                        @autocomplete = "current-password"
+                                    })
+                                    <label class="floating-label">
+                                        <i class="fa-solid fa-lock mr-2"></i>Password
+                                    </label>
+                                    <span class="password-toggle bg-transparent" onclick="togglePassword()">
+                                        <i class="fa-solid fa-eye" id="passwordIcon"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-red-500 text-sm mt-1 block" })
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" class="btn btn-primary-custom w-full btn-lg rounded-xl">
+                            <i class="fa-solid fa-sign-in-alt mr-2"></i>
+                            Accedi
+                        </button>
+                    }
+
+                    <!-- Divider -->
+                    <div class="divider my-8">
+                        <span class="bg-gray-100 px-4 text-gray-500 font-medium">oppure</span>
+                    </div>
+
+                    <!-- Google Login -->
+                    <a href="@ViewBag.Response" class="social-login w-full p-4 rounded-xl flex items-center justify-center space-x-3 mb-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png"
+                             alt="Google" class="w-6 h-6">
+                        <span class="font-medium text-gray-700">Continua con Google</span>
+                    </a>
+
+                    <!-- Footer Links -->
+                    <div class="space-y-4">
+                        <div class="text-center">
+                            <a href="@Url.Action("ChangePassword", "Auth")"
+                               class="text-sm text-gray-600 hover:text-yellow-600 transition-colors">
+                                <i class="fa-solid fa-key mr-1"></i>
+                                Password dimenticata?
+                            </a>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-sm text-gray-600">Non hai un account? </span>
+                            <a href="@Url.Action("Register", "Auth")"
+                               class="text-sm text-yellow-600 hover:text-yellow-700 font-semibold transition-colors">
+                                Registrati ora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 @section scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById('Password');
-            var passwordIcon = document.getElementById('togglePassword');
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordIcon.className = 'fa fa-eye';
+        // Password Toggle
+        function togglePassword() {
+            const passwordField = document.getElementById('passwordField');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.className = 'fa-solid fa-eye-slash';
             } else {
-                passwordInput.type = 'password';
-                passwordIcon.className = 'fa fa-eye-slash';
+                passwordField.type = 'password';
+                passwordIcon.className = 'fa-solid fa-eye';
             }
         }
+
+        // Form Enhancement
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.btn-primary-custom');
+            buttons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add focus enhancement to inputs
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+
+                input.addEventListener('blur', function () {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+        });
     </script>
+
+    <style>
+        @@keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
 }

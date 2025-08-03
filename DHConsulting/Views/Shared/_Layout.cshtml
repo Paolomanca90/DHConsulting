@@ -198,80 +198,95 @@
                 <ul class="menu menu-horizontal px-1 items-center">
                     @if (User.IsInRole("User") || User.Identity.Name == "")
                     {
-                        <li><a href="@Url.Action("Index", "Home")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-house py-2.5 px-1"></i></a></li>
-                        <li class="ms-2"><a href="@Url.Action("Index", "Home", new { }, null)#service" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-briefcase py-2.5 px-1"></i></a></li>
-                        <li class="ms-2"><a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-comments py-2.5 px-1"></i></a></li>
+                        <li>
+                            <div class="tooltip tooltip-bottom" data-tip="Home">
+                                <a href="@Url.Action("Index", "Home")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-house py-2.5 px-1"></i></a>
+                            </div>
+                        </li>
+                        <li class="ms-2">
+                            <div class="tooltip tooltip-bottom" data-tip="Servizi">
+                                <a href="@Url.Action("Index", "Home", new { }, null)#service" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-briefcase py-2.5 px-1"></i></a>
+                            </div>
+                        </li>
+                        <li class="ms-2">
+                            <div class="tooltip tooltip-bottom" data-tip="Recensioni">
+                                <a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-comments py-2.5 px-1"></i></a>
+                            </div>
+                        </li>
+                        <li class="ms-2">
+                            <div class="tooltip tooltip-bottom" data-tip="Chi Siamo">
+                                <a href="@Url.Action("About", "Home")" class="hover:text-yellow-500 transition-colors font-medium"><i class="fa-solid fa-sitemap py-2.5 px-1"></i></a>
+                            </div>
+                        </li>
 
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <!-- Cart Icon -->
-                            <li tabindex="0">
-                                <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3">
-                                    <label tabindex="0" class="btn btn-ghost border border-gray-300">
-                                        <div class="indicator">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                            </svg>
-                                            @if (Context.Request.Cookies["carrello"] != null)
+                        <!-- Cart Icon -->
+                        <li tabindex="0">
+                            <div class="dropdown dropdown-bottom dropdown-end dropdown-hover p-0 ms-3">
+                                <label tabindex="0" class="btn btn-ghost border border-gray-300">
+                                    <div class="indicator">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                        @if (Context.Request.Cookies["carrello"] != null)
+                                        {
+                                            var carrello = Context.Request.Cookies["carrello"].Value;
+                                            var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
+                                            var indicatorT = 0;
+                                            foreach (var ind in indicator)
                                             {
-                                                var carrello = Context.Request.Cookies["carrello"].Value;
-                                                var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
-                                                var indicatorT = 0;
-                                                foreach (var ind in indicator)
-                                                {
-                                                    indicatorT += ind.Quantita;
-                                                }
-                                                <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">@indicatorT</span>
+                                                indicatorT += ind.Quantita;
                                             }
-                                            else
+                                            <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">@indicatorT</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">0</span>
+                                        }
+                                    </div>
+                                </label>
+                                <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-white shadow-xl border">
+                                    <div class="card-body">
+                                        @if (Context.Request.Cookies["carrello"] != null)
+                                        {
+                                            var carrello = Context.Request.Cookies["carrello"].Value;
+                                            var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
+                                            var indicatorT = 0;
+                                            decimal totale = 0;
+                                            var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;
+                                            foreach (var item in indicator)
                                             {
-                                                <span class="badge badge-sm indicator-item bg-yellow-500 text-black border-0 font-semibold">0</span>
-                                            }
-                                        </div>
-                                    </label>
-                                    <div tabindex="0" class="z-[1] card card-compact dropdown-content w-52 bg-white shadow-xl border">
-                                        <div class="card-body">
-                                            @if (Context.Request.Cookies["carrello"] != null)
-                                            {
-                                                var carrello = Context.Request.Cookies["carrello"].Value;
-                                                var indicator = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DHConsulting.Models.Dettaglio>>(carrello);
-                                                var indicatorT = 0;
-                                                decimal totale = 0;
-                                                var prodotti = AppData.Prodotti as List<DHConsulting.Models.Prodotto>;
-                                                foreach (var item in indicator)
+                                                indicatorT += item.Quantita;
+                                                foreach (var i in prodotti)
                                                 {
-                                                    indicatorT += item.Quantita;
-                                                    foreach (var i in prodotti)
+                                                    if (item.IdProdotto == i.IdProdotto)
                                                     {
-                                                        if (item.IdProdotto == i.IdProdotto)
-                                                        {
-                                                            totale += item.Quantita * i.Costo;
-                                                        }
+                                                        totale += item.Quantita * i.Costo;
                                                     }
                                                 }
-                                                if (indicatorT < 2)
-                                                {
-                                                    <span class="font-bold text-lg">1 articolo</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="font-bold text-lg">@indicatorT articoli</span>
-                                                }
-                                                <span class="text-yellow-600 font-semibold">Totale: @totale.ToString("C")</span>
+                                            }
+                                            if (indicatorT < 2)
+                                            {
+                                                <span class="font-bold text-lg">1 articolo</span>
                                             }
                                             else
                                             {
-                                                <span class="font-bold text-lg">0 articoli</span>
-                                                <span class="text-yellow-600 font-semibold">Totale: &euro;0.00</span>
+                                                <span class="font-bold text-lg">@indicatorT articoli</span>
                                             }
-                                            <div class="card-actions">
-                                                <a href="@Url.Action("Cart", "Payment")" class="btn btn-primary btn-block">Vai al carrello</a>
-                                            </div>
+                                            <span class="text-yellow-600 font-semibold">Totale: @totale.ToString("C")</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="font-bold text-lg">0 articoli</span>
+                                            <span class="text-yellow-600 font-semibold">Totale: &euro;0.00</span>
+                                        }
+                                        <div class="card-actions">
+                                            <a href="@Url.Action("Cart", "Payment")" class="btn btn-primary btn-block">Vai al carrello</a>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                        }
+                            </div>
+                        </li>
+                        
                     }
                     else
                     {
@@ -329,9 +344,10 @@
                             <li><a href="@Url.Action("Index", "Home")" class="block py-2 hover:text-yellow-600">Home</a></li>
                             <li><a href="@Url.Action("Index", "Home", new { }, null)#service" class="block py-2 hover:text-yellow-600">Servizi</a></li>
                             <li><a href="@Url.Action("Index", "Home", new { }, null)#reviews" class="block py-2 hover:text-yellow-600">Recensioni</a></li>
+                            <li><a href="@Url.Action("About", "Home")" class="block py-2 hover:text-yellow-600">Chi Siamo</a></li>
+                            <li><a href="@Url.Action("Cart", "Payment")" class="block py-2 hover:text-yellow-600">Carrello</a></li>
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li><a href="@Url.Action("Cart", "Payment")" class="block py-2 hover:text-yellow-600">Carrello</a></li>
                                 <li><a href="@Url.Action("Profilo", "Home")" class="block py-2 hover:text-yellow-600">Profilo</a></li>
                                 <li><a href="@Url.Action("Logout", "Auth")" class="block py-2 hover:text-yellow-600">Logout</a></li>
                             }

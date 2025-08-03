@@ -28,6 +28,7 @@ namespace DHConsulting.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         //View classica per mostrare gli elementi presenti nel carrello
         public ActionResult Cart()
         {
