@@ -6,111 +6,987 @@
     string clientId = System.Configuration.ConfigurationManager.AppSettings["PayPalClientId"];
 }
 
+@section style{
+    <style>
+        .cart-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 50%, #2a2a2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -3s;
+        }
+
+        .particle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -6s;
+        }
+
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(2deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        .cart-item-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.15);
+        }
+
+        .quantity-controls {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #6b7280;
+        }
+
+        .quantity-btn:hover {
+            border-color: #fbbf24;
+            background: #fbbf24;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .quantity-display {
+            min-width: 60px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .payment-methods {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .payment-method-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-method-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .paypal-btn {
+            background: linear-gradient(135deg, #ffc439 0%, #003087 100%);
+        }
+
+        .paypal-btn:hover {
+            background: linear-gradient(135deg, #ffb700 0%, #001a4d 100%);
+        }
+
+        .empty-cart-animation {
+            animation: bounce 2s infinite;
+        }
+
+        @@keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+                transform: translate3d(0, -15px, 0);
+            }
+            70% {
+                animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+                transform: translate3d(0, -7px, 0);
+            }
+            90% {
+                transform: translate3d(0,-2px,0);
+            }
+        }
+
+        .checkout-summary {
+            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+            border: 2px solid #e5e7eb;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .total-display {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #000;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+        }
+
+        .step.active {
+            color: #fbbf24;
+        }
+
+        .step-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+
+        .step.active .step-circle {
+            background: #fbbf24;
+            color: #000;
+        }
+
+        .step-connector {
+            width: 3rem;
+            height: 2px;
+            background: #e5e7eb;
+            margin: 0 1rem;
+        }
+
+        .step.active .step-connector {
+            background: #fbbf24;
+        }
+
+        .continue-shopping {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .continue-shopping:hover {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
+            color: white;
+        }
+
+        @@media (max-width: 1024px) {
+            .checkout-summary {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+}
 
 @if (TempData["Successo"] != null)
 {
     <div class="flex justify-center py-12">
-        <div class="flex w-full max-w-sm overflow-hidden rounded-lg shadow-md border border-blue-500">
-            <div class="flex items-center justify-center w-12 bg-blue-500">
-                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
+        <div class="alert alert-success shadow-lg max-w-md">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-            </div>
-
-            <div class="px-4 py-2 -mx-3">
-                <div class="mx-3">
-                    <span class="font-semibold text-blue-500 dark:text-blue-400">Complimenti</span>
-                    <p class="text-sm">@TempData["Successo"]</p>
+                <div>
+                    <h3 class="font-bold">Complimenti!</h3>
+                    <div class="text-xs">@TempData["Successo"]</div>
                 </div>
             </div>
         </div>
     </div>
 }
 
+@if (TempData["Errore"] != null)
+{
+    <div class="flex justify-center py-12">
+        <div class="alert alert-error shadow-lg max-w-md">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                    <h3 class="font-bold">Attenzione!</h3>
+                    <div class="text-xs">@TempData["Errore"]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @if (Model == null || !Model.Any())
 {
-    <div class="min-h-screen flex flex-col max-w-5xl mx-auto items-center justify-center">
-        <h2 class="text-4xl text-lg-5xl">Carrello vuoto</h2>
-        <div class="mt-12 w-[90%] lg:w-2/5">
-            <a href="~/Home/Index#service" class="btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white w-full">Vedi i servizi</a>
+    <!-- Empty Cart -->
+    <section class="cart-hero min-h-screen flex items-center justify-center">
+        <!-- Floating Particles -->
+        <div class="floating-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
-    </div>
-    
+
+        <div class="relative z-10 container mx-auto px-4 text-center text-white">
+            <div class="max-w-2xl mx-auto">
+                <!-- Empty Cart Icon -->
+                <div class="empty-cart-animation mb-8">
+                    <div class="w-32 h-32 bg-yellow-500/20 border-4 border-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-shopping-cart text-6xl text-yellow-400"></i>
+                    </div>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    Il Tuo Carrello è
+                    <span class="text-gradient font-caveat text-6xl md:text-7xl block">Vuoto</span>
+                </h1>
+
+                <p class="text-xl text-gray-300 mb-8 max-w-lg mx-auto leading-relaxed">
+                    Non hai ancora aggiunto nessun servizio al carrello.
+                    Scopri i nostri pacchetti e inizia il tuo viaggio digitale!
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="@Url.Action("Index", "Home", new { }, null)#service"
+                       class="btn btn-lg btn-primary px-8">
+                        <i class="fa-solid fa-eye mr-2"></i>
+                        Scopri i Servizi
+                    </a>
+                    <a href="@Url.Action("About", "Home")"
+                       class="btn btn-lg glass-effect text-white hover:bg-yellow-500/20 border-yellow-500/30 px-8">
+                        <i class="fa-solid fa-info-circle mr-2"></i>
+                        Chi Siamo
+                    </a>
+                </div>
+
+                <!-- Features -->
+                <div class="grid md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-500/20 border-2 border-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-shield-halved text-2xl text-yellow-400"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Pagamenti Sicuri</h3>
+                        <p class="text-gray-400">Transazioni protette e crittografate</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-500/20 border-2 border-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-rocket text-2xl text-yellow-400"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Risultati Rapidi</h3>
+                        <p class="text-gray-400">Progetti consegnati nei tempi concordati</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-500/20 border-2 border-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-headset text-2xl text-yellow-400"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Supporto</h3>
+                        <p class="text-gray-400">Assistenza garantita per tutti i clienti</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 }
 else
 {
-    <div class="min-h-screen">
-        <div class="container mx-auto p-5 md:p-10 max-w-screen-lg">
-            <div class="rounded-lg shadow-2xl p-4 md:p-8">
-                <!-- Order Summary  -->
-                <div>
-                    <!--     BOX     -->
-                    @foreach (var item in Model)
-                    {
-                        <div class="border-2 w-full rounded flex p-2 md:p-4 justify-between items-center flex-wrap bg-base-100">
-                            @foreach (var p in lista)
-                            {
-                                if (p.IdProdotto == item.IdProdotto)
-                                {
-                                    <img src="~/Content/Img/@p.Image" class="w-full lg:w-24">
-
-                                    <div class="w-1/2 md:w-2/3">
-                                        @if (p.Costo < 200)
-                                        {
-                                            <h3 class="text-md md:text-lg font-medium">Pacchetto basic</h3>
-                                        }
-                                        else
-                                        {
-                                            <h3 class="text-md md:text-lg font-medium">Pacchetto plus</h3>
-                                        }
-                                        <p class="text-xs md:text-sm">@p.DescrizioneBreve</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-xl md:text-3xl font-medium align-self-end"><sup class="text-sm md:text-lg">€</sup> @(p.Costo * item.Quantita) <sup class="text-sm md:text-lg">i. i.</sup></h4>
-                                    </div>
-                                }
-                            }
-                            <div class="w-full flex justify-between items-center mt-4">
-                                <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"><i class="fa-solid fa-circle-xmark text-2xl"></i></a>
-                                <label class="block uppercase tracking-wide text-lg">
-                                    <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })"><i class="fa fa-minus"></i></a>
-                                    @item.Quantita
-                                    <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })"><i class="fa fa-plus"></i></a>
-                                </label>
-                            </div>
-                        </div>
-                    }
+    <!-- Cart with Items -->
+    <section class="py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 min-h-screen">
+        <div class="container mx-auto px-4">
+            <div class="max-w-7xl mx-auto">
+                <!-- Progress Steps -->
+                <div class="progress-steps" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step active">
+                        <div class="step-circle">1</div>
+                        <span class="hidden sm:inline">Carrello</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-circle">2</div>
+                        <span class="hidden sm:inline">Pagamento</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-circle">3</div>
+                        <span class="hidden sm:inline">Conferma</span>
+                    </div>
                 </div>
-                <div class="flex flex-col md:flex-row justify-between mt-4 mb-2">
-                    <h3 class="text-xl mt-4 font-bold">Riepilogo dell'ordine</h3>
-                    @{ decimal tot = 0;
-                        foreach (var item in Model)
+
+                <!-- Page Header -->
+                <div class="text-center mb-12" data-aos="fade-up" data-aos-delay="200">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                        Il Tuo Carrello
+                    </h1>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Rivedi i servizi selezionati e procedi con l'acquisto per iniziare il tuo progetto digitale
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Cart Items -->
+                    <div class="lg:col-span-2 space-y-6">
+                        @foreach (var item in Model)
                         {
                             foreach (var p in lista)
                             {
                                 if (p.IdProdotto == item.IdProdotto)
                                 {
-                                    tot += p.Costo * item.Quantita;
+                                    string packageType = "";
+                                    string iconClass = "";
+
+                                    if (p.Costo < 200)
+                                    {
+                                        packageType = "Pacchetto Basic";
+                                        iconClass = "fa-solid fa-lightbulb text-yellow-600";
+                                    }
+                                    else if (p.Costo < 800)
+                                    {
+                                        packageType = "Pacchetto Plus";
+                                        iconClass = "fa-solid fa-rocket text-yellow-600";
+                                    }
+                                    else
+                                    {
+                                        packageType = "Pacchetto Professional";
+                                        iconClass = "fa-solid fa-crown text-yellow-600";
+                                    }
+
+                                    <div class="cart-item-card rounded-3xl p-6 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                                        <div class="flex flex-col lg:flex-row gap-6">
+                                            <!-- Product Image -->
+                                            <div class="lg:w-48 flex-shrink-0">
+                                                <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-6 relative overflow-hidden">
+                                                    <img src="~/Content/Img/@p.Image" alt="@packageType" class="w-full h-full object-cover rounded-xl">
+                                                    <!-- Package Badge -->
+                                                    <div class="absolute top-4 right-4">
+                                                        <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                                                            <i class="@iconClass text-xl"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Product Details -->
+                                            <div class="flex-1">
+                                                <div class="flex flex-col h-full">
+                                                    <!-- Header -->
+                                                    <div class="flex justify-between items-start mb-4">
+                                                        <div>
+                                                            <h3 class="text-2xl font-bold text-gray-900 mb-2">@packageType</h3>
+                                                            <p class="text-gray-600 mb-4">@p.DescrizioneBreve</p>
+
+                                                            <!-- Features -->
+                                                            <div class="flex flex-wrap gap-2 mb-4">
+                                                                <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm font-medium">Consulenza</span>
+                                                                <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm font-medium">PDF Report</span>
+                                                                @if (p.Costo >= 800)
+                                                                {
+                                                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm font-medium">Strategia</span>
+                                                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm font-medium">Sito Web</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Remove Button -->
+                                                        <a href="@Url.Action("Delete", "Home", new { id = item.IdProdotto })"
+                                                           class="btn btn-circle btn-sm btn-error btn-outline hover:btn-error">
+                                                            <i class="fa-solid fa-trash text-sm"></i>
+                                                        </a>
+                                                    </div>
+
+                                                    <!-- Price and Quantity -->
+                                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mt-auto">
+                                                        <!-- Quantity Controls -->
+                                                        <div class="quantity-controls flex items-center gap-3">
+                                                            <span class="text-sm font-semibold text-gray-700">Quantità:</span>
+                                                            <div class="flex items-center gap-2">
+                                                                <a href="@Url.Action("Less", "Home", new { id = item.IdProdotto })" class="quantity-btn">
+                                                                    <i class="fa-solid fa-minus text-sm"></i>
+                                                                </a>
+                                                                <div class="quantity-display">@item.Quantita</div>
+                                                                <a href="@Url.Action("More", "Home", new { id = item.IdProdotto })" class="quantity-btn">
+                                                                    <i class="fa-solid fa-plus text-sm"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Price -->
+                                                        <div class="text-right">
+                                                            <div class="text-sm text-gray-500 mb-1">Prezzo unitario: €@p.Costo</div>
+                                                            <div class="text-3xl font-bold text-gray-900">
+                                                                €@(p.Costo * item.Quantita)
+                                                                <span class="text-lg text-gray-500 font-normal">totale</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             }
                         }
-                    }
-                    <h4 class="text-lg text-end mt-4 font-semibold">Totale @tot.ToString("C")</h4>
-                </div>
-                <div class="lg:flex lg:gap-3">
-                    <a class="py-2 bg-yellow-400 w-full mt-3 lg:w-1/2 rounded shadow-lg hover:bg-yellow-500 flex justify-center" href="~/Payment/ConfirmPayment">
-                        <img src="~/Content/Img/PayPal.svg" alt="paypal" />
-                    </a>
-                    <a class="p-2 bg-slate-400 text-white font-bold text-xl mt-3 lg:w-1/2 rounded shadow-lg hover:bg-slate-600 flex justify-center items-center" href="~/Payment/DeleteCart">
-                        SVUOTA CARRELLO
-                    </a>
+                    </div>
+
+                    <!-- Checkout Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="checkout-summary" data-aos="fade-up" data-aos-delay="400">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+                                <i class="fa-solid fa-receipt mr-2 text-yellow-600"></i>
+                                Riepilogo Ordine
+                            </h3>
+
+                            <!-- Order Details -->
+                            <div class="space-y-4 mb-6">
+                                @{
+                                    decimal subtotale = 0;
+                                    int totalItems = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var p in lista)
+                                    {
+                                        if (p.IdProdotto == item.IdProdotto)
+                                        {
+                                            decimal itemTotal = p.Costo * item.Quantita;
+                                            subtotale += itemTotal;
+                                            totalItems += item.Quantita;
+
+                                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                                <div>
+                                                    <span class="font-medium text-gray-900">@item.Quantita×</span>
+                                                    <span class="text-gray-700">@(p.Costo < 200 ? "Basic" : p.Costo < 800 ? "Plus" : "Pro")</span>
+                                                </div>
+                                                <span class="font-semibold text-gray-900">€@itemTotal</span>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+                                <!-- Subtotal -->
+                                <div class="flex justify-between items-center py-3 text-lg">
+                                    <span class="font-semibold text-gray-900">Subtotale (@totalItems @(totalItems == 1 ? "articolo" : "articoli")):</span>
+                                    <span class="font-bold text-gray-900">€@subtotale</span>
+                                </div>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="total-display">
+                                Totale: €@subtotale
+                            </div>
+
+                            <!-- Payment Methods -->
+                            <div class="payment-methods">
+                                <h4 class="font-bold text-lg text-gray-900 mb-4 text-center">
+                                    <i class="fa-solid fa-credit-card mr-2"></i>
+                                    Metodi di Pagamento
+                                </h4>
+
+                                <div class="space-y-4">
+                                    <!-- PayPal -->
+                                    <a href="@Url.Action("ConfirmPayment", "Payment")"
+                                       class="bg-yellow-400 transition duration-300 ease-in-out hover:scale-110 w-full p-4 rounded-xl flex items-center justify-center text-white font-semibold">
+                                        <img src="~/Content/Img/PayPal.svg" alt="PayPal" class="h-8">
+                                    </a>
+
+                                    <!-- Clear Cart -->
+                                    <a href="@Url.Action("DeleteCart", "Payment")"
+                                       class="btn btn-outline-error w-full btn-lg">
+                                        <i class="fa-solid fa-trash mr-2"></i>
+                                        Svuota Carrello
+                                    </a>
+                                </div>
+
+                                <!-- Security Badges -->
+                                <div class="security-badges">
+                                    <div class="security-badge">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                        <span>Sicuro</span>
+                                    </div>
+                                    <div class="security-badge">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <span>Crittografato</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guarantees -->
+                            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                                <h5 class="font-semibold text-yellow-700 mb-3 flex items-center">
+                                    <i class="fa-solid fa-shield-check mr-2"></i>
+                                    Le Nostre Garanzie
+                                </h5>
+                                <ul class="space-y-2 text-sm text-yellow-700">
+                                    <li class="flex items-center">
+                                        <i class="fa-solid fa-check mr-2 text-yellow-600"></i>
+                                        Soluzioni personalizzate
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa-solid fa-check mr-2 text-yellow-600"></i>
+                                        Supporto dedicato
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa-solid fa-check mr-2 text-yellow-600"></i>
+                                        Tempi di consegna garantiti
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
-            <div class="lg:flex lg:justify-end mt-12">
-                <a href="~/Home/Index#service" class="btn bg-slate-300 text-black hover:bg-slate-500 hover:text-white w-full lg:w-2/5">Torna ai servizi</a>
+                <!-- Continue Shopping -->
+                <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="500">
+                    <a href="@Url.Action("Index", "Home", new { }, null)#service" class="continue-shopping">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Continua lo Shopping
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+}
+
+@section scripts {
+    <script>
+        // Enhanced cart interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading state to payment buttons
+            const paymentButtons = document.querySelectorAll('.payment-method-btn');
+
+            paymentButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add loading spinner
+                    const originalContent = this.innerHTML;
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Elaborazione...';
+                    this.style.pointerEvents = 'none';
+
+                    // Restore original content if navigation doesn't happen
+                    setTimeout(() => {
+                        this.innerHTML = originalContent;
+                        this.style.pointerEvents = 'auto';
+                    }, 3000);
+                });
+            });
+
+            // Quantity change animations
+            const quantityBtns = document.querySelectorAll('.quantity-btn');
+
+            quantityBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Add loading state
+                    const icon = this.querySelector('i');
+                    const originalClass = icon.className;
+                    icon.className = 'fa-solid fa-spinner fa-spin text-sm';
+
+                    // Navigate after short delay for visual feedback
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 300);
+                });
+            });
+
+            // Remove item confirmation
+            const removeButtons = document.querySelectorAll('a[href*="Delete"]');
+
+            removeButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    if (confirm('Sei sicuro di voler rimuovere questo articolo dal carrello?')) {
+                        // Add removal animation
+                        const cartItem = this.closest('.cart-item-card');
+                        cartItem.style.transform = 'translateX(100%)';
+                        cartItem.style.opacity = '0';
+
+                        setTimeout(() => {
+                            window.location.href = this.href;
+                        }, 300);
+                    }
+                });
+            });
+
+            // Clear cart confirmation
+            const clearCartBtn = document.querySelector('a[href*="DeleteCart"]');
+
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    if (confirm('Sei sicuro di voler svuotare completamente il carrello?')) {
+                        // Add loading state
+                        this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Svuotando...';
+                        this.style.pointerEvents = 'none';
+
+                        setTimeout(() => {
+                            window.location.href = this.href;
+                        }, 500);
+                    }
+                });
+            }
+
+            // Add hover effects to cart items
+            const cartItems = document.querySelectorAll('.cart-item-card');
+
+            cartItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Auto-update cart total animation
+            function animateTotal() {
+                const totalDisplay = document.querySelector('.total-display');
+                if (totalDisplay) {
+                    totalDisplay.style.transform = 'scale(1.05)';
+                    totalDisplay.style.background = 'linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%)';
+
+                    setTimeout(() => {
+                        totalDisplay.style.transform = 'scale(1)';
+                        totalDisplay.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
+                    }, 200);
+                }
+            }
+
+            // Sticky checkout summary on scroll
+            const checkoutSummary = document.querySelector('.checkout-summary');
+            const navbar = document.querySelector('.navbar');
+
+            if (checkoutSummary && window.innerWidth >= 1024) {
+                window.addEventListener('scroll', function() {
+                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                    const scrollTop = window.pageYOffset;
+
+                    if (scrollTop > navbarHeight + 100) {
+                        checkoutSummary.style.top = `${navbarHeight + 20}px`;
+                    } else {
+                        checkoutSummary.style.top = '2rem';
+                    }
+                });
+            }
+
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.btn, .payment-method-btn, .quantity-btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Smooth scroll for continue shopping
+            const continueShoppingBtn = document.querySelector('.continue-shopping');
+
+            if (continueShoppingBtn) {
+                continueShoppingBtn.addEventListener('click', function(e) {
+                    // Add smooth transition effect
+                    document.body.style.transition = 'opacity 0.3s ease';
+                    document.body.style.opacity = '0.8';
+
+                    setTimeout(() => {
+                        document.body.style.opacity = '1';
+                    }, 300);
+                });
+            }
+
+            // Progress steps animation
+            const steps = document.querySelectorAll('.step');
+            let currentStep = 0;
+
+            function animateSteps() {
+                steps.forEach((step, index) => {
+                    if (index <= currentStep) {
+                        step.classList.add('active');
+                        step.style.transform = 'scale(1.05)';
+
+                        setTimeout(() => {
+                            step.style.transform = 'scale(1)';
+                        }, 200);
+                    }
+                });
+            }
+
+            // Trigger step animation on load
+            setTimeout(animateSteps, 500);
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for scroll animations
+            const animateElements = document.querySelectorAll('.cart-item-card, .checkout-summary');
+
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Add cart item counter animation
+            function updateCartCounter() {
+                const cartCounter = document.querySelector('.indicator-item');
+                if (cartCounter) {
+                    cartCounter.style.animation = 'pulse 0.3s ease';
+
+                    setTimeout(() => {
+                        cartCounter.style.animation = '';
+                    }, 300);
+                }
+            }
+
+            // Security badges hover effect
+            const securityBadges = document.querySelectorAll('.security-badge');
+
+            securityBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.background = 'rgba(34, 197, 94, 0.2)';
+                });
+
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.background = 'rgba(34, 197, 94, 0.1)';
+                });
+            });
+        });
+
+        // Add CSS keyframes for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @@keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+
+            @@keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+
+            .cart-item-card {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .quantity-btn {
+                transition: all 0.2s ease;
+            }
+
+            .payment-method-btn {
+                transition: all 0.3s ease;
+            }
+
+            .security-badge {
+                transition: all 0.2s ease;
+            }
+
+            /* Loading spinner animation */
+            @@keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            .fa-spinner {
+                animation: spin 1s linear infinite;
+            }
+
+            /* Enhanced hover effects */
+            .cart-item-card:hover {
+                box-shadow: 0 25px 50px rgba(251, 191, 36, 0.15);
+            }
+
+            .payment-method-btn:hover {
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Responsive adjustments */
+            @@media (max-width: 768px) {
+                .progress-steps {
+                    padding: 0 1rem;
+                }
+
+                .step span {
+                    display: none;
+                }
+
+                .step-connector {
+                    width: 2rem;
+                }
+
+                .cart-item-card {
+                    padding: 1rem;
+                }
+
+                .checkout-summary {
+                    padding: 1.5rem;
+                }
+
+                .quantity-controls {
+                    flex-direction: column;
+                    gap: 1rem;
+                    align-items: flex-start;
+                }
+
+                .quantity-display {
+                    order: -1;
+                    font-size: 1rem;
+                }
+            }
+
+            /* Dark mode support */
+            @@media (prefers-color-scheme: dark) {
+                .cart-item-card {
+                    background: rgba(31, 41, 55, 0.98);
+                    color: #f9fafb;
+                }
+
+                .checkout-summary {
+                    background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+                    color: #f9fafb;
+                }
+
+                .quantity-controls {
+                    background: #374151;
+                }
+
+                .quantity-btn {
+                    background: #4b5563;
+                    border-color: #6b7280;
+                    color: #e5e7eb;
+                }
+
+                .quantity-btn:hover {
+                    background: #fbbf24;
+                    color: #000;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 }

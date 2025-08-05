@@ -188,8 +188,9 @@ namespace DHConsulting.Controllers
             return payment.Create(api);
         }
 
-        //Metodo per eliminare il carrello e il cookie
-        public ActionResult DeleteCart()
+		[AllowAnonymous]
+		//Metodo per eliminare il carrello e il cookie
+		public ActionResult DeleteCart()
         {
             HttpCookie carrelloCookie = HttpContext.Request.Cookies["carrello"];
             //segno il cookie come scaduto

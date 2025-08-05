@@ -13,7 +13,6 @@ using System.Net.Mime;
 
 namespace DHConsulting.Controllers
 {
-    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         private ModelDb db = new ModelDb();
@@ -188,20 +187,23 @@ namespace DHConsulting.Controllers
             return RedirectToAction("Cart", "Payment");
         }
 
-        //View per mostrare i dettagli del profilo utente con relativo storico acquisti
-        public ActionResult Profilo()
+		[Authorize(Roles = "User")]
+		//View per mostrare i dettagli del profilo utente con relativo storico acquisti
+		public ActionResult Profilo()
         {
             return View(db.Cliente.Where(x => x.Username == User.Identity.Name).FirstOrDefault());
         }
 
-        //View classica per la modifica del profilo
-        public ActionResult EditProfilo(int id)
+		[Authorize(Roles = "User")]
+		//View classica per la modifica del profilo
+		public ActionResult EditProfilo(int id)
         {
             return View(db.Cliente.Find(id));
         }
 
-        //Metodo per la modifica del profilo
-        [HttpPost]
+		[Authorize(Roles = "User")]
+		//Metodo per la modifica del profilo
+		[HttpPost]
         public ActionResult EditProfilo(Cliente c)
         {
             //utilizzo di un nuovo ModelDb per evitare i problemi relativi alle ultime versioni di EF
