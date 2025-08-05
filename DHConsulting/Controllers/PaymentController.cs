@@ -173,7 +173,7 @@ namespace DHConsulting.Controllers
             var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction
             {
-                description = "Ordine PM Consulting",
+                description = "Ordine Five Innovation Hub",
                 invoice_number = invoiceId.ToString(),
                 amount = amount,
                 item_list = itemList
@@ -248,12 +248,12 @@ namespace DHConsulting.Controllers
             double tableMargin = 40;
             double cellPadding = 5;
             //generazione del logo e della scritta sottostante
-            XImage logo = XImage.FromFile(Server.MapPath("~/Content/Img/Logo_Paolo.png"));
+            XImage logo = XImage.FromFile(Server.MapPath("~/Content/Img/logo_orizz_sf.png"));
             double logoX = (pageWidth - 200) / 2;
             double logoY = yPosition;
             gfx.DrawImage(logo, logoX, logoY, 200, 90);
             yPosition += 110;
-            string titleText = "PAOLO MANCA CONSULTING";
+            string titleText = "Five Innovation Hub";
             int spacing = 2;
             string spacedText = string.Join(new string(' ', spacing), titleText.ToCharArray());
             gfx.DrawString(spacedText, subtitleFont, XBrushes.OrangeRed,
@@ -342,16 +342,16 @@ namespace DHConsulting.Controllers
             gfx.DrawString($"Data: {DateTime.Now.ToShortDateString()}", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
-            gfx.DrawString("Paolo Manca Consulting", coursiveFont, XBrushes.Black,
+            gfx.DrawString("Five Innovation Hub, LDA", coursiveFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
-            gfx.DrawString("P.IVA: IT0211134563", smallFont, XBrushes.Black,
+            gfx.DrawString("P.IVA: PT518557332", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
-            gfx.DrawString("Via G.Mazzini 45, Pisa (PI), 56125", smallFont, XBrushes.Black,
+            gfx.DrawString("Av. São Gonçalo nº 1614, 4835-105, Guimarães", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
             yPosition += smallLineHeight;
-            gfx.DrawString("info@paolomancaconsulting.com", smallFont, XBrushes.Black,
+            gfx.DrawString("info@fiveinnovationhub.com", smallFont, XBrushes.Black,
                     new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
 
             MemoryStream stream = new MemoryStream();
@@ -386,7 +386,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "PM Consulting"),
+                From = new MailAddress(senderEmail, "Five Innovation Hub"),
                 Subject = "Dettaglio dell'aquisto",
                 IsBodyHtml = true,
             };
@@ -394,7 +394,7 @@ namespace DHConsulting.Controllers
             mailMessage.Body = $@"
         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
             <header style='text-align: center;'>
-                <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.paolomancaconsulting.com/Content/Img/Logo-2.png' alt='logo'>
+                <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.fiveinnovationhub.com/Content/Img/logo_orizz_sf.png' alt='logo'>
             </header>
 
             <main style='margin-top: 20px;'>
@@ -409,7 +409,7 @@ namespace DHConsulting.Controllers
             </main>
             
             <footer style='margin-top: 20px; text-align: center;'>
-                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} PM Consulting. Tutti i diritti riservati.</p>
+                <p style='color: #888888; font-size: 12px;'>&copy; {DateTime.Now.Year} Five Innovation Hub. Tutti i diritti riservati.</p>
             </footer>
         </div>";
 
@@ -435,7 +435,7 @@ namespace DHConsulting.Controllers
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(senderEmail, "PM Consulting"),
+                From = new MailAddress(senderEmail, "Five Innovation Hub"),
                 Subject = "Pacchetto consulenza acquistato",
                 Body = @"
                         <section class=""max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900"">
