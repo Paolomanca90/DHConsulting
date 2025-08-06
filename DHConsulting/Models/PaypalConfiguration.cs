@@ -22,7 +22,7 @@ namespace DHConsulting.Models
         {
             return new Dictionary<string, string>()
             {
-                { "mode", "sandbox" }
+                { "mode", "live" }
             };
         }
 
@@ -30,7 +30,7 @@ namespace DHConsulting.Models
         {
             string accessToken = new OAuthTokenCredential(ClientId, ClientSecret, new Dictionary<string, string>()
             {
-                { "mode", "sandbox" }
+                { "mode", "live" }
             }).GetAccessToken();
             return accessToken;
         }

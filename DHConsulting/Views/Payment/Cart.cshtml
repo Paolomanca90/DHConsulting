@@ -29,34 +29,42 @@
             animation: float 8s ease-in-out infinite;
         }
 
-        .particle:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-        }
+            .particle:nth-child(1) {
+                width: 200px;
+                height: 200px;
+                top: 10%;
+                left: 5%;
+                animation-delay: 0s;
+            }
 
-        .particle:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            top: 60%;
-            right: 10%;
-            animation-delay: -3s;
-        }
+            .particle:nth-child(2) {
+                width: 150px;
+                height: 150px;
+                top: 60%;
+                right: 10%;
+                animation-delay: -3s;
+            }
 
-        .particle:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            bottom: 20%;
-            left: 30%;
-            animation-delay: -6s;
-        }
+            .particle:nth-child(3) {
+                width: 100px;
+                height: 100px;
+                bottom: 20%;
+                left: 30%;
+                animation-delay: -6s;
+            }
 
         @@keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(2deg); }
-            66% { transform: translateY(10px) rotate(-1deg); }
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+
+            66% {
+                transform: translateY(10px) rotate(-1deg);
+            }
         }
 
         .cart-item-card {
@@ -66,10 +74,10 @@
             transition: all 0.3s ease;
         }
 
-        .cart-item-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.15);
-        }
+            .cart-item-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 20px 40px rgba(251, 191, 36, 0.15);
+            }
 
         .quantity-controls {
             background: #f8fafc;
@@ -91,12 +99,12 @@
             color: #6b7280;
         }
 
-        .quantity-btn:hover {
-            border-color: #fbbf24;
-            background: #fbbf24;
-            color: white;
-            transform: scale(1.1);
-        }
+            .quantity-btn:hover {
+                border-color: #fbbf24;
+                background: #fbbf24;
+                color: white;
+                transform: scale(1.1);
+            }
 
         .quantity-display {
             min-width: 60px;
@@ -118,24 +126,24 @@
             overflow: hidden;
         }
 
-        .payment-method-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+            .payment-method-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
 
         .paypal-btn {
             background: linear-gradient(135deg, #ffc439 0%, #003087 100%);
         }
 
-        .paypal-btn:hover {
-            background: linear-gradient(135deg, #ffb700 0%, #001a4d 100%);
-        }
+            .paypal-btn:hover {
+                background: linear-gradient(135deg, #ffb700 0%, #001a4d 100%);
+            }
 
-        .paypal-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
+            .paypal-btn:disabled {
+                background: #9ca3af;
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
 
         .empty-cart-animation {
             animation: bounce 2s infinite;
@@ -146,14 +154,17 @@
                 animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
                 transform: translate3d(0,0,0);
             }
+
             40%, 43% {
                 animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
                 transform: translate3d(0, -15px, 0);
             }
+
             70% {
                 animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
                 transform: translate3d(0, -7px, 0);
             }
+
             90% {
                 transform: translate3d(0,-2px,0);
             }
@@ -198,42 +209,42 @@
             color: #6b7280;
         }
 
-        .auth-tab.active {
-            background: white;
-            color: #fbbf24;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+            .auth-tab.active {
+                background: white;
+                color: #fbbf24;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #374151;
-        }
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                color: #374151;
+            }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
+            .form-group input {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e5e7eb;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+            }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #fbbf24;
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
-        }
+                .form-group input:focus {
+                    outline: none;
+                    border-color: #fbbf24;
+                    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+                }
 
-        .form-group input.error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-        }
+                .form-group input.error {
+                    border-color: #ef4444;
+                    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+                }
 
         .field-validation-error {
             color: #ef4444 !important;
@@ -271,10 +282,10 @@
             color: #dc2626;
         }
 
-        .alert-error svg {
-            color: #dc2626;
-            flex-shrink: 0;
-        }
+            .alert-error svg {
+                color: #dc2626;
+                flex-shrink: 0;
+            }
 
         .required {
             color: #ef4444;
@@ -290,9 +301,9 @@
             display: none;
         }
 
-        .auth-form.active {
-            display: block;
-        }
+            .auth-form.active {
+                display: block;
+            }
 
         .submit-btn {
             width: 100%;
@@ -308,18 +319,18 @@
             margin-bottom: 1rem;
         }
 
-        .submit-btn:hover {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
-        }
+            .submit-btn:hover {
+                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+            }
 
-        .submit-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+            .submit-btn:disabled {
+                background: #9ca3af;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
 
         .google-login-btn {
             width: 100%;
@@ -337,12 +348,12 @@
             transition: all 0.3s ease;
         }
 
-        .google-login-btn:hover {
-            border-color: #4285f4;
-            background: #f8f9ff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.15);
-        }
+            .google-login-btn:hover {
+                border-color: #4285f4;
+                background: #f8f9ff;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(66, 133, 244, 0.15);
+            }
 
         .total-display {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
@@ -387,9 +398,9 @@
             color: #6b7280;
         }
 
-        .step.active {
-            color: #fbbf24;
-        }
+            .step.active {
+                color: #fbbf24;
+            }
 
         .step-circle {
             width: 2rem;
@@ -433,12 +444,12 @@
             gap: 0.5rem;
         }
 
-        .continue-shopping:hover {
-            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
-            color: white;
-        }
+            .continue-shopping:hover {
+                background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
+                color: white;
+            }
 
         .login-prompt {
             background: linear-gradient(145deg, #fef3c7 0%, #fde68a 100%);
@@ -449,17 +460,17 @@
             margin-bottom: 2rem;
         }
 
-        .login-prompt h3 {
-            color: #92400e;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+            .login-prompt h3 {
+                color: #92400e;
+                font-size: 1.25rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
 
-        .login-prompt p {
-            color: #78350f;
-            margin-bottom: 0;
-        }
+            .login-prompt p {
+                color: #78350f;
+                margin-bottom: 0;
+            }
 
         @@media (max-width: 1024px) {
             .checkout-summary {
@@ -670,149 +681,92 @@ else
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="Nome">Nome <span class="required">*</span></label>
-                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Nome, new
-                                                {
-                                                    @id = "Nome",
-                                                    @name = "Nome",
-                                                    @required = "required",
-                                                    @maxlength = "50",
-                                                    @class = Html.ViewData.ModelState.IsValidField("Nome") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Nome, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="text" id="Nome" name="Nome" required maxlength="50"
+                                                       class="@(Html.ViewData.ModelState.IsValidField("Nome") ? "" : "error")"
+                                                       value="@(ViewData.ModelState.ContainsKey("Nome") ? ViewData.ModelState["Nome"].Value.RawValue : "")" />
+                                                @Html.ValidationMessage("Nome", "", new { @class = "field-validation-error" })
                                             </div>
                                             <div class="form-group">
                                                 <label for="Cognome">Cognome <span class="required">*</span></label>
-                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Cognome, new
-                                                {
-                                                    @id = "Cognome",
-                                                    @name = "Cognome",
-                                                    @required = "required",
-                                                    @maxlength = "50",
-                                                    @class = Html.ViewData.ModelState.IsValidField("Cognome") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Cognome, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="text" id="Cognome" name="Cognome" required maxlength="50"
+                                                       class="@(Html.ViewData.ModelState.IsValidField("Cognome") ? "" : "error")"
+                                                       value="@(ViewData.ModelState.ContainsKey("Cognome") ? ViewData.ModelState["Cognome"].Value.RawValue : "")" />
+                                                @Html.ValidationMessage("Cognome", "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Email">Email <span class="required">*</span></label>
-                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Email, new
-                                            {
-                                                @id = "Email",
-                                                @name = "Email",
-                                                @type = "email",
-                                                @required = "required",
-                                                @maxlength = "100",
-                                                @class = Html.ViewData.ModelState.IsValidField("Email") ? "" : "error"
-                                            })
-                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Email, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            <input type="email" id="Email" name="Email" required maxlength="100"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Email") ? "" : "error")"
+                                                   value="@(ViewData.ModelState.ContainsKey("Email") ? ViewData.ModelState["Email"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("Email", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-group">
                                             <label for="CF">Codice Fiscale <span class="required">*</span></label>
-                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.CF, new
-                                            {
-                                                @id = "CF",
-                                                @name = "CF",
-                                                @required = "required",
-                                                @maxlength = "16",
-                                                @pattern = "[A-Za-z0-9]{16}",
-                                                @title = "Inserisci un codice fiscale valido di 16 caratteri",
-                                                @class = Html.ViewData.ModelState.IsValidField("CF") ? "" : "error"
-                                            })
-                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.CF, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            <input type="text" id="CF" name="CF" required maxlength="16"
+                                                   pattern="[A-Za-z0-9]{16}" title="Inserisci un codice fiscale valido di 16 caratteri"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("CF") ? "" : "error")"
+                                                   value="@(ViewData.ModelState.ContainsKey("CF") ? ViewData.ModelState["CF"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("CF", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Phone">Telefono <span class="required">*</span></label>
-                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Phone, new
-                                            {
-                                                @id = "Phone",
-                                                @name = "Phone",
-                                                @type = "tel",
-                                                @required = "required",
-                                                @maxlength = "20",
-                                                @class = Html.ViewData.ModelState.IsValidField("Phone") ? "" : "error"
-                                            })
-                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Phone, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            <input type="tel" id="Phone" name="Phone" required maxlength="20"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Phone") ? "" : "error")"
+                                                   value="@(ViewData.ModelState.ContainsKey("Phone") ? ViewData.ModelState["Phone"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("Phone", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="DataNascita">Data di Nascita <span class="required">*</span></label>
-                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.DataNascita, new
-                                                {
-                                                    @id = "DataNascita",
-                                                    @name = "DataNascita",
-                                                    @type = "date",
-                                                    @required = "required",
-                                                    @class = Html.ViewData.ModelState.IsValidField("DataNascita") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.DataNascita, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="date" id="DataNascita" name="DataNascita" required
+                                                       class="@(Html.ViewData.ModelState.IsValidField("DataNascita") ? "" : "error")"
+                                                       value="@(ViewData.ModelState.ContainsKey("DataNascita") && ViewData.ModelState["DataNascita"].Value.RawValue != null ? Convert.ToDateTime(ViewData.ModelState["DataNascita"].Value.RawValue).ToString("yyyy-MM-dd") : "")" />
+                                                @Html.ValidationMessage("DataNascita", "", new { @class = "field-validation-error" })
                                             </div>
                                             <div class="form-group">
                                                 <label for="Piva">P.IVA (opzionale)</label>
-                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Piva, new
-                                                {
-                                                    @id = "Piva",
-                                                    @name = "Piva",
-                                                    @maxlength = "11",
-                                                    @class = Html.ViewData.ModelState.IsValidField("Piva") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Piva, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="text" id="Piva" name="Piva" maxlength="11"
+                                                       class="@(Html.ViewData.ModelState.IsValidField("Piva") ? "" : "error")"
+                                                       value="@(ViewData.ModelState.ContainsKey("Piva") ? ViewData.ModelState["Piva"].Value.RawValue : "")" />
+                                                @Html.ValidationMessage("Piva", "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Indirizzo">Indirizzo <span class="required">*</span></label>
-                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Indirizzo, new
-                                            {
-                                                @id = "Indirizzo",
-                                                @name = "Indirizzo",
-                                                @required = "required",
-                                                @maxlength = "100",
-                                                @class = Html.ViewData.ModelState.IsValidField("Indirizzo") ? "" : "error"
-                                            })
-                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Indirizzo, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            <input type="text" id="Indirizzo" name="Indirizzo" required maxlength="100"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Indirizzo") ? "" : "error")"
+                                                   value="@(ViewData.ModelState.ContainsKey("Indirizzo") ? ViewData.ModelState["Indirizzo"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("Indirizzo", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Citta">Città <span class="required">*</span></label>
-                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Citta, new
-                                            {
-                                                @id = "Citta",
-                                                @name = "Citta",
-                                                @required = "required",
-                                                @maxlength = "50",
-                                                @class = Html.ViewData.ModelState.IsValidField("Citta") ? "" : "error"
-                                            })
-                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Citta, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            <input type="text" id="Citta" name="Citta" required maxlength="50"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Citta") ? "" : "error")"
+                                                   value="@(ViewData.ModelState.ContainsKey("Citta") ? ViewData.ModelState["Citta"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("Citta", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="Username">Username <span class="required">*</span></label>
-                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Username, new
-                                                {
-                                                    @id = "Username",
-                                                    @name = "Username",
-                                                    @required = "required",
-                                                    @maxlength = "50",
-                                                    @class = Html.ViewData.ModelState.IsValidField("Username") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Username, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="text" id="Username" name="Username" required maxlength="50"
+                                                       class="@(Html.ViewData.ModelState.IsValidField("Username") ? "" : "error")"
+                                                       value="@(ViewData.ModelState.ContainsKey("Username") ? ViewData.ModelState["Username"].Value.RawValue : "")" />
+                                                @Html.ValidationMessage("Username", "", new { @class = "field-validation-error" })
                                             </div>
                                             <div class="form-group">
                                                 <label for="Password">Password <span class="required">*</span></label>
-                                                @Html.PasswordFor(m => m.FirstOrDefault().Ordine.Cliente.Password, new
-                                                {
-                                                    @id = "Password",
-                                                    @name = "Password",
-                                                    @required = "required",
-                                                    @title = "La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@&$%)",
-                                                    @class = Html.ViewData.ModelState.IsValidField("Password") ? "" : "error"
-                                                })
-                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Password, "", new { @class = "text-red-500 text-sm mt-1" })
+                                                <input type="password" id="Password" name="Password" required
+                                                       title="La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?&amp;$%)"
+                                                       class="@(Html.ViewData.ModelState.IsValidField("Password") ? "" : "error")" />
+                                                @Html.ValidationMessage("Password", "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
@@ -847,15 +801,15 @@ else
                                             <label for="LoginUsername">Username <span class="required">*</span></label>
                                             <input type="text" id="LoginUsername" name="Username" required maxlength="50"
                                                    class="@(Html.ViewData.ModelState.IsValidField("Username") ? "" : "error")"
-                                                   value="@ViewData.ModelState["Username"]?.Value?.RawValue" />
-                                            @Html.ValidationMessage("Username", "", new { @class = "text-red-500 text-sm mt-1" })
+                                                   value="@(ViewData.ModelState.ContainsKey("Username") ? ViewData.ModelState["Username"].Value.RawValue : "")" />
+                                            @Html.ValidationMessage("Username", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <div class="form-group">
                                             <label for="LoginPassword">Password <span class="required">*</span></label>
                                             <input type="password" id="LoginPassword" name="Password" required
                                                    class="@(Html.ViewData.ModelState.IsValidField("Password") ? "" : "error")" />
-                                            @Html.ValidationMessage("Password", "", new { @class = "text-red-500 text-sm mt-1" })
+                                            @Html.ValidationMessage("Password", "", new { @class = "field-validation-error" })
                                         </div>
 
                                         <button type="submit" class="submit-btn">
@@ -863,65 +817,79 @@ else
                                             Accedi e Continua
                                         </button>
                                     }
-                                </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <!-- User Details Display (Authenticated User) -->
-                        <div class="user-form-section" data-aos="fade-up" data-aos-delay="250">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                                <i class="fa-solid fa-user-check mr-2 text-green-600"></i>
-                                Dati di Fatturazione
-                            </h3>
 
-                            @if (cliente != null)
-                            {
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div class="space-y-4">
-                                        <div class="p-4 bg-gray-50 rounded-lg">
-                                            <strong class="text-gray-700">Nome e Cognome:</strong>
-                                            <p class="text-gray-900 font-medium">@cliente.Nome @cliente.Cognome</p>
-                                        </div>
-                                        <div class="p-4 bg-gray-50 rounded-lg">
-                                            <strong class="text-gray-700">Email:</strong>
-                                            <p class="text-gray-900 font-medium">@cliente.Email</p>
-                                        </div>
-                                        <div class="p-4 bg-gray-50 rounded-lg">
-                                            <strong class="text-gray-700">Telefono:</strong>
-                                            <p class="text-gray-900 font-medium">@cliente.Phone</p>
-                                        </div>
+                                    <div style="text-align: center; margin: 1rem 0; color: #6b7280;">
+                                        <span>oppure</span>
                                     </div>
-                                    <div class="space-y-4">
-                                        <div class="p-4 bg-gray-50 rounded-lg">
-                                            <strong class="text-gray-700">Indirizzo:</strong>
-                                            <p class="text-gray-900 font-medium">@cliente.Indirizzo</p>
-                                            <p class="text-gray-900 font-medium">@cliente.Citta</p>
-                                        </div>
-                                        <div class="p-4 bg-gray-50 rounded-lg">
-                                            <strong class="text-gray-700">Codice Fiscale:</strong>
-                                            <p class="text-gray-900 font-medium">@cliente.CF</p>
-                                        </div>
-                                        @if (!string.IsNullOrEmpty(cliente.Piva))
-                                        {
-                                            <div class="p-4 bg-gray-50 rounded-lg">
-                                                <strong class="text-gray-700">P.IVA:</strong>
-                                                <p class="text-gray-900 font-medium">@cliente.Piva</p>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
 
-                                <div class="mt-6 text-center">
-                                    <a href="@Url.Action("EditProfilo", "Home", new { id = cliente.IdCliente })"
-                                       class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
-                                        <i class="fa-solid fa-edit mr-2"></i>
-                                        Modifica Dati
+                                    <a href="@ViewBag.Response" class="google-login-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                        </svg>
+                                        Accedi con Google
                                     </a>
                                 </div>
-                            }
-                        </div>
-                    }
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- User Details Display (Authenticated User) -->
+                            <div class="user-form-section" data-aos="fade-up" data-aos-delay="250">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                                    <i class="fa-solid fa-user-check mr-2 text-green-600"></i>
+                                    Dati di Fatturazione
+                                </h3>
+
+                                @if (cliente != null)
+                                {
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="space-y-4">
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">Nome e Cognome:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.Nome @cliente.Cognome</p>
+                                            </div>
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">Email:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.Email</p>
+                                            </div>
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">Telefono:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.Phone</p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-4">
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">Indirizzo:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.Indirizzo</p>
+                                                <p class="text-gray-900 font-medium">@cliente.Citta</p>
+                                            </div>
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">Codice Fiscale:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.CF</p>
+                                            </div>
+                                            @if (!string.IsNullOrEmpty(cliente.Piva))
+                                            {
+                                                <div class="p-4 bg-gray-50 rounded-lg">
+                                                    <strong class="text-gray-700">P.IVA:</strong>
+                                                    <p class="text-gray-900 font-medium">@cliente.Piva</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 text-center">
+                                        <a href="@Url.Action("EditProfilo", "Home", new { id = cliente.IdCliente })"
+                                           class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                                            <i class="fa-solid fa-edit mr-2"></i>
+                                            Modifica Dati
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        }
 
                         <!-- Cart Items List -->
                         @foreach (var item in Model)
@@ -1156,13 +1124,13 @@ else
                     </a>
                 </div>
             </div>
-            </div>
-        </section>
-    }
+        </div>
+    </section>
+}
 
 @section scripts {
     <script>
-        // Authentication tab switching with error handling
+        // Authentication tab switching con gestione degli errori del ModelState
         function switchAuthTab(tabType) {
             // Hide all forms
             document.getElementById('register-form').classList.remove('active');
@@ -1189,16 +1157,24 @@ else
             let isValid = true;
 
             inputs.forEach(input => {
-                // Remove previous error styling
+                // Skip validation for fields that already have server-side errors
+                const hasServerError = input.parentElement.querySelector('.field-validation-error:not([style*="display: none"])');
+                if (hasServerError && hasServerError.textContent.trim() !== '') {
+                    isValid = false;
+                    input.classList.add('error');
+                    return;
+                }
+
+                // Remove previous client-side error styling
                 input.classList.remove('error');
-                const errorSpan = input.parentElement.querySelector('.field-validation-error');
-                if (errorSpan) {
-                    errorSpan.style.display = 'none';
+                const clientErrorSpan = input.parentElement.querySelector('.client-validation-error');
+                if (clientErrorSpan) {
+                    clientErrorSpan.remove();
                 }
 
                 if (!input.value.trim()) {
                     input.classList.add('error');
-                    showFieldError(input, 'Questo campo è obbligatorio');
+                    showFieldError(input, 'Questo campo è obbligatorio', 'client-validation-error');
                     isValid = false;
                 } else {
                     // Specific validations
@@ -1206,7 +1182,7 @@ else
                         const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
                         if (!emailRegex.test(input.value)) {
                             input.classList.add('error');
-                            showFieldError(input, 'Inserisci un indirizzo email valido');
+                            showFieldError(input, 'Inserisci un indirizzo email valido', 'client-validation-error');
                             isValid = false;
                         }
                     }
@@ -1214,7 +1190,7 @@ else
                     if (input.name === 'CF' && input.value) {
                         if (input.value.length !== 16) {
                             input.classList.add('error');
-                            showFieldError(input, 'Il codice fiscale deve essere di 16 caratteri');
+                            showFieldError(input, 'Il codice fiscale deve essere di 16 caratteri', 'client-validation-error');
                             isValid = false;
                         }
                     }
@@ -1223,7 +1199,7 @@ else
                         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!?@@&$%]).{8,}$/;
                         if (!passwordRegex.test(input.value)) {
                             input.classList.add('error');
-                            showFieldError(input, 'La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@@&$%)');
+                            showFieldError(input, 'La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@@&$%)', 'client-validation-error');
                             isValid = false;
                         }
                     }
@@ -1231,7 +1207,7 @@ else
                     if (input.name === 'Piva' && input.value) {
                         if (input.value.length !== 11 || !/^\d{11}$/.test(input.value)) {
                             input.classList.add('error');
-                            showFieldError(input, 'La P.IVA deve contenere esattamente 11 cifre');
+                            showFieldError(input, 'La P.IVA deve contenere esattamente 11 cifre', 'client-validation-error');
                             isValid = false;
                         }
                     }
@@ -1242,11 +1218,11 @@ else
         }
 
         // Helper function to show field-specific errors
-        function showFieldError(input, message) {
-            let errorSpan = input.parentElement.querySelector('.field-validation-error');
+        function showFieldError(input, message, className) {
+            let errorSpan = input.parentElement.querySelector('.' + className);
             if (!errorSpan) {
                 errorSpan = document.createElement('span');
-                errorSpan.className = 'field-validation-error text-red-500 text-sm mt-1';
+                errorSpan.className = className + ' text-red-500 text-sm mt-1';
                 input.parentElement.appendChild(errorSpan);
             }
             errorSpan.textContent = message;
@@ -1256,14 +1232,21 @@ else
         // Enhanced cart interactions
         document.addEventListener('DOMContentLoaded', function() {
             // Check if there are validation errors and switch to appropriate tab
-            const hasLoginErrors = document.querySelector('#login-form .field-validation-error:not([style*="display: none"])');
-            const hasRegisterErrors = document.querySelector('#register-form .field-validation-error:not([style*="display: none"])');
+            const hasLoginErrors = document.querySelector('#login-form .field-validation-error') &&
+                                  document.querySelector('#login-form .field-validation-error').textContent.trim() !== '';
+            const hasRegisterErrors = document.querySelector('#register-form .field-validation-error') &&
+                                     document.querySelector('#register-form .field-validation-error').textContent.trim() !== '';
 
-            if (hasLoginErrors) {
+            // Determine which tab to show based on errors
+            if (hasLoginErrors && !hasRegisterErrors) {
                 switchAuthTab('login');
-            } else if (hasRegisterErrors) {
+            } else if (hasRegisterErrors && !hasLoginErrors) {
                 switchAuthTab('register');
+            } else if (hasLoginErrors && hasRegisterErrors) {
+                // If both have errors, show login (assuming user was trying to login)
+                switchAuthTab('login');
             }
+            // If no errors, default behavior (register tab active) is maintained
 
             // Form submission handling with better error management
             const registerForm = document.getElementById('registerForm');
@@ -1271,7 +1254,10 @@ else
 
             if (registerForm) {
                 registerForm.addEventListener('submit', function(e) {
-                    if (!validateForm('registerForm')) {
+                    // Only validate if there are no server-side errors
+                    const hasServerErrors = this.querySelectorAll('.field-validation-error').length > 0;
+
+                    if (!hasServerErrors && !validateForm('registerForm')) {
                         e.preventDefault();
 
                         // Scroll to first error
@@ -1293,7 +1279,10 @@ else
 
             if (loginForm) {
                 loginForm.addEventListener('submit', function(e) {
-                    if (!validateForm('loginForm')) {
+                    // Only validate if there are no server-side errors
+                    const hasServerErrors = this.querySelectorAll('.field-validation-error').length > 0;
+
+                    if (!hasServerErrors && !validateForm('loginForm')) {
                         e.preventDefault();
 
                         // Scroll to first error
@@ -1317,90 +1306,46 @@ else
             const allInputs = document.querySelectorAll('input');
             allInputs.forEach(input => {
                 // Preserve server-side errors on page load
-                if (input.classList.contains('error')) {
-                    const existingError = input.parentElement.querySelector('.field-validation-error');
-                    if (existingError && existingError.textContent) {
-                        existingError.style.display = 'block';
-                    }
+                const serverError = input.parentElement.querySelector('.field-validation-error');
+                if (serverError && serverError.textContent.trim() !== '') {
+                    input.classList.add('error');
+                    serverError.style.display = 'block';
                 }
 
                 input.addEventListener('blur', function() {
-                    if (this.hasAttribute('required') && !this.value.trim()) {
-                        this.classList.add('error');
-                        showFieldError(this, 'Questo campo è obbligatorio');
-                    } else {
-                        this.classList.remove('error');
-                        const errorSpan = this.parentElement.querySelector('.field-validation-error');
-                        if (errorSpan && !errorSpan.classList.contains('field-validation-error')) {
-                            errorSpan.style.display = 'none';
+                    // Don't show client validation if server error exists
+                    const hasServerError = this.parentElement.querySelector('.field-validation-error') &&
+                                          this.parentElement.querySelector('.field-validation-error').textContent.trim() !== '';
+
+                    if (!hasServerError) {
+                        if (this.hasAttribute('required') && !this.value.trim()) {
+                            this.classList.add('error');
+                            showFieldError(this, 'Questo campo è obbligatorio', 'client-validation-error');
+                        } else {
+                            this.classList.remove('error');
+                            const errorSpan = this.parentElement.querySelector('.client-validation-error');
+                            if (errorSpan) {
+                                errorSpan.remove();
+                            }
                         }
                     }
                 });
 
                 input.addEventListener('input', function() {
-                    if (this.classList.contains('error') && this.value.trim()) {
-                        // Re-validate on input change
-                        const formId = this.closest('form').id;
-                        if (formId) {
-                            validateSingleField(this, formId);
-                        }
+                    // Clear client-side errors when user starts typing
+                    const clientError = this.parentElement.querySelector('.client-validation-error');
+                    if (clientError) {
+                        clientError.remove();
+                        this.classList.remove('error');
+                    }
+
+                    // If there's a server error, add class back
+                    const serverError = this.parentElement.querySelector('.field-validation-error');
+                    if (serverError && serverError.textContent.trim() !== '') {
+                        this.classList.add('error');
                     }
                 });
             });
-
-            // Helper function to validate single field
-            function validateSingleField(input, formId) {
-                let isValid = true;
-
-                if (input.hasAttribute('required') && !input.value.trim()) {
-                    input.classList.add('error');
-                    showFieldError(input, 'Questo campo è obbligatorio');
-                    isValid = false;
-                } else {
-                    // Field-specific validations
-                    if (input.type === 'email' && input.value) {
-                        const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
-                        if (!emailRegex.test(input.value)) {
-                            input.classList.add('error');
-                            showFieldError(input, 'Inserisci un indirizzo email valido');
-                            isValid = false;
-                        }
-                    }
-
-                    if (input.name === 'CF' && input.value) {
-                        if (input.value.length !== 16) {
-                            input.classList.add('error');
-                            showFieldError(input, 'Il codice fiscale deve essere di 16 caratteri');
-                            isValid = false;
-                        }
-                    }
-
-                    if (input.name === 'Password' && input.value && formId === 'registerForm') {
-                        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!?@@&$%]).{8,}$/;
-                        if (!passwordRegex.test(input.value)) {
-                            input.classList.add('error');
-                            showFieldError(input, 'La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@@&$%)');
-                            isValid = false;
-                        }
-                    }
-
-                    if (input.name === 'Piva' && input.value) {
-                        if (input.value.length !== 11 || !/^\d{11}$/.test(input.value)) {
-                            input.classList.add('error');
-                            showFieldError(input, 'La P.IVA deve contenere esattamente 11 cifre');
-                            isValid = false;
-                        }
-                    }
-                }
-
-                if (isValid) {
-                    input.classList.remove('error');
-                    const errorSpan = input.parentElement.querySelector('.field-validation-error');
-                    if (errorSpan && !errorSpan.classList.contains('field-validation-error')) {
-                        errorSpan.style.display = 'none';
-                    }
-                }
-            }
 
             // Auto-format Codice Fiscale
             const cfInput = document.getElementById('CF');
@@ -1558,8 +1503,12 @@ else
                 box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
             }
 
-            .field-validation-error {
+            .field-validation-error, .client-validation-error {
                 animation: fadeInError 0.3s ease-in-out;
+                display: block !important;
+                color: #ef4444;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
             }
 
             @@keyframes fadeInError {

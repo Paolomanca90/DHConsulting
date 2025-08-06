@@ -80,16 +80,16 @@ namespace DHConsulting.Controllers
 
 		[AllowAnonymous]
 		[HttpPost]
-		public ActionResult RegisterFromCart(Cliente c, bool isLogin = false)
+		public ActionResult RegisterFromCart(CartRegistrationViewModel model)
 		{
-			if (isLogin)
+			if (model.IsLogin)
 			{
 				// Validazione base per login
-				if (string.IsNullOrEmpty(c.Username))
+				if (string.IsNullOrEmpty(model.Username))
 				{
 					ModelState.AddModelError("Username", "L'username è obbligatorio");
 				}
-				if (string.IsNullOrEmpty(c.Password))
+				if (string.IsNullOrEmpty(model.Password))
 				{
 					ModelState.AddModelError("Password", "La password è obbligatoria");
 				}
@@ -100,7 +100,7 @@ namespace DHConsulting.Controllers
 				}
 
 				// Logica di login
-				var utente = db.Utente.FirstOrDefault(x => x.Username == c.Username);
+				var utente = db.Utente.FirstOrDefault(x => x.Username == model.Username);
 				if (utente != null)
 				{
 					if (utente.LockoutEndTime.HasValue && utente.LockoutEndTime > DateTime.UtcNow)
@@ -109,13 +109,13 @@ namespace DHConsulting.Controllers
 						return CartWithErrors();
 					}
 
-					if (PasswordHasher.VerifyPassword(c.Password, utente.Password))
+					if (PasswordHasher.VerifyPassword(model.Password, utente.Password))
 					{
 						if (utente.Confirmed)
 						{
 							utente.FailedLoginAttempts = 0;
 							db.SaveChanges();
-							FormsAuthentication.SetAuthCookie(c.Username, false);
+							FormsAuthentication.SetAuthCookie(model.Username, false);
 							TempData["Successo"] = "Login effettuato con successo";
 							return RedirectToAction("Cart");
 						}
@@ -147,21 +147,21 @@ namespace DHConsulting.Controllers
 			else
 			{
 				// Validazioni personalizzate per registrazione
-				if (!IsValidPassword(c.Password))
+				if (!IsValidPassword(model.Password))
 				{
 					ModelState.AddModelError("Password", "La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@&$%)");
 				}
 
-				if (!string.IsNullOrEmpty(c.CF))
+				if (!string.IsNullOrEmpty(model.CF))
 				{
-					c.CF = c.CF.ToUpper();
-					if (c.CF.Length != 16)
+					model.CF = model.CF.ToUpper();
+					if (model.CF.Length != 16)
 					{
 						ModelState.AddModelError("CF", "Il codice fiscale deve essere di 16 caratteri");
 					}
 				}
 
-				if (!string.IsNullOrEmpty(c.Piva) && c.Piva.Length != 11)
+				if (!string.IsNullOrEmpty(model.Piva) && model.Piva.Length != 11)
 				{
 					ModelState.AddModelError("Piva", "La P.IVA deve essere di 11 cifre");
 				}
@@ -169,19 +169,19 @@ namespace DHConsulting.Controllers
 				// Logica di registrazione
 				if (ModelState.IsValid)
 				{
-					var user = db.Cliente.Where(x => x.Username == c.Username).FirstOrDefault();
+					var user = db.Cliente.Where(x => x.Username == model.Username).FirstOrDefault();
 					if (user != null)
 					{
 						ModelState.AddModelError("Username", "Username già presente nel database");
 						return CartWithErrors();
 					}
-					var user1 = db.Cliente.Where(x => x.CF == c.CF).FirstOrDefault();
+					var user1 = db.Cliente.Where(x => x.CF == model.CF).FirstOrDefault();
 					if (user1 != null)
 					{
 						ModelState.AddModelError("CF", "Codice fiscale già presente nel database");
 						return CartWithErrors();
 					}
-					var user2 = db.Cliente.Where(x => x.Email == c.Email).FirstOrDefault();
+					var user2 = db.Cliente.Where(x => x.Email == model.Email).FirstOrDefault();
 					if (user2 != null)
 					{
 						ModelState.AddModelError("Email", "Email già presente nel database");
@@ -191,15 +191,29 @@ namespace DHConsulting.Controllers
 					try
 					{
 						// Crea il cliente
-						c.Password = PasswordHasher.HashPassword(c.Password);
-						db.Cliente.Add(c);
+						var cliente = new Cliente
+						{
+							Nome = model.Nome,
+							Cognome = model.Cognome,
+							Email = model.Email,
+							Username = model.Username,
+							Password = PasswordHasher.HashPassword(model.Password),
+							CF = model.CF,
+							Phone = model.Phone,
+							Indirizzo = model.Indirizzo,
+							Citta = model.Citta,
+							Piva = model.Piva,
+							DataNascita = model.DataNascita ?? DateTime.Now
+						};
+
+						db.Cliente.Add(cliente);
 						db.SaveChanges();
 
 						// Crea l'utente e lo attiva immediatamente per il carrello
 						Utente u = new Utente
 						{
-							Username = c.Username,
-							Password = c.Password,
+							Username = model.Username,
+							Password = PasswordHasher.HashPassword(model.Password),
 							Role = "User",
 							FailedLoginAttempts = 0,
 							Confirmed = true // Attivato immediatamente per il carrello
@@ -207,7 +221,7 @@ namespace DHConsulting.Controllers
 						db.Utente.Add(u);
 						db.SaveChanges();
 
-						FormsAuthentication.SetAuthCookie(c.Username, false);
+						FormsAuthentication.SetAuthCookie(model.Username, false);
 						TempData["Successo"] = "Registrazione completata con successo";
 						return RedirectToAction("Cart");
 					}
@@ -221,7 +235,7 @@ namespace DHConsulting.Controllers
 			}
 		}
 
-		// Metodo helper per tornare al carrello con errori
+		// Metodo helper per tornare al carrello con errori MODIFICATO
 		private ActionResult CartWithErrors()
 		{
 			List<Dettaglio> carrello = CartFromCookie();
@@ -248,6 +262,7 @@ namespace DHConsulting.Controllers
 				ViewBag.Response = response;
 			}
 
+			// IMPORTANTE: Restituisci il modello vuoto invece di carrello
 			return View("Cart", carrello);
 		}
 
