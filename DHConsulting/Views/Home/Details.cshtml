@@ -178,7 +178,6 @@
         }
 
         .feature-list {
-            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
             border: 2px solid #e2e8f0;
             border-radius: 1.5rem;
             padding: 2rem;
@@ -201,7 +200,6 @@
             }
 
         .action-panel {
-            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
             border: 2px solid #e5e7eb;
             border-radius: 2rem;
             padding: 2rem;
@@ -211,7 +209,6 @@
         }
 
         .quantity-selector {
-            background: #f8fafc;
             border-radius: 1rem;
             padding: 1rem;
             border: 2px solid #e2e8f0;
@@ -662,18 +659,18 @@
                 <div class="grid grid-cols-1 @(Model.Costo < 800 ? "lg:grid-cols-2" : "") gap-8">
                     <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400">
                         <!-- Features List -->
-                        <div class="feature-list">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <div class="feature-list bg-gray-50">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                                 <i class="fa-solid fa-check-circle text-@primaryColor-500 mr-3"></i>
                                 Cosa Include
                             </h3>
 
                             <div class="@(Model.Costo >= 800 ? "grid grid-cols-1 lg:grid-cols-2 gap-4" : "")">
-                                <div class="feature-item">
+                                <div class="feature-item bg-white">
                                     <div class="flex items-center">
                                         <i class="fa-solid fa-user-tie text-@primaryColor-500 mr-4 text-xl"></i>
                                         <div>
-                                            <h4 class="font-semibold text-gray-900">Consulenza one-to-one</h4>
+                                            <h4 class="font-semibold text-gray-800">Consulenza one-to-one</h4>
                                             <p class="text-gray-600 text-sm">@(Model.Costo < 200 ? "1 ora di consulenza dedicata" : Model.Costo < 800 ? "2 ore di consulenza dedicata" : "Consulenza completa")</p>
                                         </div>
                                     </div>
@@ -681,32 +678,32 @@
 
                                 @if (Model.Costo > 200 && Model.Costo < 800)
                                 {
-                                    <div class="feature-item">
+                                    <div class="feature-item bg-white">
                                         <div class="flex items-center">
                                             <i class="fa-solid fa-clock text-@primaryColor-500 mr-4 text-xl"></i>
                                             <div>
-                                                <h4 class="font-semibold text-gray-900">Gestione autonoma</h4>
+                                                <h4 class="font-semibold text-gray-800">Gestione autonoma</h4>
                                                 <p class="text-gray-600 text-sm">Possibilità di dividere le ore</p>
                                             </div>
                                         </div>
                                     </div>
                                 }
 
-                                <div class="feature-item">
+                                <div class="feature-item bg-white">
                                     <div class="flex items-center">
                                         <i class="fa-solid fa-file-pdf text-@primaryColor-500 mr-4 text-xl"></i>
                                         <div>
-                                            <h4 class="font-semibold text-gray-900">PDF di riepilogo</h4>
+                                            <h4 class="font-semibold text-gray-800">PDF di riepilogo</h4>
                                             <p class="text-gray-600 text-sm">Documento dettagliato con tutte le informazioni</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="feature-item">
+                                <div class="feature-item bg-white">
                                     <div class="flex items-center">
                                         <i class="fa-solid fa-search text-@primaryColor-500 mr-4 text-xl"></i>
                                         <div>
-                                            <h4 class="font-semibold text-gray-900">Analisi di fattibilità</h4>
+                                            <h4 class="font-semibold text-gray-800">Analisi di fattibilità</h4>
                                             <p class="text-gray-600 text-sm">@(Model.Costo < 800 ? "Studio completo della soluzione da implementare" : "Studio completo del tuo progetto")</p>
                                         </div>
                                     </div>
@@ -715,21 +712,21 @@
                                 @if (Model.Costo >= 800)
                                 {
 
-                                    <div class="feature-item">
+                                    <div class="feature-item bg-white">
                                         <div class="flex items-center">
                                             <i class="fa-solid fa-globe text-@primaryColor-500 mr-4 text-xl"></i>
                                             <div>
-                                                <h4 class="font-semibold text-gray-900">Sito web completo</h4>
+                                                <h4 class="font-semibold text-gray-800">Sito web completo</h4>
                                                 <p class="text-gray-600 text-sm">Sito responsive, moderno e ottimizzato</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="feature-item">
+                                    <div class="feature-item bg-white">
                                         <div class="flex items-center">
                                             <i class="fa-solid fa-tools text-@primaryColor-500 mr-4 text-xl"></i>
                                             <div>
-                                                <h4 class="font-semibold text-gray-900">3 mesi di supporto</h4>
+                                                <h4 class="font-semibold text-gray-800">3 mesi di supporto</h4>
                                                 <p class="text-gray-600 text-sm">Assistenza tecnica inclusa</p>
                                             </div>
                                         </div>
@@ -741,12 +738,12 @@
 
                     <!-- Action Panel (3 columns) -->
                     <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
-                        <div class="action-panel">
+                        <div class="action-panel bg-gray-50">
                             @if (Model.Costo < 800)
                             {
                                 <!-- Standard Purchase Form -->
                                 <div class="text-center mb-6">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Ordina Subito</h3>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Ordina Subito</h3>
                                     <p class="text-gray-600">Aggiungi al carrello e procedi</p>
                                 </div>
 
@@ -755,7 +752,7 @@
                                     @Html.AntiForgeryToken()
 
                                     <!-- Quantity Selector -->
-                                    <div class="quantity-selector">
+                                    <div class="quantity-selector bg-white">
                                         <label class="block text-lg font-semibold text-gray-800 mb-3">
                                             <i class="fa-solid fa-calculator mr-2"></i>
                                             Seleziona Quantità
@@ -768,7 +765,7 @@
                                             })
                                             <div class="ml-4 text-right">
                                                 <div class="text-sm text-gray-600">Totale:</div>
-                                                <div class="text-2xl font-bold text-gray-900" id="totalPrice">€@Model.Costo</div>
+                                                <div class="text-2xl font-bold text-gray-800" id="totalPrice">€@Model.Costo</div>
                                             </div>
                                         </div>
                                     </div>
@@ -796,7 +793,7 @@
                                         <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                                             <i class="fa-solid fa-crown text-2xl text-white"></i>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Pacchetto Premium</h3>
+                                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pacchetto Premium</h3>
                                         <p class="text-gray-700">
                                             @if (User.Identity.IsAuthenticated)
                                             {
@@ -913,7 +910,7 @@
                                     <!-- Info Cards -->
                                     <div class="grid md:grid-cols-2 gap-4 mt-6">
                                         <div class="p-4 bg-white rounded-xl border border-yellow-300">
-                                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
                                                 <i class="fa-solid fa-clock mr-2 text-yellow-600"></i>
                                                 Tempi di Risposta
                                             </h4>
@@ -923,7 +920,7 @@
                                         </div>
 
                                         <div class="p-4 bg-white rounded-xl border border-yellow-300">
-                                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
                                                 <i class="fa-solid fa-circle-check mr-2 text-yellow-600"></i>
                                                 Preventivo Gratuito
                                             </h4>
@@ -982,7 +979,7 @@
 
                                 <!-- Contact Info -->
                                 <div class="mt-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                                    <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+                                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
                                         <i class="fa-solid fa-headset mr-2 text-blue-600"></i>
                                         Hai Domande?
                                     </h4>
@@ -1015,7 +1012,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Altri Pacchetti</h2>
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">Altri Pacchetti</h2>
                     <p class="text-xl text-gray-600">Scopri gli altri servizi che potrebbero interessarti</p>
                 </div>
 
@@ -1053,10 +1050,10 @@
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-gray-900 mb-2">@relatedPackageType</h3>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">@relatedPackageType</h3>
                                     <p class="text-gray-600 mb-4">@prodotto.DescrizioneBreve</p>
                                     <div class="flex items-center justify-between">
-                                        <div class="text-2xl font-bold text-gray-900">
+                                        <div class="text-2xl font-bold text-gray-800">
                                             @if (prodotto.CostoScontato.HasValue)
                                             {
                                                 <span class="text-lg text-gray-400 line-through mr-2">€@prodotto.Costo</span>
@@ -1087,7 +1084,7 @@
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-900 mb-6">Le Nostre Garanzie</h2>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Le Nostre Garanzie</h2>
                 <p class="text-xl text-gray-600">La tua soddisfazione è la nostra priorità</p>
             </div>
 
@@ -1096,7 +1093,7 @@
                     <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-circle-check text-3xl text-yellow-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Soluzioni Personalizzate</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Soluzioni Personalizzate</h3>
                     <p class="text-gray-600">Le nostre soluzioni sono create su misura per te senza l'utilizzo di sistemi preconfezionati</p>
                 </div>
 
@@ -1104,7 +1101,7 @@
                     <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-headset text-3xl text-yellow-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Supporto Dedicato</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Supporto Dedicato</h3>
                     <p class="text-gray-600">Assistenza dedicata per guidarti in ogni fase del progetto</p>
                 </div>
 
@@ -1112,7 +1109,7 @@
                     <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-clock text-3xl text-yellow-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Consegna Puntuale</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Consegna Puntuale</h3>
                     <p class="text-gray-600">Rispettiamo sempre i tempi concordati e ti teniamo aggiornato sui progressi</p>
                 </div>
             </div>
@@ -1125,7 +1122,7 @@
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-900 mb-6">Domande Frequenti</h2>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Domande Frequenti</h2>
                 <p class="text-xl text-gray-600">Risposte alle domande più comuni su questo pacchetto</p>
             </div>
 
