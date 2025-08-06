@@ -45,76 +45,150 @@ namespace DHConsulting.Controllers
             return View();
         }
 
-        //Metodo per registrare un nuovo utente
-        [HttpPost]
-        public ActionResult Register(Cliente c)
-        {
-            //verifiche su eventuali elementi uguali nel db
-            if (ModelState.IsValid)
-            {
-                var user = db.Cliente.Where(x => x.Username == c.Username).FirstOrDefault();
-                if (user != null)
-                {
-                    ViewBag.User = "Username già presente nel database";
-                    return View();
-                }
-                var user1 = db.Cliente.Where(x => x.CF == c.CF).FirstOrDefault();
-                if (user1 != null)
-                {
-                    ViewBag.User = "CF già presente nel database";
-                    return View();
-                }
-                var user2 = db.Cliente.Where(x => x.Email == c.Email).FirstOrDefault();
-                if (user2 != null)
-                {
-                    ViewBag.User = "Email già presente nel database";
-                    return View();
-                }
-                //viene cryptata la password usando BCrypt
-                c.Password = PasswordHasher.HashPassword(c.Password);
-                c.CF = c.CF.ToUpper();
-                //salvataggio nel db di utente e cliente contemporaneamente
-                db.Cliente.Add(c);
-                db.SaveChanges();
-                Cliente cliente = db.Cliente.FirstOrDefault(x => x.Username == c.Username);
-                //generazione del token da usare nel link di verifica inviato tramite mail
-                //e impostato valido solo per 24h
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim("userId", cliente.IdCliente.ToString()),
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(24),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenBytes = Encoding.UTF8.GetBytes(tokenHandler.WriteToken(token));
-                var tokenString = tokenHandler.WriteToken(token);
-                string confirmationLink = Url.Action("Confirm", "Auth", new { token = tokenString }, Request.Url.Scheme);
-                Utente u = new Utente
-                {
-                    Username = c.Username,
-                    Password = c.Password,
-                    Role = "User",
-                    FailedLoginAttempts = 0,
-                    Confirmed = false,
-                    Token = tokenBytes
-                };
-                db.Utente.Add(u);
-                db.SaveChanges();
-                FormsAuthentication.SetAuthCookie(c.Username, false);
-                //invio email di conferma dell'account
-                SendConfirmationEmail(c.Email, confirmationLink);
-                return RedirectToAction("Index", "Home");
-            }
-            ViewBag.Errore = "Errore durante la registrazione";
-            return View();
-        }
+		[HttpPost]
+		public ActionResult Register(Cliente c)
+		{
+			// Verifica reCAPTCHA
+			string recaptchaResponse = Request.Form["RecaptchaResponse"];
+			string userIp = RecaptchaHelper.GetClientIpAddress(Request);
 
-        //View classica per il login
-        public ActionResult Login()
+			if (!RecaptchaHelper.VerifyRecaptcha(recaptchaResponse, userIp))
+			{
+				ViewBag.User = "Verifica reCAPTCHA fallita. Riprova.";
+
+				// Ricarica le credenziali Google per la view
+				string clientId = ConfigurationManager.AppSettings["IDClient"];
+				var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+				var response = GoogleAuth.GetAuthUrl(clientId, url);
+				ViewBag.Response = response;
+
+				return View(c);
+			}
+
+			// Resto della logica di registrazione esistente...
+			if (ModelState.IsValid)
+			{
+				var user = db.Cliente.Where(x => x.Username == c.Username).FirstOrDefault();
+				if (user != null)
+				{
+					ViewBag.User = "Username già presente nel database";
+
+					// Ricarica le credenziali Google per la view
+					string clientId = ConfigurationManager.AppSettings["IDClient"];
+					var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+					var response = GoogleAuth.GetAuthUrl(clientId, url);
+					ViewBag.Response = response;
+
+					return View(c);
+				}
+
+				var user1 = db.Cliente.Where(x => x.CF == c.CF).FirstOrDefault();
+				if (user1 != null)
+				{
+					ViewBag.User = "CF già presente nel database";
+
+					// Ricarica le credenziali Google per la view
+					string clientId = ConfigurationManager.AppSettings["IDClient"];
+					var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+					var response = GoogleAuth.GetAuthUrl(clientId, url);
+					ViewBag.Response = response;
+
+					return View(c);
+				}
+
+				var user2 = db.Cliente.Where(x => x.Email == c.Email).FirstOrDefault();
+				if (user2 != null)
+				{
+					ViewBag.User = "Email già presente nel database";
+
+					// Ricarica le credenziali Google per la view
+					string clientId = ConfigurationManager.AppSettings["IDClient"];
+					var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+					var response = GoogleAuth.GetAuthUrl(clientId, url);
+					ViewBag.Response = response;
+
+					return View(c);
+				}
+
+				try
+				{
+					// Cripta la password usando BCrypt
+					c.Password = PasswordHasher.HashPassword(c.Password);
+					c.CF = c.CF?.ToUpper();
+
+					// Salvataggio nel db di utente e cliente contemporaneamente
+					db.Cliente.Add(c);
+					db.SaveChanges();
+
+					Cliente cliente = db.Cliente.FirstOrDefault(x => x.Username == c.Username);
+
+					// Generazione del token da usare nel link di verifica inviato tramite mail
+					// e impostato valido solo per 24h
+					var tokenHandler = new JwtSecurityTokenHandler();
+					var tokenDescriptor = new SecurityTokenDescriptor
+					{
+						Subject = new ClaimsIdentity(new[]
+						{
+					new Claim("userId", cliente.IdCliente.ToString()),
+				}),
+						Expires = DateTime.UtcNow.AddHours(24),
+						SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Key), SecurityAlgorithms.HmacSha256Signature)
+					};
+
+					var token = tokenHandler.CreateToken(tokenDescriptor);
+					var tokenBytes = Encoding.UTF8.GetBytes(tokenHandler.WriteToken(token));
+					var tokenString = tokenHandler.WriteToken(token);
+					string confirmationLink = Url.Action("Confirm", "Auth", new { token = tokenString }, Request.Url.Scheme);
+
+					Utente u = new Utente
+					{
+						Username = c.Username,
+						Password = c.Password,
+						Role = "User",
+						FailedLoginAttempts = 0,
+						Confirmed = false,
+						Token = tokenBytes
+					};
+
+					db.Utente.Add(u);
+					db.SaveChanges();
+
+					FormsAuthentication.SetAuthCookie(c.Username, false);
+
+					// Invio email di conferma dell'account
+					SendConfirmationEmail(c.Email, confirmationLink);
+
+					return RedirectToAction("Index", "Home");
+				}
+				catch (Exception ex)
+				{
+					// Log dell'errore
+					System.Diagnostics.Debug.WriteLine($"Errore durante la registrazione: {ex.Message}");
+					ViewBag.User = "Si è verificato un errore durante la registrazione. Riprova.";
+
+					// Ricarica le credenziali Google per la view
+					string clientId = ConfigurationManager.AppSettings["IDClient"];
+					var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+					var response = GoogleAuth.GetAuthUrl(clientId, url);
+					ViewBag.Response = response;
+
+					return View(c);
+				}
+			}
+
+			ViewBag.Errore = "Errore durante la registrazione";
+
+			// Ricarica le credenziali Google per la view
+			string clientIdFinal = ConfigurationManager.AppSettings["IDClient"];
+			var urlFinal = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+			var responseFinal = GoogleAuth.GetAuthUrl(clientIdFinal, urlFinal);
+			ViewBag.Response = responseFinal;
+
+			return View(c);
+		}
+
+		//View classica per il login
+		public ActionResult Login()
         {
             //Gestisco le credenziali per l'accesso tramite google
             string clientId = ConfigurationManager.AppSettings["IDClient"];

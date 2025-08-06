@@ -306,6 +306,7 @@
     <Compile Include="Models\PasswordHasher.cs" />
     <Compile Include="Models\PaypalConfiguration.cs" />
     <Compile Include="Models\Prodotto.cs" />
+    <Compile Include="Models\RecaptchaHelper.cs" />
     <Compile Include="Models\SiteRole.cs" />
     <Compile Include="Models\Utente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -26,34 +26,42 @@
             animation: float 8s ease-in-out infinite;
         }
 
-        .particle:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: 5%;
-            left: 5%;
-            animation-delay: 0s;
-        }
+            .particle:nth-child(1) {
+                width: 400px;
+                height: 400px;
+                top: 5%;
+                left: 5%;
+                animation-delay: 0s;
+            }
 
-        .particle:nth-child(2) {
-            width: 250px;
-            height: 250px;
-            top: 50%;
-            right: 5%;
-            animation-delay: -3s;
-        }
+            .particle:nth-child(2) {
+                width: 250px;
+                height: 250px;
+                top: 50%;
+                right: 5%;
+                animation-delay: -3s;
+            }
 
-        .particle:nth-child(3) {
-            width: 180px;
-            height: 180px;
-            bottom: 10%;
-            left: 40%;
-            animation-delay: -6s;
-        }
+            .particle:nth-child(3) {
+                width: 180px;
+                height: 180px;
+                bottom: 10%;
+                left: 40%;
+                animation-delay: -6s;
+            }
 
         @@keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-30px) rotate(3deg); }
-            66% { transform: translateY(15px) rotate(-2deg); }
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(3deg);
+            }
+
+            66% {
+                transform: translateY(15px) rotate(-2deg);
+            }
         }
 
         .glass-card {
@@ -96,17 +104,17 @@
             font-size: 1rem;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #fbbf24;
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
-            transform: translateY(-1px);
-        }
+            .form-input:focus {
+                outline: none;
+                border-color: #fbbf24;
+                box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+                transform: translateY(-1px);
+            }
 
-        .form-input.error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-        }
+            .form-input.error {
+                border-color: #ef4444;
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            }
 
         .social-login {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -114,11 +122,11 @@
             transition: all 0.3s ease;
         }
 
-        .social-login:hover {
-            border-color: #fbbf24;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+            .social-login:hover {
+                border-color: #fbbf24;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
 
         .btn-primary-custom {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
@@ -130,17 +138,17 @@
             overflow: hidden;
         }
 
-        .btn-primary-custom:hover {
-            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
-        }
+            .btn-primary-custom:hover {
+                background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+            }
 
-        .btn-primary-custom:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
+            .btn-primary-custom:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
 
         .password-toggle {
             position: absolute;
@@ -153,9 +161,9 @@
             z-index: 10;
         }
 
-        .password-toggle:hover {
-            color: #fbbf24;
-        }
+            .password-toggle:hover {
+                color: #fbbf24;
+            }
 
         .alert-custom {
             background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
@@ -165,8 +173,15 @@
         }
 
         @@keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .brand-section {
@@ -201,80 +216,26 @@
             overflow: hidden;
         }
 
-        .captcha-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
-            background-size: 200% 100%;
-            animation: gradientShift 3s ease-in-out infinite;
-        }
+            .captcha-container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+                background-size: 200% 100%;
+                animation: gradientShift 3s ease-in-out infinite;
+            }
 
         @@keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+            0%, 100% {
+                background-position: 0% 50%;
+            }
 
-        .captcha-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .captcha-checkbox {
-            position: relative;
-            display: inline-block;
-        }
-
-        .captcha-checkbox input[type="checkbox"] {
-            opacity: 0;
-            width: 24px;
-            height: 24px;
-            margin: 0;
-        }
-
-        .captcha-checkbox .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 24px;
-            width: 24px;
-            background: white;
-            border: 2px solid #d1d5db;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .captcha-checkbox input:checked + .checkmark {
-            background: #fbbf24;
-            border-color: #f59e0b;
-        }
-
-        .captcha-checkbox .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-
-        .captcha-checkbox input:checked + .checkmark:after {
-            display: block;
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        .captcha-logo {
-            display: flex;
-            align-items: center;
-            color: #6b7280;
-            font-size: 0.8rem;
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .form-grid {
@@ -319,10 +280,10 @@
             transition: all 0.3s ease;
         }
 
-        .step.active {
-            background: #fbbf24;
-            transform: scale(1.2);
-        }
+            .step.active {
+                background: #fbbf24;
+                transform: scale(1.2);
+            }
 
         @@media (max-width: 1024px) {
             .register-hero {
@@ -661,73 +622,57 @@
                             </div>
                         </div>
 
-                            <!-- Captcha -->
-                            <div class="captcha-container">
-                                <div class="captcha-content">
-                                    <div class="flex items-center">
-                                        <label class="captcha-checkbox mr-3">
-                                            <input type="checkbox" name="IsCaptchaChecked" id="captchaCheckbox" onclick="disableCheckbox(this)">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <span class="font-medium text-gray-700">Non sono un robot</span>
-                                    </div>
-                                    <div class="captcha-logo">
-                                        <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/" class="w-8 h-8 mr-2">
-                                        <div>
-                                            <div class="font-semibold">reCAPTCHA</div>
-                                            <div class="text-xs">Privacy - Terms</div>
-                                        </div>
-                                    </div>
+                        <!-- Google reCAPTCHA -->
+                        <div class="captcha-container flex flex-col lg:flex-row lg:items-center lg:justify-around w-full">
+                            <div class="captcha-content justify-center">
+                                <div id="recaptcha-container" class="g-recaptcha"
+                                     data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["RecaptchaSiteKey"]"
+                                     data-callback="onRecaptchaSuccess"
+                                     data-expired-callback="onRecaptchaExpired"
+                                     data-error-callback="onRecaptchaError">
                                 </div>
                             </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary-custom w-full btn-lg rounded-xl" id="submitBtn">
-                                <i class="fa-solid fa-user-plus mr-2"></i>
-                                Crea Account
-                            </button>
-                            }
-
-                            <!-- Divider -->
-                            <div class="divider my-6">
-                                <span class="px-4 text-gray-500 font-medium">oppure</span>
-                            </div>
-
-                            <!-- Google Registration -->
-                            <a href="@ViewBag.Response" class="social-login w-full p-4 rounded-xl flex items-center justify-center space-x-3 mb-6">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png"
-                                     alt="Google" class="w-6 h-6">
-                                <span class="font-medium text-gray-700">Registrati con Google</span>
-                            </a>
-
-                            <!-- Footer Links -->
-                            <div class="text-center">
-                                <span class="text-sm text-gray-600">Hai già un account? </span>
-                                <a href="@Url.Action("Login", "Auth")"
-                                   class="text-sm text-yellow-600 hover:text-yellow-700 font-semibold transition-colors">
-                                    Accedi ora
-                                </a>
+                            <div id="recaptcha-error" class="text-red-500 text-sm mt-2 hidden">
+                                Completa la verifica reCAPTCHA per continuare.
                             </div>
                         </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary-custom w-full btn-lg rounded-xl" id="submitBtn">
+                            <i class="fa-solid fa-user-plus mr-2"></i>
+                            Crea Account
+                        </button>
+                    }
+
+                    <!-- Divider -->
+                    <div class="divider my-6">
+                        <span class="px-4 text-gray-500 font-medium">oppure</span>
                     </div>
+
+                    <!-- Google Registration -->
+                    <a href="@ViewBag.Response" class="social-login w-full p-4 rounded-xl flex items-center justify-center space-x-3 mb-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png"
+                             alt="Google" class="w-6 h-6">
+                        <span class="font-medium text-gray-700">Registrati con Google</span>
+                    </a>
+
+                    <!-- Footer Links -->
+                    <div class="text-center">
+                        <span class="text-sm text-gray-600">Hai già un account? </span>
+                        <a href="@Url.Action("Login", "Auth")"
+                           class="text-sm text-yellow-600 hover:text-yellow-700 font-semibold transition-colors">
+                            Accedi ora
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
 
 @section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
-        // Global Variables
-        var isCaptchaChecked = false;
-
-        // Captcha Handler
-        function disableCheckbox(checkbox) {
-            isCaptchaChecked = checkbox.checked;
-            if (checkbox.checked) {
-                checkbox.disabled = true;
-                updateProgress();
-            }
-        }
-
         // Password Toggle
         function togglePassword() {
             const passwordField = document.getElementById('passwordField');
@@ -741,118 +686,6 @@
                 passwordIcon.className = 'fa-solid fa-eye';
             }
         }
-
-        // Form Progress Tracking
-        function updateProgress() {
-            const form = document.getElementById('registrationForm');
-            const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"]');
-            const requiredInputs = Array.from(inputs).filter(input =>
-                input.name !== 'Piva' // P.IVA is optional
-            );
-
-            let filledInputs = 0;
-            requiredInputs.forEach(input => {
-                if (input.value.trim() !== '') {
-                    filledInputs++;
-                }
-            });
-
-            // Add captcha to progress
-            if (isCaptchaChecked) {
-                filledInputs++;
-            }
-
-            const totalFields = requiredInputs.length + 1; // +1 for captcha
-            const progress = (filledInputs / totalFields) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-
-        // Form Enhancement
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('registrationForm');
-            const inputs = form.querySelectorAll('input');
-
-            // Add event listeners for progress tracking
-            inputs.forEach(input => {
-                input.addEventListener('input', updateProgress);
-                input.addEventListener('change', updateProgress);
-
-                // Real-time validation feedback
-                input.addEventListener('blur', function() {
-                    validateField(this);
-                });
-
-                // Auto-format specific fields
-                if (input.name === 'CF') {
-                    input.addEventListener('input', function() {
-                        this.value = this.value.toUpperCase();
-                    });
-                } else if (input.name === 'Phone') {
-                    input.addEventListener('input', function() {
-                        // Simple phone formatting
-                        let value = this.value.replace(/\D/g, '');
-                        if (value.length > 10) {
-                            value = value.substring(0, 10);
-                        }
-                        this.value = value;
-                    });
-                } else if (input.name === 'Piva') {
-                    input.addEventListener('input', function() {
-                        let value = this.value.replace(/\D/g, '');
-                        if (value.length > 11) {
-                            value = value.substring(0, 11);
-                        }
-                        this.value = value;
-                    });
-                }
-            });
-
-            // Form submission validation
-            form.addEventListener('submit', function(e) {
-                if (!isCaptchaChecked) {
-                    e.preventDefault();
-                    showAlert('Devi confermare di non essere un robot.', 'error');
-                    return false;
-                }
-
-                // Show loading state
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Creando account...';
-            });
-
-            // Add ripple effect to buttons
-            const buttons = document.querySelectorAll('.btn-primary-custom');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    if (this.disabled) return;
-
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'ripple 0.6s linear';
-                    ripple.style.pointerEvents = 'none';
-
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-        });
 
         // Field Validation
         function validateField(field) {
@@ -924,11 +757,11 @@
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert-custom p-4 mb-4 ${type === 'error' ? 'bg-red-50 border-red-200' : 'bg-blue-50 border-blue-200'}`;
             alertDiv.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fa-solid fa-exclamation-triangle ${type === 'error' ? 'text-red-600' : 'text-blue-600'} mr-2"></i>
-                    <span class="${type === 'error' ? 'text-red-800' : 'text-blue-800'}">${message}</span>
-                </div>
-            `;
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-exclamation-triangle ${type === 'error' ? 'text-red-600' : 'text-blue-600'} mr-2"></i>
+                                <span class="${type === 'error' ? 'text-red-800' : 'text-blue-800'}">${message}</span>
+                            </div>
+                        `;
 
             const form = document.getElementById('registrationForm');
             form.insertBefore(alertDiv, form.firstChild);
@@ -937,6 +770,103 @@
                 alertDiv.remove();
             }, 5000);
         }
+    </script>
+
+    <script>
+        // Variabile globale per il reCAPTCHA
+        var isRecaptchaValid = false;
+        var recaptchaResponse = null;
+
+        // Callback quando reCAPTCHA è completato con successo
+        function onRecaptchaSuccess(response) {
+            isRecaptchaValid = true;
+            recaptchaResponse = response;
+            document.getElementById('recaptcha-error').classList.add('hidden');
+            updateProgress();
+            console.log('reCAPTCHA completato con successo');
+        }
+
+        // Callback quando reCAPTCHA scade
+        function onRecaptchaExpired() {
+            isRecaptchaValid = false;
+            recaptchaResponse = null;
+            document.getElementById('recaptcha-error').classList.remove('hidden');
+            document.getElementById('recaptcha-error').textContent = 'La verifica reCAPTCHA è scaduta. Ripeti la verifica.';
+            updateProgress();
+            console.log('reCAPTCHA scaduto');
+        }
+
+        // Callback per errori reCAPTCHA
+        function onRecaptchaError() {
+            isRecaptchaValid = false;
+            recaptchaResponse = null;
+            document.getElementById('recaptcha-error').classList.remove('hidden');
+            document.getElementById('recaptcha-error').textContent = 'Errore nella verifica reCAPTCHA. Riprova.';
+            updateProgress();
+            console.log('Errore reCAPTCHA');
+        }
+
+        // Aggiorna la funzione updateProgress esistente
+        function updateProgress() {
+            const form = document.getElementById('registrationForm');
+            const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"]');
+            const requiredInputs = Array.from(inputs).filter(input =>
+                input.name !== 'Piva' // P.IVA is optional
+            );
+
+            let filledInputs = 0;
+            requiredInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    filledInputs++;
+                }
+            });
+
+            // Add reCAPTCHA to progress
+            if (isRecaptchaValid) {
+                filledInputs++;
+            }
+
+            const totalFields = requiredInputs.length + 1; // +1 for reCAPTCHA
+            const progress = (filledInputs / totalFields) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Aggiorna la validazione del form
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registrationForm');
+
+            // Sostituisci il gestore dell'evento submit esistente
+            form.addEventListener('submit', function (e) {
+                // Rimuovi il messaggio di errore precedente
+                document.getElementById('recaptcha-error').classList.add('hidden');
+
+                if (!isRecaptchaValid || !recaptchaResponse) {
+                    e.preventDefault();
+                    document.getElementById('recaptcha-error').classList.remove('hidden');
+                    document.getElementById('recaptcha-error').textContent = 'Completa la verifica reCAPTCHA per continuare.';
+
+                    // Scroll verso il reCAPTCHA per maggiore UX
+                    document.getElementById('recaptcha-container').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+                    return false;
+                }
+
+                // Aggiungi il token reCAPTCHA come campo nascosto
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'RecaptchaResponse';
+                hiddenInput.value = recaptchaResponse;
+                form.appendChild(hiddenInput);
+
+                // Show loading state
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Creando account...';
+            });
+        });
     </script>
 
     <style>
