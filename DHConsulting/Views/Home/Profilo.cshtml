@@ -24,7 +24,7 @@
 }
 
 <!-- Profile Hero Section -->
-<section class="py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+<section class="py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
             <!-- Breadcrumb -->
@@ -65,7 +65,7 @@
                     <!-- Profile Info -->
                     <div class="flex flex-col lg:flex-row lg:justify-between flex-1 text-center lg:text-left">
                         <div>
-                            <h1 class="text-4xl font-bold text-gray-900 mb-2">@Model.Nome @Model.Cognome</h1>
+                            <h1 class="text-4xl font-bold text-gray-800 mb-2">@Model.Nome @Model.Cognome</h1>
                             <p class="text-xl text-gray-600 mb-4">Cliente verificato</p>
 
                             <!-- Quick Stats -->
@@ -117,7 +117,7 @@
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                             <i class="fa-solid fa-user text-xl text-blue-600"></i>
                         </div>
-                        <h2 class="text-2xl font-bold text-gray-900">Informazioni Personali</h2>
+                        <h2 class="text-2xl font-bold text-gray-800">Informazioni Personali</h2>
                     </div>
 
                     <div class="space-y-6">
@@ -127,7 +127,7 @@
                                 <i class="fa-solid fa-envelope text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Email</h4>
                                 <p class="text-gray-600 truncate">@Model.Email</p>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                 <i class="fa-solid fa-id-card text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Codice Fiscale</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Codice Fiscale</h4>
                                 <p class="text-gray-600 font-mono tracking-wider">@Model.CF</p>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                     <i class="fa-solid fa-building text-yellow-600"></i>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="font-semibold text-gray-900 mb-1">P. IVA</h4>
+                                    <h4 class="font-semibold text-gray-800 mb-1">P. IVA</h4>
                                     <p class="text-gray-600 font-mono tracking-wider">@Model.Piva</p>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                 <i class="fa-solid fa-at text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Username</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Username</h4>
                                 <p class="text-gray-600">@Model.Username</p>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                                 <i class="fa-solid fa-calendar-day text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Data di Nascita</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Data di Nascita</h4>
                                 <p class="text-gray-600">@Model.DataNascita.ToString("dd MMMM yyyy")</p>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                 <i class="fa-solid fa-map-marker-alt text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Indirizzo</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Indirizzo</h4>
                                 <p class="text-gray-600">@Model.Indirizzo, @Model.Citta</p>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <i class="fa-solid fa-phone text-yellow-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-1">Telefono</h4>
+                                <h4 class="font-semibold text-gray-800 mb-1">Telefono</h4>
                                 <p class="text-gray-600">@Model.Phone</p>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                             <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                                 <i class="fa-solid fa-shopping-bag text-xl text-blue-600"></i>
                             </div>
-                            <h2 class="text-2xl font-bold text-gray-900">Storico Ordini</h2>
+                            <h2 class="text-2xl font-bold text-gray-800">Storico Ordini</h2>
                         </div>
                         <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold">
                             @Model.Ordine.Count() ordini
@@ -229,7 +229,7 @@
                                                 <i class="fa-solid fa-receipt text-white text-sm"></i>
                                             </div>
                                             <div>
-                                                <h4 class="font-semibold text-gray-900">Ordine #@ordine.IdOrdine</h4>
+                                                <h4 class="font-semibold text-gray-800">Ordine #@ordine.IdOrdine</h4>
                                                 <p class="text-sm text-gray-600">@ordine.DataOrdine.Value.ToString("dd MMM yyyy")</p>
                                             </div>
                                         </div>
@@ -254,14 +254,14 @@
                                                 <span class="text-gray-700">
                                                     @dettaglio.Quantita× @dettaglio.Prodotto.DescrizioneBreve
                                                 </span>
-                                                <span class="font-semibold text-gray-900">@subtotale.ToString("C")</span>
+                                                <span class="font-semibold text-gray-800">@subtotale.ToString("C")</span>
                                             </div>
                                         }
 
                                         <!-- Totale -->
                                         <div class="border-t border-gray-300 pt-2 mt-3">
                                             <div class="flex justify-between items-center">
-                                                <span class="font-semibold text-gray-900">Totale:</span>
+                                                <span class="font-semibold text-gray-800">Totale:</span>
                                                 <span class="font-bold text-lg text-green-600">@totaleOrdine.ToString("C")</span>
                                             </div>
                                         </div>
@@ -295,7 +295,7 @@
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto" data-aos="fade-up">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Azioni Rapide</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Azioni Rapide</h2>
                 <p class="text-gray-600">Gestisci il tuo profilo e scopri i nostri servizi</p>
             </div>
 
@@ -305,7 +305,7 @@
                     <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-user-edit text-2xl text-blue-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Modifica Profilo</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Modifica Profilo</h3>
                     <p class="text-gray-600 mb-6">Aggiorna le tue informazioni personali e mantieni il profilo sempre aggiornato</p>
                     <a href="@Url.Action("EditProfilo", "Home", new { id = Model.IdCliente })" class="btn btn-outline-primary w-full">
                         Modifica
@@ -317,7 +317,7 @@
                     <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-briefcase text-2xl text-yellow-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">I Nostri Servizi</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">I Nostri Servizi</h3>
                     <p class="text-gray-600 mb-6">Scopri tutti i pacchetti disponibili e trova quello perfetto per te</p>
                     <a href="@Url.Action("Index", "Home", new { }, null)#service" class="btn btn-outline-primary w-full">
                         Scopri
@@ -329,7 +329,7 @@
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-solid fa-shopping-cart text-2xl text-green-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Il Mio Carrello</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Il Mio Carrello</h3>
                     <p class="text-gray-600 mb-6">Controlla gli articoli nel carrello e procedi con l'acquisto</p>
                     <a href="@Url.Action("Cart", "Payment")" class="btn btn-outline-primary w-full">
                         Vai al Carrello

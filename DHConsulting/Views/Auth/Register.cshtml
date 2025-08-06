@@ -65,7 +65,6 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
@@ -365,12 +364,12 @@
 
             <!-- Right Side - Registration Form (70%) -->
             <div class="w-full lg:col-span-3" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                <div class="glass-card rounded-3xl shadow-2xl p-6 lg:p-8">
+                <div class="glass-card bg-white rounded-3xl shadow-2xl p-6 lg:p-8">
 
                     <!-- Mobile Logo -->
                     <div class="lg:hidden text-center mb-6">
                         <img src="~/Content/Img/logo_orizz_sf.png" alt="Five Innovation Hub" class="w-48 mx-auto mb-4">
-                        <h2 class="text-2xl font-bold text-gray-900">Crea il tuo account</h2>
+                        <h2 class="text-2xl font-bold text-gray-800">Crea il tuo account</h2>
                     </div>
 
                     <!-- Desktop Header -->
@@ -378,7 +377,7 @@
                         <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                             <i class="fa-solid fa-user-plus text-2xl text-white"></i>
                         </div>
-                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Crea il tuo account</h2>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Crea il tuo account</h2>
                         <p class="text-gray-600">Compila il form per iniziare il tuo viaggio digitale</p>
                     </div>
 
@@ -409,7 +408,7 @@
                         @Html.AntiForgeryToken()
 
                         <!-- Required Fields Notice -->
-                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8" style="margin-bottom: 2em;">
                             <div class="flex items-center">
                                 <i class="fa-solid fa-info-circle text-blue-600 mr-2"></i>
                                 <span class="text-blue-800 text-sm font-medium">Tutti i campi sono obbligatori</span>
@@ -422,11 +421,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Nome, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "given-name"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-user mr-2"></i>Nome
                                     </label>
                                 </div>
@@ -437,11 +436,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Cognome, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "family-name"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-user mr-2"></i>Cognome
                                     </label>
                                 </div>
@@ -457,12 +456,12 @@
                                     {
                                         htmlAttributes = new
                                         {
-                                            @class = "form-input",
+                                            @class = "form-input text-gray-900",
                                             @type = "date",
                                             @placeholder = " "
                                         }
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-calendar mr-2"></i>Data di Nascita
                                     </label>
                                 </div>
@@ -473,11 +472,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Indirizzo, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "street-address"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-map-marker-alt mr-2"></i>Indirizzo
                                     </label>
                                 </div>
@@ -491,11 +490,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Citta, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "address-level2"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-city mr-2"></i>Città
                                     </label>
                                 </div>
@@ -506,12 +505,12 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.CF, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @maxlength = "16",
                                         @style = "text-transform: uppercase"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-id-card mr-2"></i>Codice Fiscale <span class="text-xs bg-transparent">(opzionale)</span>
                                     </label>
                                 </div>
@@ -525,11 +524,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Piva, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @maxlength = "11"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-building mr-2"></i>P.IVA <span class="text-xs bg-transparent">(opzionale)</span>
                                     </label>
                                 </div>
@@ -540,11 +539,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Phone, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "tel"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-phone mr-2"></i>Telefono
                                     </label>
                                 </div>
@@ -558,12 +557,12 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Email, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "email",
                                         @type = "email"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-envelope mr-2"></i>Email
                                     </label>
                                 </div>
@@ -574,11 +573,11 @@
                                 <div class="input-group">
                                     @Html.TextBoxFor(model => model.Username, new
                                     {
-                                        @class = "form-input",
+                                        @class = "form-input text-gray-900",
                                         @placeholder = " ",
                                         @autocomplete = "username"
                                     })
-                                    <label class="floating-label">
+                                    <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                         <i class="fa-solid fa-at mr-2"></i>Username
                                     </label>
                                 </div>
@@ -594,12 +593,12 @@
                                     <div class="relative w-full">
                                         @Html.PasswordFor(model => model.Password, new
                                         {
-                                            @class = "form-input rounded-none rounded-tl-lg rounded-bl-lg",
+                                            @class = "form-input rounded-none rounded-tl-lg rounded-bl-lg text-gray-900",
                                             @placeholder = " ",
                                             @id = "passwordField",
                                             @autocomplete = "new-password"
                                         })
-                                        <label class="floating-label">
+                                        <label class="floating-label dark:bg-[#f3f2f2e6]" style="border-radius: 0.5rem !important;">
                                             <i class="fa-solid fa-lock mr-2"></i>Password
                                         </label>
                                         <span class="password-toggle bg-transparent" onclick="togglePassword()">
@@ -653,7 +652,7 @@
                     <a href="@ViewBag.Response" class="social-login w-full p-4 rounded-xl flex items-center justify-center space-x-3 mb-6">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/36px-Google_%22G%22_logo.svg.png"
                              alt="Google" class="w-6 h-6">
-                        <span class="font-medium text-gray-700">Registrati con Google</span>
+                        <span class="font-medium text-gray-900">Registrati con Google</span>
                     </a>
 
                     <!-- Footer Links -->

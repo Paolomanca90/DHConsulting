@@ -44,7 +44,7 @@
 }
 
 <!-- Edit Profile Hero Section -->
-<section class="py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+<section class="py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
             <!-- Breadcrumb -->
@@ -78,7 +78,7 @@
                 <div class="w-24 h-24 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <i class="fa-solid fa-user-edit text-3xl text-white"></i>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
                     Modifica Profilo
                 </h1>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -120,7 +120,7 @@
                                 </span>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-bold text-gray-900">@Model.Nome @Model.Cognome</h2>
+                                <h2 class="text-2xl font-bold text-gray-800">@Model.Nome @Model.Cognome</h2>
                                 <p class="text-gray-600">Aggiorna le tue informazioni</p>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                     @if (Model.DataNascita != new DateTime(1900, 1, 1))
                     {
                         <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 mb-8">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-6 flex items-center">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
                                 <i class="fa-solid fa-lock text-gray-500 mr-2"></i>
                                 Informazioni Non Modificabili
                             </h3>
@@ -144,7 +144,7 @@
                                         <i class="fa-solid fa-id-card text-yellow-600"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900">Codice Fiscale</h4>
+                                        <h4 class="font-semibold text-gray-800">Codice Fiscale</h4>
                                         <p class="text-gray-600 font-mono">@Model.CF</p>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                         <i class="fa-solid fa-calendar text-yellow-600"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900">Data di Nascita</h4>
+                                        <h4 class="font-semibold text-gray-800">Data di Nascita</h4>
                                         <p class="text-gray-600">@Model.DataNascita.ToString("dd MMMM yyyy")</p>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                         <i class="fa-solid fa-at text-yellow-600"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900">Username</h4>
+                                        <h4 class="font-semibold text-gray-800">Username</h4>
                                         <p class="text-gray-600">@Model.Username</p>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
                             <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                                 <i class="fa-solid fa-user text-xl text-blue-600"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900">Informazioni Personali</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">Informazioni Personali</h3>
                         </div>
 
                         <div class="space-y-6">
@@ -193,7 +193,7 @@
                                 {
                                     htmlAttributes = new
                                     {
-                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                         @placeholder = "La tua email"
                                     }
                                 })
@@ -210,7 +210,7 @@
                                 {
                                     htmlAttributes = new
                                     {
-                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                         @placeholder = "Il tuo numero di telefono"
                                     }
                                 })
@@ -228,7 +228,7 @@
                                 {
                                     htmlAttributes = new
                                     {
-                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                         @placeholder = "La tua P.IVA (se disponibile)"
                                     }
                                 })
@@ -247,7 +247,7 @@
                                     {
                                         htmlAttributes = new
                                         {
-                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                             @placeholder = "Il tuo codice fiscale"
                                         }
                                     })
@@ -264,7 +264,7 @@
                                     {
                                         htmlAttributes = new
                                         {
-                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                             @type = "date"
                                         }
                                     })
@@ -281,7 +281,7 @@
                                     {
                                         htmlAttributes = new
                                         {
-                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                            @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                             @placeholder = "Il tuo username"
                                         }
                                     })
@@ -297,7 +297,7 @@
                             <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                                 <i class="fa-solid fa-map-marker-alt text-xl text-blue-600"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900">Indirizzo</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">Indirizzo</h3>
                         </div>
 
                         <div class="space-y-6">
@@ -311,7 +311,7 @@
                                 {
                                     htmlAttributes = new
                                     {
-                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                         @placeholder = "Es. Via Roma, 123"
                                     }
                                 })
@@ -328,7 +328,7 @@
                                 {
                                     htmlAttributes = new
                                     {
-                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-900",
+                                        @class = "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-300 text-gray-800",
                                         @placeholder = "La tua città"
                                     }
                                 })
