@@ -14,384 +14,618 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Net.Mime;
+using System.Web.Security;
+using GoogleAuthentication.Services;
 
 namespace DHConsulting.Controllers
 {
-    [Authorize(Roles = "User")]
-    public class PaymentController : Controller
-    {
-        private ModelDb db = new ModelDb();
+	// ViewModel per il form di registrazione dal carrello
+	public class CartRegistrationViewModel
+	{
+		public string Nome { get; set; }
+		public string Cognome { get; set; }
+		public string Email { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
+		public string CF { get; set; }
+		public string Phone { get; set; }
+		public string Indirizzo { get; set; }
+		public string Citta { get; set; }
+		public string Piva { get; set; }
+		public DateTime? DataNascita { get; set; }
+		public bool IsLogin { get; set; }
+	}
 
-        // GET: Payment
-        public ActionResult Index()
-        {
-            return View();
-        }
+	public class PaymentController : Controller
+	{
+		private ModelDb db = new ModelDb();
 
-        [AllowAnonymous]
-        //View classica per mostrare gli elementi presenti nel carrello
-        public ActionResult Cart()
-        {
-            List<Dettaglio> carrello = CartFromCookie();
-            List<Prodotto> lista = new List<Prodotto>();
-            foreach (Dettaglio d in carrello)
-            {
-                Prodotto p = db.Prodotto.Find(d.IdProdotto);
-                lista.Add(p);
-            }
-            ViewBag.Prodotti = lista;
-            return View(carrello);
-        }
+		// GET: Payment
+		public ActionResult Index()
+		{
+			return View();
+		}
 
-        //Metodo per confermare il pagamento
-        public ActionResult ConfirmPayment(string Cancel = null)
-        {
-            //genero le credenziali del pagamento
-            APIContext api = PaypalConfiguration.GetAPIContext();
-            try
-            {
-                string payerId = Request.Params["PayerID"];
-                if (string.IsNullOrEmpty(payerId))
-                {
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Payment/ConfirmPayment?";
-                    var guid = Convert.ToString((new Random().Next(100000)));
-                    var createdPayment = CreatePayment(api, baseURI + "guid=" + guid);
-                    var links = createdPayment.links.GetEnumerator();
-                    string paypalRedirectUrl = null;
-                    while (links.MoveNext())
-                    {
-                        Links lnk = links.Current;
-                        if (lnk.rel.ToLower().Trim().Equals("approval_url"))
-                        {
-                            paypalRedirectUrl = lnk.href;
-                        }
-                    }
-                    Session["payment"] = createdPayment.id;
-                    return Redirect(paypalRedirectUrl);
-                }
-                else
-                {
-                    var guid = Request.Params["guid"];
-                    var executedPayment = ExecutePayment(api, payerId, Session["payment"] as string);
-                    //se l'ordine non va a buon fine torno al carrello
-                    if (executedPayment.state.ToLower() != "approved")
-                    {
-                        return RedirectToAction("Cart");
-                    }
-                    //in caso di approvazione salvo l'ordine nel db
-                    List<Dettaglio> carrello = CartFromCookie();
-                    Cliente c = db.Cliente.Where(x => x.Username == User.Identity.Name).FirstOrDefault();
-                    Ordine o = new Ordine();
-                    o.IdCliente = c.IdCliente;
-                    db.Ordine.Add(o);
-                    //salvo un record per ogni elemento nel carrello
-                    foreach (Dettaglio dettaglio in carrello)
-                    {
-                        dettaglio.IdOrdine = o.IdOrdine;
-                        dettaglio.Prodotto = null;
-                        db.Dettaglio.Add(dettaglio);
-                    }
-                    db.SaveChanges();
-                    //salvo il pdf con i dettagli dell'ordine appena creato
-                    o.InvoicePdf = GenerateOrderPdf(o.IdOrdine);
-                    RecapEmail(c.Email, o.InvoicePdf);
-                    MailConsultingPack();
-                    db.SaveChanges();
-                    //elimino il cookie e quindi il carrello
-                    DeleteCart();
-                    TempData["Successo"] = "Ordine completato con successo. Controlla la mail per i dettagli.";
-                    return RedirectToAction("Cart");
-                }
-            }
-            catch
-            {
-                TempData["Errore"] = "Il pagamento non è stato approvato.";
-                return RedirectToAction("Cart");
-            }
-        }
+		[AllowAnonymous]
+		//View classica per mostrare gli elementi presenti nel carrello
+		public ActionResult Cart()
+		{
+			List<Dettaglio> carrello = CartFromCookie();
+			List<Prodotto> lista = new List<Prodotto>();
+			foreach (Dettaglio d in carrello)
+			{
+				Prodotto p = db.Prodotto.Find(d.IdProdotto);
+				lista.Add(p);
+			}
+			ViewBag.Prodotti = lista;
 
-        private Payment payment;
+			// Se l'utente è autenticato, precompila i dati
+			if (User.Identity.IsAuthenticated)
+			{
+				var cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
+				ViewBag.Cliente = cliente;
+			}
 
-        //Metodo per eseguire il pagamento
-        public Payment ExecutePayment(APIContext api, string payerId, string paymentId)
-        {
-            var paymentExecution = new PaymentExecution()
-            {
-                payer_id = payerId
-            };
-            payment = new Payment()
-            {
-                id = paymentId
-            };
-            return payment.Execute(api, paymentExecution);
-        }
+			// Aggiungi URL per Google Login
+			if (!User.Identity.IsAuthenticated)
+			{
+				string clientId = System.Configuration.ConfigurationManager.AppSettings["IDClient"];
+				var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+				var response = GoogleAuth.GetAuthUrl(clientId, url);
+				ViewBag.Response = response;
+			}
 
-        //Metodo per avviare il nuovo pagamento tramite PP
-        private Payment CreatePayment(APIContext api, string redirectUrl)
-        {
-            //recupero il carrello e creo una riga per ogni elemento
-            var itemList = new ItemList { items = new List<Item>() };
-            List<Dettaglio> carrello = CartFromCookie();
-            decimal totale = 0;
-            foreach (var p in carrello)
-            {
-                Prodotto prodotto = db.Prodotto.Find(p.IdProdotto);
-                itemList.items.Add(new Item
-                {
-                    name = prodotto.DescrizioneBreve,
-                    currency = "EUR",
-                    price = prodotto.Costo.ToString("0.00", CultureInfo.InvariantCulture),
-                    quantity = p.Quantita.ToString(),
-                    sku = prodotto.IdProdotto.ToString()
-                });
-                totale += prodotto.Costo * p.Quantita;
-            }
-            //inserisco il metodo di pagamento
-            var payer = new Payer()
-            {
-                payment_method = "paypal"
-            };
-            //stabilisco il totale
-            var amount = new Amount
-            {
-                currency = "EUR",
-                total = totale.ToString("0.00", CultureInfo.InvariantCulture)
-            };
-            //genero i link di successo e cancellazione
-            var redirectUrls = new RedirectUrls
-            {
-                return_url = redirectUrl,
-                cancel_url = redirectUrl + "&Cancel=true",
-            };
-            //genero la transazione
-            var lastId = db.Ordine.OrderByDescending(o => o.IdOrdine).FirstOrDefault();
-            var invoiceId = 1;
-            if (lastId != null)
-            {
-                invoiceId += lastId.IdOrdine;
-            }
-            var transactionList = new List<Transaction>();
-            transactionList.Add(new Transaction
-            {
-                description = "Ordine Five Innovation Hub",
-                invoice_number = invoiceId.ToString(),
-                amount = amount,
-                item_list = itemList
-            });
-            payment = new Payment()
-            {
-                intent = "sale",
-                payer = payer,
-                transactions = transactionList,
-                redirect_urls = redirectUrls
-            };
-            return payment.Create(api);
-        }
+			return View(carrello);
+		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		public ActionResult RegisterFromCart(Cliente c, bool isLogin = false)
+		{
+			if (isLogin)
+			{
+				// Validazione base per login
+				if (string.IsNullOrEmpty(c.Username))
+				{
+					ModelState.AddModelError("Username", "L'username è obbligatorio");
+				}
+				if (string.IsNullOrEmpty(c.Password))
+				{
+					ModelState.AddModelError("Password", "La password è obbligatoria");
+				}
+
+				if (!ModelState.IsValid)
+				{
+					return CartWithErrors();
+				}
+
+				// Logica di login
+				var utente = db.Utente.FirstOrDefault(x => x.Username == c.Username);
+				if (utente != null)
+				{
+					if (utente.LockoutEndTime.HasValue && utente.LockoutEndTime > DateTime.UtcNow)
+					{
+						ModelState.AddModelError("", "Hai superato il limite di tentativi. Riprova dopo qualche minuto");
+						return CartWithErrors();
+					}
+
+					if (PasswordHasher.VerifyPassword(c.Password, utente.Password))
+					{
+						if (utente.Confirmed)
+						{
+							utente.FailedLoginAttempts = 0;
+							db.SaveChanges();
+							FormsAuthentication.SetAuthCookie(c.Username, false);
+							TempData["Successo"] = "Login effettuato con successo";
+							return RedirectToAction("Cart");
+						}
+						else
+						{
+							ModelState.AddModelError("", "Non hai ancora attivato il tuo account. Controlla la mail");
+							return CartWithErrors();
+						}
+					}
+					else
+					{
+						utente.FailedLoginAttempts++;
+						if (utente.FailedLoginAttempts >= 3)
+						{
+							utente.FailedLoginAttempts = 0;
+							utente.LockoutEndTime = DateTime.UtcNow.AddSeconds(900);
+							db.SaveChanges();
+							ModelState.AddModelError("", "Numero massimo di tentativi raggiunti. Potrai riprovare tra 15 minuti");
+							return CartWithErrors();
+						}
+						db.SaveChanges();
+						ModelState.AddModelError("Password", "Password non corretta");
+						return CartWithErrors();
+					}
+				}
+				ModelState.AddModelError("Username", "Nessun utente trovato con questo username");
+				return CartWithErrors();
+			}
+			else
+			{
+				// Validazioni personalizzate per registrazione
+				if (!IsValidPassword(c.Password))
+				{
+					ModelState.AddModelError("Password", "La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@&$%)");
+				}
+
+				if (!string.IsNullOrEmpty(c.CF))
+				{
+					c.CF = c.CF.ToUpper();
+					if (c.CF.Length != 16)
+					{
+						ModelState.AddModelError("CF", "Il codice fiscale deve essere di 16 caratteri");
+					}
+				}
+
+				if (!string.IsNullOrEmpty(c.Piva) && c.Piva.Length != 11)
+				{
+					ModelState.AddModelError("Piva", "La P.IVA deve essere di 11 cifre");
+				}
+
+				// Logica di registrazione
+				if (ModelState.IsValid)
+				{
+					var user = db.Cliente.Where(x => x.Username == c.Username).FirstOrDefault();
+					if (user != null)
+					{
+						ModelState.AddModelError("Username", "Username già presente nel database");
+						return CartWithErrors();
+					}
+					var user1 = db.Cliente.Where(x => x.CF == c.CF).FirstOrDefault();
+					if (user1 != null)
+					{
+						ModelState.AddModelError("CF", "Codice fiscale già presente nel database");
+						return CartWithErrors();
+					}
+					var user2 = db.Cliente.Where(x => x.Email == c.Email).FirstOrDefault();
+					if (user2 != null)
+					{
+						ModelState.AddModelError("Email", "Email già presente nel database");
+						return CartWithErrors();
+					}
+
+					try
+					{
+						// Crea il cliente
+						c.Password = PasswordHasher.HashPassword(c.Password);
+						db.Cliente.Add(c);
+						db.SaveChanges();
+
+						// Crea l'utente e lo attiva immediatamente per il carrello
+						Utente u = new Utente
+						{
+							Username = c.Username,
+							Password = c.Password,
+							Role = "User",
+							FailedLoginAttempts = 0,
+							Confirmed = true // Attivato immediatamente per il carrello
+						};
+						db.Utente.Add(u);
+						db.SaveChanges();
+
+						FormsAuthentication.SetAuthCookie(c.Username, false);
+						TempData["Successo"] = "Registrazione completata con successo";
+						return RedirectToAction("Cart");
+					}
+					catch (Exception ex)
+					{
+						ModelState.AddModelError("", "Si è verificato un errore durante la registrazione. Riprova.");
+						return CartWithErrors();
+					}
+				}
+				return CartWithErrors();
+			}
+		}
+
+		// Metodo helper per tornare al carrello con errori
+		private ActionResult CartWithErrors()
+		{
+			List<Dettaglio> carrello = CartFromCookie();
+			List<Prodotto> lista = new List<Prodotto>();
+			foreach (Dettaglio d in carrello)
+			{
+				Prodotto p = db.Prodotto.Find(d.IdProdotto);
+				lista.Add(p);
+			}
+			ViewBag.Prodotti = lista;
+
+			// Se l'utente è autenticato, precompila i dati
+			if (User.Identity.IsAuthenticated)
+			{
+				var cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
+				ViewBag.Cliente = cliente;
+			}
+			else
+			{
+				// Aggiungi URL per Google Login se non autenticato
+				string clientId = System.Configuration.ConfigurationManager.AppSettings["IDClient"];
+				var url = "https://fiveinnovationhub.com/Auth/GoogleLogin";
+				var response = GoogleAuth.GetAuthUrl(clientId, url);
+				ViewBag.Response = response;
+			}
+
+			return View("Cart", carrello);
+		}
+
+		//Metodo per confermare il pagamento - Modificato per gestire anche utenti non precedentemente registrati
+		[Authorize(Roles = "User")]
+		public ActionResult ConfirmPayment(string Cancel = null)
+		{
+			// Verifica che l'utente sia autenticato e che ci siano elementi nel carrello
+			if (!User.Identity.IsAuthenticated)
+			{
+				TempData["Errore"] = "Devi essere autenticato per procedere con il pagamento";
+				return RedirectToAction("Cart");
+			}
+
+			List<Dettaglio> carrello = CartFromCookie();
+			if (carrello == null || !carrello.Any())
+			{
+				TempData["Errore"] = "Il carrello è vuoto";
+				return RedirectToAction("Cart");
+			}
+
+			// Verifica che l'utente esista nel database
+			var cliente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
+			if (cliente == null)
+			{
+				TempData["Errore"] = "Utente non trovato";
+				return RedirectToAction("Cart");
+			}
+
+			//genero le credenziali del pagamento
+			APIContext api = PaypalConfiguration.GetAPIContext();
+			try
+			{
+				string payerId = Request.Params["PayerID"];
+				if (string.IsNullOrEmpty(payerId))
+				{
+					string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Payment/ConfirmPayment?";
+					var guid = Convert.ToString((new Random().Next(100000)));
+					var createdPayment = CreatePayment(api, baseURI + "guid=" + guid);
+					var links = createdPayment.links.GetEnumerator();
+					string paypalRedirectUrl = null;
+					while (links.MoveNext())
+					{
+						Links lnk = links.Current;
+						if (lnk.rel.ToLower().Trim().Equals("approval_url"))
+						{
+							paypalRedirectUrl = lnk.href;
+						}
+					}
+					Session["payment"] = createdPayment.id;
+					return Redirect(paypalRedirectUrl);
+				}
+				else
+				{
+					var guid = Request.Params["guid"];
+					var executedPayment = ExecutePayment(api, payerId, Session["payment"] as string);
+					//se l'ordine non va a buon fine torno al carrello
+					if (executedPayment.state.ToLower() != "approved")
+					{
+						TempData["Errore"] = "Il pagamento non è stato approvato";
+						return RedirectToAction("Cart");
+					}
+					//in caso di approvazione salvo l'ordine nel db
+					Cliente c = db.Cliente.Where(x => x.Username == User.Identity.Name).FirstOrDefault();
+					Ordine o = new Ordine();
+					o.IdCliente = c.IdCliente;
+					db.Ordine.Add(o);
+					//salvo un record per ogni elemento nel carrello
+					foreach (Dettaglio dettaglio in carrello)
+					{
+						dettaglio.IdOrdine = o.IdOrdine;
+						dettaglio.Prodotto = null;
+						db.Dettaglio.Add(dettaglio);
+					}
+					db.SaveChanges();
+					//salvo il pdf con i dettagli dell'ordine appena creato
+					o.InvoicePdf = GenerateOrderPdf(o.IdOrdine);
+					RecapEmail(c.Email, o.InvoicePdf);
+					MailConsultingPack();
+					db.SaveChanges();
+					//elimino il cookie e quindi il carrello
+					DeleteCart();
+					TempData["Successo"] = "Ordine completato con successo. Controlla la mail per i dettagli.";
+					return RedirectToAction("Cart");
+				}
+			}
+			catch (Exception ex)
+			{
+				TempData["Errore"] = "Si è verificato un errore durante il pagamento: " + ex.Message;
+				return RedirectToAction("Cart");
+			}
+		}
+
+		private Payment payment;
+
+		//Metodo per eseguire il pagamento
+		public Payment ExecutePayment(APIContext api, string payerId, string paymentId)
+		{
+			var paymentExecution = new PaymentExecution()
+			{
+				payer_id = payerId
+			};
+			payment = new Payment()
+			{
+				id = paymentId
+			};
+			return payment.Execute(api, paymentExecution);
+		}
+
+		//Metodo per avviare il nuovo pagamento tramite PP
+		private Payment CreatePayment(APIContext api, string redirectUrl)
+		{
+			//recupero il carrello e creo una riga per ogni elemento
+			var itemList = new ItemList { items = new List<Item>() };
+			List<Dettaglio> carrello = CartFromCookie();
+			decimal totale = 0;
+			foreach (var p in carrello)
+			{
+				Prodotto prodotto = db.Prodotto.Find(p.IdProdotto);
+				itemList.items.Add(new Item
+				{
+					name = prodotto.DescrizioneBreve,
+					currency = "EUR",
+					price = prodotto.Costo.ToString("0.00", CultureInfo.InvariantCulture),
+					quantity = p.Quantita.ToString(),
+					sku = prodotto.IdProdotto.ToString()
+				});
+				totale += prodotto.Costo * p.Quantita;
+			}
+			//inserisco il metodo di pagamento
+			var payer = new Payer()
+			{
+				payment_method = "paypal"
+			};
+			//stabilisco il totale
+			var amount = new Amount
+			{
+				currency = "EUR",
+				total = totale.ToString("0.00", CultureInfo.InvariantCulture)
+			};
+			//genero i link di successo e cancellazione
+			var redirectUrls = new RedirectUrls
+			{
+				return_url = redirectUrl,
+				cancel_url = redirectUrl + "&Cancel=true",
+			};
+			//genero la transazione
+			var lastId = db.Ordine.OrderByDescending(o => o.IdOrdine).FirstOrDefault();
+			var invoiceId = 1;
+			if (lastId != null)
+			{
+				invoiceId += lastId.IdOrdine;
+			}
+			var transactionList = new List<Transaction>();
+			transactionList.Add(new Transaction
+			{
+				description = "Ordine Five Innovation Hub",
+				invoice_number = invoiceId.ToString(),
+				amount = amount,
+				item_list = itemList
+			});
+			payment = new Payment()
+			{
+				intent = "sale",
+				payer = payer,
+				transactions = transactionList,
+				redirect_urls = redirectUrls
+			};
+			return payment.Create(api);
+		}
 
 		[AllowAnonymous]
 		//Metodo per eliminare il carrello e il cookie
 		public ActionResult DeleteCart()
-        {
-            HttpCookie carrelloCookie = HttpContext.Request.Cookies["carrello"];
-            //segno il cookie come scaduto
-            carrelloCookie.Expires = DateTime.Now.AddYears(-1);
-            HttpContext.Response.Cookies.Add(carrelloCookie);
-            return RedirectToAction("Cart");
-        }
+		{
+			HttpCookie carrelloCookie = HttpContext.Request.Cookies["carrello"];
+			if (carrelloCookie != null)
+			{
+				//segno il cookie come scaduto
+				carrelloCookie.Expires = DateTime.Now.AddYears(-1);
+				HttpContext.Response.Cookies.Add(carrelloCookie);
+			}
+			return RedirectToAction("Cart");
+		}
 
-        //Metodo per salvare il carrello nel cookie
-        private void SaveCart(List<Dettaglio> carrello)
-        {
-            //serializzo la risposta in modo da poterla salvare come stringa
-            string carrelloJson = JsonConvert.SerializeObject(carrello);
-            HttpCookie cookie = new HttpCookie("carrello");
-            cookie.Value = carrelloJson;
-            //imposto la scadenza a 3 giorni
-            cookie.Expires = DateTime.Now.AddDays(3);
-            Response.Cookies.Add(cookie);
-        }
+		//Metodo per salvare il carrello nel cookie
+		private void SaveCart(List<Dettaglio> carrello)
+		{
+			//serializzo la risposta in modo da poterla salvare come stringa
+			string carrelloJson = JsonConvert.SerializeObject(carrello);
+			HttpCookie cookie = new HttpCookie("carrello");
+			cookie.Value = carrelloJson;
+			//imposto la scadenza a 3 giorni
+			cookie.Expires = DateTime.Now.AddDays(3);
+			Response.Cookies.Add(cookie);
+		}
 
-        //Metodo per recuperare il carrello dal cookie
-        private List<Dettaglio> CartFromCookie()
-        {
-            //se il carrello esiste ritorno la sua conversione in lista
-            HttpCookie cookie = Request.Cookies["carrello"];
-            if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
-            {
-                string carrelloJson = cookie.Value;
-                List<Dettaglio> carrello = JsonConvert.DeserializeObject<List<Dettaglio>>(carrelloJson);
-                return carrello;
-            }
-            //altrimenti creo una nuova lista
-            return new List<Dettaglio>();
-        }
+		//Metodo per recuperare il carrello dal cookie
+		private List<Dettaglio> CartFromCookie()
+		{
+			//se il carrello esiste ritorno la sua conversione in lista
+			HttpCookie cookie = Request.Cookies["carrello"];
+			if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
+			{
+				string carrelloJson = cookie.Value;
+				List<Dettaglio> carrello = JsonConvert.DeserializeObject<List<Dettaglio>>(carrelloJson);
+				return carrello;
+			}
+			//altrimenti creo una nuova lista
+			return new List<Dettaglio>();
+		}
 
-        //Metodo per la creazione del pdf usando la libreria PdfSharp
-        public byte[] GenerateOrderPdf(int id)
-        {
-            PdfDocument document = new PdfDocument();
-            PdfPage page = document.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            //generazione dei vari font
-            XFont titleFont = new XFont("Arial", 24, XFontStyle.Bold);
-            XFont sectionFont = new XFont("Arial", 16, XFontStyle.Bold);
-            XFont headerFont = new XFont("Arial", 12, XFontStyle.Bold);
-            XFont regularFont = new XFont("Arial", 12);
-            XFont smallFont = new XFont("Arial", 11);
-            XFont coursiveFont = new XFont("Arial", 11, XFontStyle.Italic);
-            XFont subtitleFont = new XFont("Montserrat", 12);
+		//Metodo per la creazione del pdf usando la libreria PdfSharp
+		public byte[] GenerateOrderPdf(int id)
+		{
+			PdfDocument document = new PdfDocument();
+			PdfPage page = document.AddPage();
+			XGraphics gfx = XGraphics.FromPdfPage(page);
+			//generazione dei vari font
+			XFont titleFont = new XFont("Arial", 24, XFontStyle.Bold);
+			XFont sectionFont = new XFont("Arial", 16, XFontStyle.Bold);
+			XFont headerFont = new XFont("Arial", 12, XFontStyle.Bold);
+			XFont regularFont = new XFont("Arial", 12);
+			XFont smallFont = new XFont("Arial", 11);
+			XFont coursiveFont = new XFont("Arial", 11, XFontStyle.Italic);
+			XFont subtitleFont = new XFont("Montserrat", 12);
 
-            double pageWidth = page.Width;
-            double yPosition = 40;
-            double lineHeight = 20;
-            double smallLineHeight = 15;
-            double tableMargin = 40;
-            double cellPadding = 5;
-            //generazione del logo e della scritta sottostante
-            XImage logo = XImage.FromFile(Server.MapPath("~/Content/Img/logo_orizz_sf.png"));
-            double logoX = (pageWidth - 200) / 2;
-            double logoY = yPosition;
-            gfx.DrawImage(logo, logoX, logoY, 200, 90);
-            yPosition += 110;
-            string titleText = "Five Innovation Hub";
-            int spacing = 2;
-            string spacedText = string.Join(new string(' ', spacing), titleText.ToCharArray());
-            gfx.DrawString(spacedText, subtitleFont, XBrushes.OrangeRed,
-                new XRect(0, yPosition, pageWidth, 20), XStringFormats.TopCenter);
-            yPosition += 90;
-            //generazione del totolo con il numero d'ordine
-            gfx.DrawString("Ordine Numero: " + (id+100), titleFont, XBrushes.Black,
-                new XRect(0, yPosition, pageWidth, 40), XStringFormats.TopCenter);
-            yPosition += 90;
-            //sezione relativa al cliente con dati personali e info sulla fattura
-            gfx.DrawString("Fattura:", headerFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-            yPosition += lineHeight;
-            string twoDigitYear = (DateTime.Now.Year % 100).ToString("D2");
-            gfx.DrawString($"nr. FPR {id}/{twoDigitYear} del {DateTime.Now.ToShortDateString()}", regularFont, XBrushes.Black,
-                new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-            yPosition += lineHeight;
-            gfx.DrawString($"Data invio: {DateTime.Now.ToShortDateString()}", regularFont, XBrushes.Black,
-                new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-            yPosition += 30;
-            var ordine = db.Ordine.Find(id);
-            var cliente = ordine.Cliente;
-            if (cliente != null)
-            {
-                gfx.DrawString($"Dettagli cliente:", headerFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-                yPosition += lineHeight;
-                gfx.DrawString($"Nome: {cliente.Nome} {cliente.Cognome}", regularFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-                yPosition += lineHeight;
-                gfx.DrawString($"Indirizzo: {cliente.Indirizzo}, {cliente.Citta}", regularFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-                if (cliente.Piva != null)
-                {
-                    yPosition += lineHeight;
-                    gfx.DrawString($"P.Iva: {cliente.Piva}", regularFont, XBrushes.Black,
-                        new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-                }
-                else
-                {
-                    yPosition += lineHeight;
-                    gfx.DrawString($"CF: {cliente.CF}", regularFont, XBrushes.Black,
-                        new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
-                }
-            }
-            yPosition += 60;
-            //sezione centrale con il dettaglio dell'ordine in formato tabellare
-            gfx.DrawString("Dettagli dell'ordine", sectionFont, XBrushes.Black,
-                new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, 0), XStringFormats.TopLeft);
-            yPosition += 40;
-            List<Dettaglio> carrello = CartFromCookie();
-            decimal totale = 0;
-            double col1X = tableMargin;
-            double col2X = 300;
-            double col3X = 400;
-            void DrawCell(XGraphics g, XRect rect, string text, XFont font, XBrush brush)
-            {
-                g.DrawRectangle(XPens.Black, XBrushes.Transparent, rect);
-                g.DrawString(text, font, brush, new XRect(rect.Left + cellPadding, rect.Top + cellPadding, rect.Width - 2 * cellPadding, rect.Height - 2 * cellPadding), XStringFormats.TopLeft);
-            }
-            //intestazioni della tabella
-            DrawCell(gfx, new XRect(col1X, yPosition, col2X - col1X, lineHeight), "Prodotto", headerFont, XBrushes.Black);
-            DrawCell(gfx, new XRect(col2X, yPosition, col3X - col2X, lineHeight), "Quantità", headerFont, XBrushes.Black);
-            DrawCell(gfx, new XRect(col3X, yPosition, pageWidth - col3X - tableMargin, lineHeight), "Prezzo", headerFont, XBrushes.Black);
-            yPosition += lineHeight;
-            //viene generata una riga per ogni elemento dell'ordine
-            foreach (Dettaglio dettaglio in carrello)
-            {
-                var prodotto = db.Prodotto.Find(dettaglio.IdProdotto);
-                string prodottoText = $"{prodotto.DescrizioneBreve}";
-                string quantitaText = $"{dettaglio.Quantita}";
-                string prezzoText = $"{prodotto.Costo * dettaglio.Quantita:C}";
-                DrawCell(gfx, new XRect(col1X, yPosition, col2X - col1X, lineHeight), prodottoText, regularFont, XBrushes.Black);
-                DrawCell(gfx, new XRect(col2X, yPosition, col3X - col2X, lineHeight), quantitaText, regularFont, XBrushes.Black);
-                DrawCell(gfx, new XRect(col3X, yPosition, pageWidth - col3X - tableMargin, lineHeight), prezzoText, regularFont, XBrushes.Black);
-                yPosition += lineHeight;
-                totale += prodotto.Costo * dettaglio.Quantita;
-            }
-            yPosition += 50;
-            double totalX = pageWidth - 200 - tableMargin;
-            //sezione relativa al totale
-            gfx.DrawString("Totale: " + totale.ToString("C"), sectionFont, XBrushes.Black,
-                new XRect(totalX, yPosition, 200, 0), XStringFormats.TopRight);
-            yPosition += 60;
-            //sezione relativa ai dati del fornitore
-            gfx.DrawString($"Data: {DateTime.Now.ToShortDateString()}", smallFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
-            yPosition += smallLineHeight;
-            gfx.DrawString("Five Innovation Hub, LDA", coursiveFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
-            yPosition += smallLineHeight;
-            gfx.DrawString("P.IVA: PT518557332", smallFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
-            yPosition += smallLineHeight;
-            gfx.DrawString("Av. São Gonçalo nº 1614, 4835-105, Guimarães", smallFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
-            yPosition += smallLineHeight;
-            gfx.DrawString("info@fiveinnovationhub.com", smallFont, XBrushes.Black,
-                    new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
+			double pageWidth = page.Width;
+			double yPosition = 40;
+			double lineHeight = 20;
+			double smallLineHeight = 15;
+			double tableMargin = 40;
+			double cellPadding = 5;
+			//generazione del logo e della scritta sottostante
+			XImage logo = XImage.FromFile(Server.MapPath("~/Content/Img/logo_orizz_sf.png"));
+			double logoX = (pageWidth - 200) / 2;
+			double logoY = yPosition;
+			gfx.DrawImage(logo, logoX, logoY, 200, 90);
+			yPosition += 110;
+			string titleText = "Five Innovation Hub";
+			int spacing = 2;
+			string spacedText = string.Join(new string(' ', spacing), titleText.ToCharArray());
+			gfx.DrawString(spacedText, subtitleFont, XBrushes.OrangeRed,
+				new XRect(0, yPosition, pageWidth, 20), XStringFormats.TopCenter);
+			yPosition += 90;
+			//generazione del totolo con il numero d'ordine
+			gfx.DrawString("Ordine Numero: " + (id + 100), titleFont, XBrushes.Black,
+				new XRect(0, yPosition, pageWidth, 40), XStringFormats.TopCenter);
+			yPosition += 90;
+			//sezione relativa al cliente con dati personali e info sulla fattura
+			gfx.DrawString("Fattura:", headerFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+			yPosition += lineHeight;
+			string twoDigitYear = (DateTime.Now.Year % 100).ToString("D2");
+			gfx.DrawString($"nr. FPR {id}/{twoDigitYear} del {DateTime.Now.ToShortDateString()}", regularFont, XBrushes.Black,
+				new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+			yPosition += lineHeight;
+			gfx.DrawString($"Data invio: {DateTime.Now.ToShortDateString()}", regularFont, XBrushes.Black,
+				new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+			yPosition += 30;
+			var ordine = db.Ordine.Find(id);
+			var cliente = ordine.Cliente;
+			if (cliente != null)
+			{
+				gfx.DrawString($"Dettagli cliente:", headerFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+				yPosition += lineHeight;
+				gfx.DrawString($"Nome: {cliente.Nome} {cliente.Cognome}", regularFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+				yPosition += lineHeight;
+				gfx.DrawString($"Indirizzo: {cliente.Indirizzo}, {cliente.Citta}", regularFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+				if (cliente.Piva != null)
+				{
+					yPosition += lineHeight;
+					gfx.DrawString($"P.Iva: {cliente.Piva}", regularFont, XBrushes.Black,
+						new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+				}
+				else
+				{
+					yPosition += lineHeight;
+					gfx.DrawString($"CF: {cliente.CF}", regularFont, XBrushes.Black,
+						new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, lineHeight), XStringFormats.TopRight);
+				}
+			}
+			yPosition += 60;
+			//sezione centrale con il dettaglio dell'ordine in formato tabellare
+			gfx.DrawString("Dettagli dell'ordine", sectionFont, XBrushes.Black,
+				new XRect(tableMargin, yPosition, pageWidth - 2 * tableMargin, 0), XStringFormats.TopLeft);
+			yPosition += 40;
+			List<Dettaglio> carrello = CartFromCookie();
+			decimal totale = 0;
+			double col1X = tableMargin;
+			double col2X = 300;
+			double col3X = 400;
+			void DrawCell(XGraphics g, XRect rect, string text, XFont font, XBrush brush)
+			{
+				g.DrawRectangle(XPens.Black, XBrushes.Transparent, rect);
+				g.DrawString(text, font, brush, new XRect(rect.Left + cellPadding, rect.Top + cellPadding, rect.Width - 2 * cellPadding, rect.Height - 2 * cellPadding), XStringFormats.TopLeft);
+			}
+			//intestazioni della tabella
+			DrawCell(gfx, new XRect(col1X, yPosition, col2X - col1X, lineHeight), "Prodotto", headerFont, XBrushes.Black);
+			DrawCell(gfx, new XRect(col2X, yPosition, col3X - col2X, lineHeight), "Quantità", headerFont, XBrushes.Black);
+			DrawCell(gfx, new XRect(col3X, yPosition, pageWidth - col3X - tableMargin, lineHeight), "Prezzo", headerFont, XBrushes.Black);
+			yPosition += lineHeight;
+			//viene generata una riga per ogni elemento dell'ordine
+			foreach (Dettaglio dettaglio in carrello)
+			{
+				var prodotto = db.Prodotto.Find(dettaglio.IdProdotto);
+				string prodottoText = $"{prodotto.DescrizioneBreve}";
+				string quantitaText = $"{dettaglio.Quantita}";
+				string prezzoText = $"{prodotto.Costo * dettaglio.Quantita:C}";
+				DrawCell(gfx, new XRect(col1X, yPosition, col2X - col1X, lineHeight), prodottoText, regularFont, XBrushes.Black);
+				DrawCell(gfx, new XRect(col2X, yPosition, col3X - col2X, lineHeight), quantitaText, regularFont, XBrushes.Black);
+				DrawCell(gfx, new XRect(col3X, yPosition, pageWidth - col3X - tableMargin, lineHeight), prezzoText, regularFont, XBrushes.Black);
+				yPosition += lineHeight;
+				totale += prodotto.Costo * dettaglio.Quantita;
+			}
+			yPosition += 50;
+			double totalX = pageWidth - 200 - tableMargin;
+			//sezione relativa al totale
+			gfx.DrawString("Totale: " + totale.ToString("C"), sectionFont, XBrushes.Black,
+				new XRect(totalX, yPosition, 200, 0), XStringFormats.TopRight);
+			yPosition += 60;
+			//sezione relativa ai dati del fornitore
+			gfx.DrawString($"Data: {DateTime.Now.ToShortDateString()}", smallFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
+			yPosition += smallLineHeight;
+			gfx.DrawString("Five Innovation Hub, LDA", coursiveFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
+			yPosition += smallLineHeight;
+			gfx.DrawString("P.IVA: PT518557332", smallFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
+			yPosition += smallLineHeight;
+			gfx.DrawString("Av. São Gonçalo nº 1614, 4835-105, Guimarães", smallFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
+			yPosition += smallLineHeight;
+			gfx.DrawString("info@fiveinnovationhub.com", smallFont, XBrushes.Black,
+					new XRect(tableMargin, yPosition, pageWidth, lineHeight), XStringFormats.TopLeft);
 
-            MemoryStream stream = new MemoryStream();
-            document.Save(stream, false);
-            return stream.ToArray();
-        }
+			MemoryStream stream = new MemoryStream();
+			document.Save(stream, false);
+			return stream.ToArray();
+		}
 
-        //Metodo per il download del pdf
-        public ActionResult DownloadOrderPdf(int id)
-        {
-            byte[] pdfBytes = db.Ordine.FirstOrDefault(x => x.IdOrdine == id).InvoicePdf;
-            if (pdfBytes != null)
-            {
-                Response.AppendHeader("Content-Disposition", $"inline; filename=Ordine-{id}.pdf");
-                return File(pdfBytes, "application/pdf");
-            }
-            return Content("Il PDF non è disponibile.");
-        }
+		//Metodo per il download del pdf
+		public ActionResult DownloadOrderPdf(int id)
+		{
+			byte[] pdfBytes = db.Ordine.FirstOrDefault(x => x.IdOrdine == id).InvoicePdf;
+			if (pdfBytes != null)
+			{
+				Response.AppendHeader("Content-Disposition", $"inline; filename=Ordine-{id}.pdf");
+				return File(pdfBytes, "application/pdf");
+			}
+			return Content("Il PDF non è disponibile.");
+		}
 
-        //Metodo per inviare la mail di recap al cliente
-        private void RecapEmail(string recipientEmail, byte[] pdf)
-        {
-            string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
-            string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
+		//Metodo per inviare la mail di recap al cliente
+		private void RecapEmail(string recipientEmail, byte[] pdf)
+		{
+			string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
+			string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtps.aruba.it")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(senderEmail, senderPassword),
-                EnableSsl = true,
-            };
+			var smtpClient = new SmtpClient("smtps.aruba.it")
+			{
+				Port = 587,
+				Credentials = new NetworkCredential(senderEmail, senderPassword),
+				EnableSsl = true,
+			};
 
-            var mailMessage = new MailMessage()
-            {
-                From = new MailAddress(senderEmail, "Five Innovation Hub"),
-                Subject = "Dettaglio dell'aquisto",
-                IsBodyHtml = true,
-            };
+			var mailMessage = new MailMessage()
+			{
+				From = new MailAddress(senderEmail, "Five Innovation Hub"),
+				Subject = "Dettaglio dell'aquisto",
+				IsBodyHtml = true,
+			};
 
-            mailMessage.Body = $@"
+			mailMessage.Body = $@"
         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;'>
             <header style='text-align: center;'>
                 <img style='width: 100px; height: auto; max-width: 100%;' src='https://www.fiveinnovationhub.com/Content/Img/logo_orizz_sf.png' alt='logo'>
@@ -413,31 +647,31 @@ namespace DHConsulting.Controllers
             </footer>
         </div>";
 
-            mailMessage.To.Add(recipientEmail);
-            mailMessage.Attachments.Add(new Attachment(new MemoryStream(pdf), "Ordine.pdf"));
+			mailMessage.To.Add(recipientEmail);
+			mailMessage.Attachments.Add(new Attachment(new MemoryStream(pdf), "Ordine.pdf"));
 
-            smtpClient.Send(mailMessage);
-        }
+			smtpClient.Send(mailMessage);
+		}
 
-        //Metodo per inviare a me una mail di avvenuto acquisto
-        private void MailConsultingPack()
-        {
-            var utente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
-            string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
-            string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
+		//Metodo per inviare a me una mail di avvenuto acquisto
+		private void MailConsultingPack()
+		{
+			var utente = db.Cliente.FirstOrDefault(x => x.Username == User.Identity.Name);
+			string senderEmail = ConfigurationManager.AppSettings["SmtpSenderEmail"];
+			string senderPassword = ConfigurationManager.AppSettings["SmtpSenderPassword"];
 
-            var smtpClient = new SmtpClient("smtps.aruba.it")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(senderEmail, senderPassword),
-                EnableSsl = true,
-            };
+			var smtpClient = new SmtpClient("smtps.aruba.it")
+			{
+				Port = 587,
+				Credentials = new NetworkCredential(senderEmail, senderPassword),
+				EnableSsl = true,
+			};
 
-            var mailMessage = new MailMessage()
-            {
-                From = new MailAddress(senderEmail, "Five Innovation Hub"),
-                Subject = "Pacchetto consulenza acquistato",
-                Body = @"
+			var mailMessage = new MailMessage()
+			{
+				From = new MailAddress(senderEmail, "Five Innovation Hub"),
+				Subject = "Pacchetto consulenza acquistato",
+				Body = @"
                         <section class=""max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900"">
                             <main class=""mt-8"">
                                 <h2 class=""text-gray-700 dark:text-gray-200"">Pacchetto consulenza</h2>
@@ -456,11 +690,61 @@ namespace DHConsulting.Controllers
                                 <p class=""mt-3 text-gray-500 dark:text-gray-400"">" + DateTime.Now + @"</p>
                             </footer>
                         </section>",
-                IsBodyHtml = true,
-            };
-            mailMessage.To.Add(senderEmail);
+				IsBodyHtml = true,
+			};
+			mailMessage.To.Add(senderEmail);
 
-            smtpClient.Send(mailMessage);
-        }
-    }
+			smtpClient.Send(mailMessage);
+		}
+
+		// Metodo helper per validare l'email
+		private bool IsValidEmail(string email)
+		{
+			try
+			{
+				var addr = new System.Net.Mail.MailAddress(email);
+				return addr.Address == email;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		// Metodo per valutare che la password rispetti i parametri richiesti
+		private bool IsValidPassword(string password)
+		{
+			if (string.IsNullOrEmpty(password))
+			{
+				return false;
+			}
+
+			if (password.Length < 8)
+			{
+				return false;
+			}
+
+			if (!password.Any(char.IsLower))
+			{
+				return false;
+			}
+
+			if (!password.Any(char.IsUpper))
+			{
+				return false;
+			}
+
+			if (!password.Any(char.IsDigit))
+			{
+				return false;
+			}
+
+			if (!password.Any(c => ".!?@&$%".Contains(c)))
+			{
+				return false;
+			}
+
+			return true;
+		}
+	}
 }

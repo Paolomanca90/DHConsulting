@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Carrello";
     List<DHConsulting.Models.Prodotto> lista = ViewBag.Prodotti as List<DHConsulting.Models.Prodotto>;
+    DHConsulting.Models.Cliente cliente = ViewBag.Cliente as DHConsulting.Models.Cliente;
     string clientId = System.Configuration.ConfigurationManager.AppSettings["PayPalClientId"];
 }
 
@@ -130,6 +131,12 @@
             background: linear-gradient(135deg, #ffb700 0%, #001a4d 100%);
         }
 
+        .paypal-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
         .empty-cart-animation {
             animation: bounce 2s infinite;
         }
@@ -160,6 +167,181 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 2rem;
+        }
+
+        .user-form-section {
+            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+            border: 2px solid #e5e7eb;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px 24px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            background: transparent;
+            color: #6b7280;
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: #fbbf24;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .form-group input.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .field-validation-error {
+            color: #ef4444 !important;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .validation-summary-errors ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .validation-summary-errors li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 0.375rem;
+            border-left: 4px solid #ef4444;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .alert-error {
+            background: linear-gradient(145deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .alert-error svg {
+            color: #dc2626;
+            flex-shrink: 0;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .google-login-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+
+        .google-login-btn:hover {
+            border-color: #4285f4;
+            background: #f8f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.15);
         }
 
         .total-display {
@@ -258,10 +440,42 @@
             color: white;
         }
 
+        .login-prompt {
+            background: linear-gradient(145deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-prompt h3 {
+            color: #92400e;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-prompt p {
+            color: #78350f;
+            margin-bottom: 0;
+        }
+
         @@media (max-width: 1024px) {
             .checkout-summary {
                 position: static;
                 margin-top: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .user-form-section,
+            .checkout-summary {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -410,6 +624,306 @@ else
                 <div class="grid lg:grid-cols-3 gap-8">
                     <!-- Cart Items -->
                     <div class="lg:col-span-2 space-y-6">
+                        <!-- Authentication/User Details Section -->
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="user-form-section" data-aos="fade-up" data-aos-delay="250">
+                                <div class="login-prompt">
+                                    <h3><i class="fa-solid fa-user-plus mr-2"></i>Accedi o Registrati</h3>
+                                    <p>Per completare l'acquisto è necessario accedere al tuo account o registrarti</p>
+                                </div>
+
+                                <!-- Validation Summary -->
+                                @if (!ViewData.ModelState.IsValid)
+                                {
+                                    <div class="alert alert-error shadow-lg mb-6">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <div>
+                                                <h3 class="font-bold">Errori di Validazione</h3>
+                                                <div class="text-xs">
+                                                    @Html.ValidationSummary(false, "", new { @class = "text-red-600" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Auth Tabs -->
+                                <div class="auth-tabs">
+                                    <div class="auth-tab @(ViewData.ModelState.ContainsKey("Username") && ViewData.ModelState["Username"].Errors.Any() ? "" : "active")" onclick="switchAuthTab('register')" id="register-tab">
+                                        <i class="fa-solid fa-user-plus mr-2"></i>Registrati
+                                    </div>
+                                    <div class="auth-tab @(ViewData.ModelState.ContainsKey("Username") && ViewData.ModelState["Username"].Errors.Any() ? "active" : "")" onclick="switchAuthTab('login')" id="login-tab">
+                                        <i class="fa-solid fa-sign-in-alt mr-2"></i>Accedi
+                                    </div>
+                                </div>
+
+                                <!-- Registration Form -->
+                                <div class="auth-form @(ViewData.ModelState.ContainsKey("Username") && ViewData.ModelState["Username"].Errors.Any() ? "" : "active")" id="register-form">
+                                    @using (Html.BeginForm("RegisterFromCart", "Payment", FormMethod.Post, new { id = "registerForm" }))
+                                    {
+                                        <input type="hidden" name="IsLogin" value="false" />
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="Nome">Nome <span class="required">*</span></label>
+                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Nome, new
+                                                {
+                                                    @id = "Nome",
+                                                    @name = "Nome",
+                                                    @required = "required",
+                                                    @maxlength = "50",
+                                                    @class = Html.ViewData.ModelState.IsValidField("Nome") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Nome, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Cognome">Cognome <span class="required">*</span></label>
+                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Cognome, new
+                                                {
+                                                    @id = "Cognome",
+                                                    @name = "Cognome",
+                                                    @required = "required",
+                                                    @maxlength = "50",
+                                                    @class = Html.ViewData.ModelState.IsValidField("Cognome") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Cognome, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Email">Email <span class="required">*</span></label>
+                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Email, new
+                                            {
+                                                @id = "Email",
+                                                @name = "Email",
+                                                @type = "email",
+                                                @required = "required",
+                                                @maxlength = "100",
+                                                @class = Html.ViewData.ModelState.IsValidField("Email") ? "" : "error"
+                                            })
+                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Email, "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="CF">Codice Fiscale <span class="required">*</span></label>
+                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.CF, new
+                                            {
+                                                @id = "CF",
+                                                @name = "CF",
+                                                @required = "required",
+                                                @maxlength = "16",
+                                                @pattern = "[A-Za-z0-9]{16}",
+                                                @title = "Inserisci un codice fiscale valido di 16 caratteri",
+                                                @class = Html.ViewData.ModelState.IsValidField("CF") ? "" : "error"
+                                            })
+                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.CF, "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Phone">Telefono <span class="required">*</span></label>
+                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Phone, new
+                                            {
+                                                @id = "Phone",
+                                                @name = "Phone",
+                                                @type = "tel",
+                                                @required = "required",
+                                                @maxlength = "20",
+                                                @class = Html.ViewData.ModelState.IsValidField("Phone") ? "" : "error"
+                                            })
+                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Phone, "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="DataNascita">Data di Nascita <span class="required">*</span></label>
+                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.DataNascita, new
+                                                {
+                                                    @id = "DataNascita",
+                                                    @name = "DataNascita",
+                                                    @type = "date",
+                                                    @required = "required",
+                                                    @class = Html.ViewData.ModelState.IsValidField("DataNascita") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.DataNascita, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Piva">P.IVA (opzionale)</label>
+                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Piva, new
+                                                {
+                                                    @id = "Piva",
+                                                    @name = "Piva",
+                                                    @maxlength = "11",
+                                                    @class = Html.ViewData.ModelState.IsValidField("Piva") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Piva, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Indirizzo">Indirizzo <span class="required">*</span></label>
+                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Indirizzo, new
+                                            {
+                                                @id = "Indirizzo",
+                                                @name = "Indirizzo",
+                                                @required = "required",
+                                                @maxlength = "100",
+                                                @class = Html.ViewData.ModelState.IsValidField("Indirizzo") ? "" : "error"
+                                            })
+                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Indirizzo, "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Citta">Città <span class="required">*</span></label>
+                                            @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Citta, new
+                                            {
+                                                @id = "Citta",
+                                                @name = "Citta",
+                                                @required = "required",
+                                                @maxlength = "50",
+                                                @class = Html.ViewData.ModelState.IsValidField("Citta") ? "" : "error"
+                                            })
+                                            @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Citta, "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="Username">Username <span class="required">*</span></label>
+                                                @Html.TextBoxFor(m => m.FirstOrDefault().Ordine.Cliente.Username, new
+                                                {
+                                                    @id = "Username",
+                                                    @name = "Username",
+                                                    @required = "required",
+                                                    @maxlength = "50",
+                                                    @class = Html.ViewData.ModelState.IsValidField("Username") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Username, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Password">Password <span class="required">*</span></label>
+                                                @Html.PasswordFor(m => m.FirstOrDefault().Ordine.Cliente.Password, new
+                                                {
+                                                    @id = "Password",
+                                                    @name = "Password",
+                                                    @required = "required",
+                                                    @title = "La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@&$%)",
+                                                    @class = Html.ViewData.ModelState.IsValidField("Password") ? "" : "error"
+                                                })
+                                                @Html.ValidationMessageFor(m => m.FirstOrDefault().Ordine.Cliente.Password, "", new { @class = "text-red-500 text-sm mt-1" })
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="submit-btn">
+                                            <i class="fa-solid fa-user-plus mr-2"></i>
+                                            Registrati e Continua
+                                        </button>
+                                    }
+
+                                    <div style="text-align: center; margin: 1rem 0; color: #6b7280;">
+                                        <span>oppure</span>
+                                    </div>
+
+                                    <a href="@ViewBag.Response" class="google-login-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                        </svg>
+                                        Registrati con Google
+                                    </a>
+                                </div>
+
+                                <!-- Login Form -->
+                                <div class="auth-form @(ViewData.ModelState.ContainsKey("Username") && ViewData.ModelState["Username"].Errors.Any() ? "active" : "")" id="login-form">
+                                    @using (Html.BeginForm("RegisterFromCart", "Payment", FormMethod.Post, new { id = "loginForm" }))
+                                    {
+                                        <input type="hidden" name="IsLogin" value="true" />
+
+                                        <div class="form-group">
+                                            <label for="LoginUsername">Username <span class="required">*</span></label>
+                                            <input type="text" id="LoginUsername" name="Username" required maxlength="50"
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Username") ? "" : "error")"
+                                                   value="@ViewData.ModelState["Username"]?.Value?.RawValue" />
+                                            @Html.ValidationMessage("Username", "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="LoginPassword">Password <span class="required">*</span></label>
+                                            <input type="password" id="LoginPassword" name="Password" required
+                                                   class="@(Html.ViewData.ModelState.IsValidField("Password") ? "" : "error")" />
+                                            @Html.ValidationMessage("Password", "", new { @class = "text-red-500 text-sm mt-1" })
+                                        </div>
+
+                                        <button type="submit" class="submit-btn">
+                                            <i class="fa-solid fa-sign-in-alt mr-2"></i>
+                                            Accedi e Continua
+                                        </button>
+                                    }
+                                </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- User Details Display (Authenticated User) -->
+                        <div class="user-form-section" data-aos="fade-up" data-aos-delay="250">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                                <i class="fa-solid fa-user-check mr-2 text-green-600"></i>
+                                Dati di Fatturazione
+                            </h3>
+
+                            @if (cliente != null)
+                            {
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-4">
+                                        <div class="p-4 bg-gray-50 rounded-lg">
+                                            <strong class="text-gray-700">Nome e Cognome:</strong>
+                                            <p class="text-gray-900 font-medium">@cliente.Nome @cliente.Cognome</p>
+                                        </div>
+                                        <div class="p-4 bg-gray-50 rounded-lg">
+                                            <strong class="text-gray-700">Email:</strong>
+                                            <p class="text-gray-900 font-medium">@cliente.Email</p>
+                                        </div>
+                                        <div class="p-4 bg-gray-50 rounded-lg">
+                                            <strong class="text-gray-700">Telefono:</strong>
+                                            <p class="text-gray-900 font-medium">@cliente.Phone</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="p-4 bg-gray-50 rounded-lg">
+                                            <strong class="text-gray-700">Indirizzo:</strong>
+                                            <p class="text-gray-900 font-medium">@cliente.Indirizzo</p>
+                                            <p class="text-gray-900 font-medium">@cliente.Citta</p>
+                                        </div>
+                                        <div class="p-4 bg-gray-50 rounded-lg">
+                                            <strong class="text-gray-700">Codice Fiscale:</strong>
+                                            <p class="text-gray-900 font-medium">@cliente.CF</p>
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(cliente.Piva))
+                                        {
+                                            <div class="p-4 bg-gray-50 rounded-lg">
+                                                <strong class="text-gray-700">P.IVA:</strong>
+                                                <p class="text-gray-900 font-medium">@cliente.Piva</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 text-center">
+                                    <a href="@Url.Action("EditProfilo", "Home", new { id = cliente.IdCliente })"
+                                       class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                                        <i class="fa-solid fa-edit mr-2"></i>
+                                        Modifica Dati
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                        <!-- Cart Items List -->
                         @foreach (var item in Model)
                         {
                             foreach (var p in lista)
@@ -567,11 +1081,26 @@ else
                                 </h4>
 
                                 <div class="space-y-4">
-                                    <!-- PayPal -->
-                                    <a href="@Url.Action("ConfirmPayment", "Payment")"
-                                       class="bg-yellow-400 transition duration-300 ease-in-out hover:scale-110 w-full p-4 rounded-xl flex items-center justify-center text-white font-semibold">
-                                        <img src="~/Content/Img/PayPal.svg" alt="PayPal" class="h-8">
-                                    </a>
+                                    <!-- PayPal Button -->
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a href="@Url.Action("ConfirmPayment", "Payment")"
+                                           class="bg-yellow-400 transition duration-300 ease-in-out hover:scale-105 w-full p-4 rounded-xl flex items-center justify-center text-white font-semibold"
+                                           id="paypal-btn">
+                                            <img src="~/Content/Img/PayPal.svg" alt="PayPal" class="h-8">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button class="bg-gray-400 w-full p-4 rounded-xl flex items-center justify-center text-white font-semibold cursor-not-allowed opacity-50"
+                                                disabled id="paypal-btn-disabled" title="Completa registrazione/login per procedere">
+                                            <img src="~/Content/Img/PayPal.svg" alt="PayPal" class="h-8" style="filter: grayscale(100%);">
+                                        </button>
+                                        <p class="text-sm text-gray-600 text-center">
+                                            <i class="fa-solid fa-info-circle mr-1"></i>
+                                            Completa la registrazione o accedi per procedere con il pagamento
+                                        </p>
+                                    }
 
                                     <!-- Clear Cart -->
                                     <a href="@Url.Action("DeleteCart", "Payment")"
@@ -627,29 +1156,293 @@ else
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
-}
+            </div>
+        </section>
+    }
 
 @section scripts {
     <script>
+        // Authentication tab switching with error handling
+        function switchAuthTab(tabType) {
+            // Hide all forms
+            document.getElementById('register-form').classList.remove('active');
+            document.getElementById('login-form').classList.remove('active');
+
+            // Remove active class from all tabs
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login-tab').classList.remove('active');
+
+            // Show selected form and activate tab
+            if (tabType === 'register') {
+                document.getElementById('register-form').classList.add('active');
+                document.getElementById('register-tab').classList.add('active');
+            } else {
+                document.getElementById('login-form').classList.add('active');
+                document.getElementById('login-tab').classList.add('active');
+            }
+        }
+
+        // Form validation with enhanced error display
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                // Remove previous error styling
+                input.classList.remove('error');
+                const errorSpan = input.parentElement.querySelector('.field-validation-error');
+                if (errorSpan) {
+                    errorSpan.style.display = 'none';
+                }
+
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    showFieldError(input, 'Questo campo è obbligatorio');
+                    isValid = false;
+                } else {
+                    // Specific validations
+                    if (input.type === 'email' && input.value) {
+                        const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                        if (!emailRegex.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'Inserisci un indirizzo email valido');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'CF' && input.value) {
+                        if (input.value.length !== 16) {
+                            input.classList.add('error');
+                            showFieldError(input, 'Il codice fiscale deve essere di 16 caratteri');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'Password' && input.value && formId === 'registerForm') {
+                        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!?@@&$%]).{8,}$/;
+                        if (!passwordRegex.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@@&$%)');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'Piva' && input.value) {
+                        if (input.value.length !== 11 || !/^\d{11}$/.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'La P.IVA deve contenere esattamente 11 cifre');
+                            isValid = false;
+                        }
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Helper function to show field-specific errors
+        function showFieldError(input, message) {
+            let errorSpan = input.parentElement.querySelector('.field-validation-error');
+            if (!errorSpan) {
+                errorSpan = document.createElement('span');
+                errorSpan.className = 'field-validation-error text-red-500 text-sm mt-1';
+                input.parentElement.appendChild(errorSpan);
+            }
+            errorSpan.textContent = message;
+            errorSpan.style.display = 'block';
+        }
+
         // Enhanced cart interactions
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if there are validation errors and switch to appropriate tab
+            const hasLoginErrors = document.querySelector('#login-form .field-validation-error:not([style*="display: none"])');
+            const hasRegisterErrors = document.querySelector('#register-form .field-validation-error:not([style*="display: none"])');
+
+            if (hasLoginErrors) {
+                switchAuthTab('login');
+            } else if (hasRegisterErrors) {
+                switchAuthTab('register');
+            }
+
+            // Form submission handling with better error management
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    if (!validateForm('registerForm')) {
+                        e.preventDefault();
+
+                        // Scroll to first error
+                        const firstError = this.querySelector('.error');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            firstError.focus();
+                        }
+
+                        return false;
+                    }
+
+                    // Add loading state
+                    const submitBtn = this.querySelector('.submit-btn');
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Registrazione in corso...';
+                    submitBtn.disabled = true;
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    if (!validateForm('loginForm')) {
+                        e.preventDefault();
+
+                        // Scroll to first error
+                        const firstError = this.querySelector('.error');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            firstError.focus();
+                        }
+
+                        return false;
+                    }
+
+                    // Add loading state
+                    const submitBtn = this.querySelector('.submit-btn');
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Accesso in corso...';
+                    submitBtn.disabled = true;
+                });
+            }
+
+            // Real-time validation feedback with server-side error preservation
+            const allInputs = document.querySelectorAll('input');
+            allInputs.forEach(input => {
+                // Preserve server-side errors on page load
+                if (input.classList.contains('error')) {
+                    const existingError = input.parentElement.querySelector('.field-validation-error');
+                    if (existingError && existingError.textContent) {
+                        existingError.style.display = 'block';
+                    }
+                }
+
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.classList.add('error');
+                        showFieldError(this, 'Questo campo è obbligatorio');
+                    } else {
+                        this.classList.remove('error');
+                        const errorSpan = this.parentElement.querySelector('.field-validation-error');
+                        if (errorSpan && !errorSpan.classList.contains('field-validation-error')) {
+                            errorSpan.style.display = 'none';
+                        }
+                    }
+                });
+
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error') && this.value.trim()) {
+                        // Re-validate on input change
+                        const formId = this.closest('form').id;
+                        if (formId) {
+                            validateSingleField(this, formId);
+                        }
+                    }
+                });
+            });
+
+            // Helper function to validate single field
+            function validateSingleField(input, formId) {
+                let isValid = true;
+
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    input.classList.add('error');
+                    showFieldError(input, 'Questo campo è obbligatorio');
+                    isValid = false;
+                } else {
+                    // Field-specific validations
+                    if (input.type === 'email' && input.value) {
+                        const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                        if (!emailRegex.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'Inserisci un indirizzo email valido');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'CF' && input.value) {
+                        if (input.value.length !== 16) {
+                            input.classList.add('error');
+                            showFieldError(input, 'Il codice fiscale deve essere di 16 caratteri');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'Password' && input.value && formId === 'registerForm') {
+                        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!?@@&$%]).{8,}$/;
+                        if (!passwordRegex.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'La password deve contenere almeno 8 caratteri, una lettera minuscola, una maiuscola, un numero e un carattere speciale (.!?@@&$%)');
+                            isValid = false;
+                        }
+                    }
+
+                    if (input.name === 'Piva' && input.value) {
+                        if (input.value.length !== 11 || !/^\d{11}$/.test(input.value)) {
+                            input.classList.add('error');
+                            showFieldError(input, 'La P.IVA deve contenere esattamente 11 cifre');
+                            isValid = false;
+                        }
+                    }
+                }
+
+                if (isValid) {
+                    input.classList.remove('error');
+                    const errorSpan = input.parentElement.querySelector('.field-validation-error');
+                    if (errorSpan && !errorSpan.classList.contains('field-validation-error')) {
+                        errorSpan.style.display = 'none';
+                    }
+                }
+            }
+
+            // Auto-format Codice Fiscale
+            const cfInput = document.getElementById('CF');
+            if (cfInput) {
+                cfInput.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                });
+            }
+
+            // Auto-format P.IVA
+            const pivaInput = document.getElementById('Piva');
+            if (pivaInput) {
+                pivaInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('Phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9+\-\s]/g, '');
+                });
+            }
+
             // Add loading state to payment buttons
-            const paymentButtons = document.querySelectorAll('.payment-method-btn');
+            const paymentButtons = document.querySelectorAll('.payment-method-btn, #paypal-btn');
 
             paymentButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    // Add loading spinner
-                    const originalContent = this.innerHTML;
-                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Elaborazione...';
-                    this.style.pointerEvents = 'none';
+                    if (!this.hasAttribute('disabled')) {
+                        // Add loading spinner
+                        const originalContent = this.innerHTML;
+                        this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Elaborazione...';
+                        this.style.pointerEvents = 'none';
 
-                    // Restore original content if navigation doesn't happen
-                    setTimeout(() => {
-                        this.innerHTML = originalContent;
-                        this.style.pointerEvents = 'auto';
-                    }, 3000);
+                        // Restore original content if navigation doesn't happen
+                        setTimeout(() => {
+                            this.innerHTML = originalContent;
+                            this.style.pointerEvents = 'auto';
+                        }, 3000);
+                    }
                 });
             });
 
@@ -711,165 +1504,31 @@ else
                 });
             }
 
-            // Add hover effects to cart items
-            const cartItems = document.querySelectorAll('.cart-item-card');
-
-            cartItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-4px)';
+            // Smooth scroll animation for form focus
+            const formInputs = document.querySelectorAll('.form-group input');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
                 });
 
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Auto-update cart total animation
-            function animateTotal() {
-                const totalDisplay = document.querySelector('.total-display');
-                if (totalDisplay) {
-                    totalDisplay.style.transform = 'scale(1.05)';
-                    totalDisplay.style.background = 'linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%)';
-
-                    setTimeout(() => {
-                        totalDisplay.style.transform = 'scale(1)';
-                        totalDisplay.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
-                    }, 200);
-                }
-            }
-
-            // Sticky checkout summary on scroll
-            const checkoutSummary = document.querySelector('.checkout-summary');
-            const navbar = document.querySelector('.navbar');
-
-            if (checkoutSummary && window.innerWidth >= 1024) {
-                window.addEventListener('scroll', function() {
-                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
-                    const scrollTop = window.pageYOffset;
-
-                    if (scrollTop > navbarHeight + 100) {
-                        checkoutSummary.style.top = `${navbarHeight + 20}px`;
-                    } else {
-                        checkoutSummary.style.top = '2rem';
-                    }
-                });
-            }
-
-            // Add ripple effect to buttons
-            const buttons = document.querySelectorAll('.btn, .payment-method-btn, .quantity-btn');
-
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'ripple 0.6s linear';
-                    ripple.style.pointerEvents = 'none';
-
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
                 });
             });
 
-            // Smooth scroll for continue shopping
-            const continueShoppingBtn = document.querySelector('.continue-shopping');
-
-            if (continueShoppingBtn) {
-                continueShoppingBtn.addEventListener('click', function(e) {
-                    // Add smooth transition effect
-                    document.body.style.transition = 'opacity 0.3s ease';
-                    document.body.style.opacity = '0.8';
-
-                    setTimeout(() => {
-                        document.body.style.opacity = '1';
-                    }, 300);
-                });
-            }
-
-            // Progress steps animation
-            const steps = document.querySelectorAll('.step');
-            let currentStep = 0;
-
-            function animateSteps() {
-                steps.forEach((step, index) => {
-                    if (index <= currentStep) {
-                        step.classList.add('active');
-                        step.style.transform = 'scale(1.05)';
-
-                        setTimeout(() => {
-                            step.style.transform = 'scale(1)';
-                        }, 200);
+            // Enhanced hover effects for auth tabs
+            const authTabs = document.querySelectorAll('.auth-tab');
+            authTabs.forEach(tab => {
+                tab.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = 'rgba(251, 191, 36, 0.1)';
                     }
                 });
-            }
 
-            // Trigger step animation on load
-            setTimeout(animateSteps, 500);
-
-            // Add intersection observer for animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                tab.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = 'transparent';
                     }
-                });
-            }, observerOptions);
-
-            // Observe elements for scroll animations
-            const animateElements = document.querySelectorAll('.cart-item-card, .checkout-summary');
-
-            animateElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease';
-                observer.observe(el);
-            });
-
-            // Add cart item counter animation
-            function updateCartCounter() {
-                const cartCounter = document.querySelector('.indicator-item');
-                if (cartCounter) {
-                    cartCounter.style.animation = 'pulse 0.3s ease';
-
-                    setTimeout(() => {
-                        cartCounter.style.animation = '';
-                    }, 300);
-                }
-            }
-
-            // Security badges hover effect
-            const securityBadges = document.querySelectorAll('.security-badge');
-
-            securityBadges.forEach(badge => {
-                badge.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.05)';
-                    this.style.background = 'rgba(34, 197, 94, 0.2)';
-                });
-
-                badge.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.background = 'rgba(34, 197, 94, 0.1)';
                 });
             });
         });
@@ -877,113 +1536,65 @@ else
         // Add CSS keyframes for animations
         const style = document.createElement('style');
         style.textContent = `
-            @@keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-
-            @@keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.2); }
-                100% { transform: scale(1); }
-            }
-
-            .cart-item-card {
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .quantity-btn {
-                transition: all 0.2s ease;
-            }
-
-            .payment-method-btn {
+            .form-group {
                 transition: all 0.3s ease;
             }
 
-            .security-badge {
-                transition: all 0.2s ease;
+            .auth-tab {
+                transition: all 0.3s ease;
             }
 
-            /* Loading spinner animation */
-            @@keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
+            .submit-btn {
+                transition: all 0.3s ease;
             }
 
-            .fa-spinner {
-                animation: spin 1s linear infinite;
+            .google-login-btn {
+                transition: all 0.3s ease;
             }
 
-            /* Enhanced hover effects */
-            .cart-item-card:hover {
-                box-shadow: 0 25px 50px rgba(251, 191, 36, 0.15);
+            input.error {
+                animation: shake 0.5s ease-in-out;
+                border-color: #ef4444 !important;
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
             }
 
-            .payment-method-btn:hover {
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            .field-validation-error {
+                animation: fadeInError 0.3s ease-in-out;
             }
 
-            /* Responsive adjustments */
+            @@keyframes fadeInError {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @@keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+
+            .user-form-section {
+                transition: all 0.3s ease;
+            }
+
             @@media (max-width: 768px) {
-                .progress-steps {
-                    padding: 0 1rem;
-                }
-
-                .step span {
-                    display: none;
-                }
-
-                .step-connector {
-                    width: 2rem;
-                }
-
-                .cart-item-card {
-                    padding: 1rem;
-                }
-
-                .checkout-summary {
-                    padding: 1.5rem;
-                }
-
-                .quantity-controls {
+                .auth-tabs {
                     flex-direction: column;
-                    gap: 1rem;
-                    align-items: flex-start;
+                    gap: 6px;
                 }
 
-                .quantity-display {
-                    order: -1;
-                    font-size: 1rem;
-                }
-            }
-
-            /* Dark mode support */
-            @@media (prefers-color-scheme: dark) {
-                .cart-item-card {
-                    background: rgba(31, 41, 55, 0.98);
-                    color: #f9fafb;
+                .form-row {
+                    grid-template-columns: 1fr;
                 }
 
-                .checkout-summary {
-                    background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
-                    color: #f9fafb;
-                }
-
-                .quantity-controls {
-                    background: #374151;
-                }
-
-                .quantity-btn {
-                    background: #4b5563;
-                    border-color: #6b7280;
-                    color: #e5e7eb;
-                }
-
-                .quantity-btn:hover {
-                    background: #fbbf24;
-                    color: #000;
+                .user-form-section {
+                    padding: 1.5rem;
                 }
             }
         `;
